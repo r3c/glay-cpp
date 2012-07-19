@@ -2,6 +2,7 @@
 #ifndef __GLAY_PIPE_STREAM_HPP
 #define __GLAY_PIPE_STREAM_HPP
 
+#include <stddef.h>
 #include <stdint.h>
 #include "../config.hpp"
 

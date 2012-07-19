@@ -2,6 +2,7 @@
 #ifndef __GLAY_RUNTIME_ENDIAN_HPP
 #define __GLAY_RUNTIME_ENDIAN_HPP
 
+#include <stddef.h>
 #include <stdint.h>
 #include "../config.hpp"
 

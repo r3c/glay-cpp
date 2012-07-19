@@ -1,8 +1,11 @@
 
+/*
+** Groundwork Layer Library
+** Global configuration.
+*/
+
 #ifndef __GLAY_CONFIG_HPP
 #define __GLAY_CONFIG_HPP
-
-#include <stddef.h>
 
 #define GLAY_NS_BEGIN(ns)	namespace Glay { namespace ns {
 #define GLAY_NS_END()		}; };

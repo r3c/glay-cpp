@@ -1,7 +1,7 @@
 
 /*
 ** Groundwork Layer Library
-** Main header file.
+** Master header.
 */
 
 #ifndef __GLAY_HPP
