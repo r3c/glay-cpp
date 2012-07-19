@@ -7,6 +7,7 @@ SRC		= src
 TEST	= test
 
 SOURCE	= \
+	parallel/atomic.cpp \
 	parallel/lock.cpp \
 	parallel/signal.cpp \
 	pipe/reader/binary.cpp \

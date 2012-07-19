@@ -14,7 +14,8 @@
 #elif defined(__WIN32__) || defined(__WIN64__)
 	#define GLAY_OS_WINDOWS
 
-	#define WINVER	0x0502
+	#define _WIN32_WINNT	0x0502
+	#define WINVER			0x0502
 #endif
 
 #endif
