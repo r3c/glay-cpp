@@ -13,8 +13,11 @@ GLAY_NS_BEGIN(Parallel)
 class	Lock
 {
 	public:
+		/**/	Lock (const Lock&);
 		/**/	Lock (bool = false);
 		/**/	~Lock ();
+
+		Lock&	operator = (const Lock&);
 
 		bool	acquire (int);
 		void	acquire ();

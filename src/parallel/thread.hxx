@@ -4,7 +4,7 @@
 GLAY_NS_BEGIN(Parallel)
 
 /*
-** Create a new thread.
+** Thread default constructor.
 ** callback:	thread callback function
 ** stackSize:	maximum thread stack size
 */

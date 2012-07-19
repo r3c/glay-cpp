@@ -4,7 +4,7 @@
 GLAY_NS_BEGIN(Parallel)
 
 /*
-** Create a new signal.
+** Signal default constructor.
 ** state:	initial signal state (true: set, false: reset)
 ** manual:	true for a manual reset event, false for automatic
 */

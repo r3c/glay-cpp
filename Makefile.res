@@ -19,4 +19,5 @@ SOURCE	= \
 	runtime/endian.cpp
 
 UNITS	= \
-	test/parallel/thread/concurrent.exe
+	test/parallel/synchronize_with_locks.exe \
+	test/parallel/synchronize_with_signals.exe

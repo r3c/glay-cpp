@@ -2,7 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include <vector>
-#include "../../../src/glay.hpp"
+#include "../../src/glay.hpp"
 
 using namespace std;
 using namespace Glay::Parallel;
@@ -18,7 +18,9 @@ void	worker (MyParams params)
 	for (int i = 0; i < 1000; ++i)
 	{
 		lock.acquire ();
+
 		values.push_back (i);
+
 		lock.release ();
 	}
 }

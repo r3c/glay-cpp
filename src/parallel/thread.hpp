@@ -30,8 +30,11 @@ class	Thread
 			STATE_ENDED
 		};
 
+		/**/			Thread (const Thread&);
 		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
 		/**/			~Thread ();
+
+		Thread&			operator = (const Thread&);
 
 		unsigned int	getIdentifier ();
 		State			getState ();

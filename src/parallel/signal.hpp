@@ -13,15 +13,17 @@ GLAY_NS_BEGIN(Parallel)
 class	Signal
 {
 	public:
-		/**/		Signal (bool state = false, bool manual = true);
-		/**/		~Signal ();
+		/**/	Signal (const Signal&);
+		/**/	Signal (bool state = false, bool manual = true);
+		/**/	~Signal ();
 
-		operator	bool () const;
+		/**/	operator bool () const;
+		Signal&	operator = (const Signal&);
 
-		void		reset ();
-		void		set ();
-		bool		wait (int);
-		void		wait ();
+		void	reset ();
+		void	set ();
+		bool	wait (int);
+		void	wait ();
 
 	private:
 #ifdef GLAY_OS_WINDOWS
