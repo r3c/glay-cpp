@@ -45,7 +45,7 @@ class	Endian
 		Endianness	setEndianness (Endianness);
 
 	private:
-		Endianness	endianness;
+		Endianness	from;
 };
 
 

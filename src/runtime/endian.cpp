@@ -5,7 +5,7 @@ using namespace Glay::Runtime;
 
 namespace
 {
-	static inline Endian::Endianness	findEndianness ()
+	static inline Endian::Endianness	findNativeEndianness ()
 	{
 		uint16_t	value;
 
@@ -21,7 +21,7 @@ namespace
 		}
 	}
 
-	const Endian::Endianness	native = findEndianness ();
+	const Endian::Endianness	native = findNativeEndianness ();
 }
 
 GLAY_NS_BEGIN(Runtime)
@@ -155,44 +155,44 @@ Endian::Endianness	Endian::getNativeEndianness ()
 	return native;
 }
 
-/**/	Endian::Endian (Endianness endianness) :
-	endianness (endianness)
+/**/	Endian::Endian (Endianness from) :
+	from (from)
 {
 }
 
 /**/	Endian::Endian () :
-	endianness (native)
+	from (native)
 {
 }
 
 int16_t		Endian::convert16s (int16_t input, Endianness to) const
 {
-	return Endian::convert16s (input, this->endianness, to);
+	return Endian::convert16s (input, this->from, to);
 }
 
 uint16_t	Endian::convert16u (uint16_t input, Endianness to) const
 {
-	return Endian::convert16u (input, this->endianness, to);
+	return Endian::convert16u (input, this->from, to);
 }
 
 int32_t		Endian::convert32s (int32_t input, Endianness to) const
 {
-	return Endian::convert32s (input, this->endianness, to);
+	return Endian::convert32s (input, this->from, to);
 }
 
 uint32_t	Endian::convert32u (uint32_t input, Endianness to) const
 {
-	return Endian::convert32u (input, this->endianness, to);
+	return Endian::convert32u (input, this->from, to);
 }
 
 int64_t		Endian::convert64s (int64_t input, Endianness to) const
 {
-	return Endian::convert64s (input, this->endianness, to);
+	return Endian::convert64s (input, this->from, to);
 }
 
 uint64_t	Endian::convert64u (uint64_t input, Endianness to) const
 {
-	return Endian::convert64u (input, this->endianness, to);
+	return Endian::convert64u (input, this->from, to);
 }
 
 GLAY_NS_END()
