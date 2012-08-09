@@ -41,13 +41,8 @@ class	ThreadBase
 		void			resume ();
 
 	protected:
-#ifdef GLAY_OS_WINDOWS
-		__stdcall static unsigned	execute (void*);
-#endif
-
 		virtual void	invoke () = 0;
 
-		unsigned int	identifier;
 #ifdef GLAY_OS_WINDOWS
 		HANDLE			handle;
 #else
@@ -55,6 +50,13 @@ class	ThreadBase
 #endif
 		Lock			lock;
 		State			state;
+
+	private:
+#ifdef GLAY_OS_WINDOWS
+		__stdcall static unsigned	execute (void*);
+#endif
+
+		unsigned int	identifier;
 };
 
 template<typename T = void>
