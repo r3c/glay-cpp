@@ -36,7 +36,7 @@ int	main (int, char* [])
 	for (int i = 0; i < 16; ++i)
 	{
 		threads[i] = new MyThread (worker);
-		threads[i]->start (make_pair(&counters, &signal));
+		threads[i]->start (make_pair (&counters, &signal));
 	}
 
 	signal.set ();

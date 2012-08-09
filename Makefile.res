@@ -10,6 +10,7 @@ SOURCE	= \
 	parallel/atomic.cpp \
 	parallel/lock.cpp \
 	parallel/signal.cpp \
+	parallel/thread.cpp \
 	pipe/reader/binary.cpp \
 	pipe/stream/file.cpp \
 	pipe/stream/memory.cpp \

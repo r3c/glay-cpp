@@ -28,15 +28,14 @@ void	worker (MyParams params)
 int	main (int, char* [])
 {
 	Lock		lock;
-	MyThread	thread1 (worker);
-	MyThread	thread2 (worker);
-	MyThread	thread3 (worker);
 	vector<int>	values;
+	MyThread	thread1 (&worker);
+	MyThread	thread2 (&worker);
+	MyThread	thread3 (&worker);
 
-	thread1.start (make_pair(&values, &lock));
-	thread2.start (make_pair(&values, &lock));
-	thread3.start (make_pair(&values, &lock));
-
+	thread1.start (make_pair (&values, &lock));
+	thread2.start (make_pair (&values, &lock));
+	thread3.start (make_pair (&values, &lock));
 	thread1.join ();
 	thread2.join ();
 	thread3.join ();

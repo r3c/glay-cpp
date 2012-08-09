@@ -15,26 +15,21 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-template<typename T>
-class	Thread
+class	ThreadBase
 {
 	public:
-		typedef void	(*Callback) (T);
-
 		enum	State
 		{
-			STATE_ABORTED,
-			STATE_CREATED,
-			STATE_STARTED,
-			STATE_PAUSED,
-			STATE_ENDED
+			STATE_ACTIVE,	// Thread is currently working
+			STATE_PAUSED,	// Thread is paused
+			STATE_READY		// Thread is available for use
 		};
 
-		/**/			Thread (const Thread&);
-		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
-		/**/			~Thread ();
+		/**/			ThreadBase (const ThreadBase&);
+		/**/			ThreadBase (int);
+		/**/			~ThreadBase ();
 
-		Thread&			operator = (const Thread&);
+		ThreadBase&		operator = (const ThreadBase&);
 
 		unsigned int	getIdentifier ();
 		State			getState ();
@@ -44,20 +39,13 @@ class	Thread
 		void			join ();
 		void			pause ();
 		void			resume ();
-		void			start (T);
 
-	private:
-		struct	Params
-		{
-			Callback	callback;
-			Lock		lock;
-			State		state;
-			T			value;
-		};
-
+	protected:
 #ifdef GLAY_OS_WINDOWS
 		__stdcall static unsigned	execute (void*);
 #endif
+
+		virtual void	invoke () = 0;
 
 		unsigned int	identifier;
 #ifdef GLAY_OS_WINDOWS
@@ -65,7 +53,43 @@ class	Thread
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported OS"
 #endif
-		Params			params;
+		Lock			lock;
+		State			state;
+};
+
+template<typename T = void>
+class	Thread : public ThreadBase
+{
+	public:
+		typedef void	(*Callback) (T);
+
+		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
+
+		void			start (const T&);
+
+	protected:
+		virtual void	invoke ();
+
+	private:
+		Callback		callback;
+		T				value;
+};
+
+template<>
+class	Thread<void> : public ThreadBase
+{
+	public:
+		typedef void	(*Callback) ();
+
+		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
+
+		void			start ();
+
+	protected:
+		virtual void	invoke ();
+
+	private:
+		Callback		callback;
 };
 
 GLAY_NS_END()

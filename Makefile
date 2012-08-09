@@ -58,4 +58,4 @@ $(TEST)/%.exe: $(TEST)/%.cpp $(TARGET)
 #	$(CXX) $(CXXFLAGS) -o "$@" -L"$(dirname $(TARGET))" -l"$(basename $(TARGET))" "$<"
 	$(CXX) $(CXXFLAGS) -o "$@" $(TARGET) "$<"
 
-.PHONY: build clean depends distclean rebuild run units
+.PHONY: build clean distclean rebuild run units
