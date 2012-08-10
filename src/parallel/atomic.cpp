@@ -7,7 +7,7 @@
 static Glay::Parallel::Lock	lock;
 
 template <typename T>
-static T	atomicLockedExchange (volatile T* target, T value)
+static inline T	atomicLockedExchange (volatile T* target, T value)
 {
 	T	previous;
 
@@ -22,7 +22,7 @@ static T	atomicLockedExchange (volatile T* target, T value)
 
 GLAY_NS_BEGIN(Parallel)
 
-int8_t		Atomic::Exchange (volatile int8_t* target, int8_t value)
+Int8s		Atomic::Exchange (volatile Int8s* target, Int8s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange8 (target, value);
@@ -31,7 +31,7 @@ int8_t		Atomic::Exchange (volatile int8_t* target, int8_t value)
 #endif
 }
 
-uint8_t		Atomic::Exchange (volatile uint8_t* target, uint8_t value)
+Int8u		Atomic::Exchange (volatile Int8u* target, Int8u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange8 (target, value);
@@ -40,7 +40,7 @@ uint8_t		Atomic::Exchange (volatile uint8_t* target, uint8_t value)
 #endif
 }
 
-int16_t		Atomic::Exchange (volatile int16_t* target, int16_t value)
+Int16s		Atomic::Exchange (volatile Int16s* target, Int16s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange16 (target, value);
@@ -49,7 +49,7 @@ int16_t		Atomic::Exchange (volatile int16_t* target, int16_t value)
 #endif
 }
 
-uint16_t	Atomic::Exchange (volatile uint16_t* target, uint16_t value)
+Int16u	Atomic::Exchange (volatile Int16u* target, Int16u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange16 (target, value);
@@ -58,7 +58,7 @@ uint16_t	Atomic::Exchange (volatile uint16_t* target, uint16_t value)
 #endif
 }
 
-int32_t		Atomic::Exchange (volatile int32_t* target, int32_t value)
+Int32s		Atomic::Exchange (volatile Int32s* target, Int32s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange32 (target, value);
@@ -67,7 +67,7 @@ int32_t		Atomic::Exchange (volatile int32_t* target, int32_t value)
 #endif
 }
 
-uint32_t	Atomic::Exchange (volatile uint32_t* target, uint32_t value)
+Int32u	Atomic::Exchange (volatile Int32u* target, Int32u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange32 (target, value);
@@ -76,7 +76,7 @@ uint32_t	Atomic::Exchange (volatile uint32_t* target, uint32_t value)
 #endif
 }
 
-int64_t		Atomic::Exchange (volatile int64_t* target, int64_t value)
+Int64s		Atomic::Exchange (volatile Int64s* target, Int64s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange64 (target, value);
@@ -85,7 +85,7 @@ int64_t		Atomic::Exchange (volatile int64_t* target, int64_t value)
 #endif
 }
 
-uint64_t	Atomic::Exchange (volatile uint64_t* target, uint64_t value)
+Int64u	Atomic::Exchange (volatile Int64u* target, Int64u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange64 (target, value);

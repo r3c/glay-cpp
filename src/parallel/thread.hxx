@@ -9,9 +9,10 @@ GLAY_NS_BEGIN(Parallel)
 ** stackSize:	maximum thread stack size
 */
 template<typename T>
-/**/	Thread<T>::Thread (Callback callback, int stackSize) :
+/**/	Thread<T>::Thread (Callback callback, Int32u stackSize) :
 	ThreadBase (stackSize),
-	callback (callback)
+	callback (callback),
+	value ()
 {
 }
 
@@ -37,46 +38,6 @@ void	Thread<T>::start (const T& value)
 	{
 		this->value = value;
 
-#ifdef GLAY_OS_WINDOWS
-		if (this->handle)
-			::ResumeThread (this->handle);
-#endif
-
-		this->state = STATE_ACTIVE;
-	}
-
-	this->lock.release ();
-}
-
-/*
-** Parameterless thread default constructor.
-** callback:	thread callback function
-** stackSize:	maximum thread stack size
-*/
-/**/	Thread<void>::Thread (Callback callback, int stackSize) :
-	ThreadBase (stackSize),
-	callback (callback)
-{
-}
-
-/*
-** Invoke callback from current parameterless thread.
-*/
-void	Thread<void>::invoke ()
-{
-	this->callback ();
-}
-
-/*
-** Start parameterless thread execution.
-** value:	parameter value
-*/
-void	Thread<void>::start ()
-{
-	this->lock.acquire ();
-
-	if (this->state == STATE_READY)
-	{
 #ifdef GLAY_OS_WINDOWS
 		if (this->handle)
 			::ResumeThread (this->handle);

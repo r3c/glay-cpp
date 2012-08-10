@@ -1,17 +1,18 @@
 
 #include "endian.hpp"
 
+using namespace Glay;
 using namespace Glay::Runtime;
 
 namespace
 {
 	static inline Endian::Endianness	findNativeEndianness ()
 	{
-		uint16_t	value;
+		Int16u	value;
 
 		value = 0x0102;
 
-		switch (*reinterpret_cast<int8_t*> (&value))
+		switch (*reinterpret_cast<Int8s*> (&value))
 		{
 			case 0x02:
 				return Endian::LITTLE;
@@ -26,17 +27,17 @@ namespace
 
 GLAY_NS_BEGIN(Runtime)
 
-int16_t		Endian::convert16s (int16_t input, Endianness from, Endianness to)
+Int16s	Endian::convert16s (Int16s input, Endianness from, Endianness to)
 {
-	int16_t	output;
-	int8_t*	source;
-	int8_t*	target;
+	Int16s	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[1];
 	target[1] = source[0];
@@ -44,17 +45,17 @@ int16_t		Endian::convert16s (int16_t input, Endianness from, Endianness to)
 	return output;
 }
 
-uint16_t	Endian::convert16u (uint16_t input, Endianness from, Endianness to)
+Int16u	Endian::convert16u (Int16u input, Endianness from, Endianness to)
 {
-	uint16_t	output;
-	int8_t*		source;
-	int8_t*		target;
+	Int16u	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[1];
 	target[1] = source[0];
@@ -62,17 +63,17 @@ uint16_t	Endian::convert16u (uint16_t input, Endianness from, Endianness to)
 	return output;
 }
 
-int32_t		Endian::convert32s (int32_t input, Endianness from, Endianness to)
+Int32s	Endian::convert32s (Int32s input, Endianness from, Endianness to)
 {
-	int32_t	output;
-	int8_t*	source;
-	int8_t*	target;
+	Int32s	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[3];
 	target[1] = source[2];
@@ -82,17 +83,17 @@ int32_t		Endian::convert32s (int32_t input, Endianness from, Endianness to)
 	return output;
 }
 
-uint32_t	Endian::convert32u (uint32_t input, Endianness from, Endianness to)
+Int32u	Endian::convert32u (Int32u input, Endianness from, Endianness to)
 {
-	uint32_t	output;
-	int8_t*		source;
-	int8_t*		target;
+	Int32u	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[3];
 	target[1] = source[2];
@@ -102,17 +103,17 @@ uint32_t	Endian::convert32u (uint32_t input, Endianness from, Endianness to)
 	return output;
 }
 
-int64_t		Endian::convert64s (int64_t input, Endianness from, Endianness to)
+Int64s	Endian::convert64s (Int64s input, Endianness from, Endianness to)
 {
-	int64_t	output;
-	int8_t*	source;
-	int8_t*	target;
+	Int64s	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[7];
 	target[1] = source[6];
@@ -126,17 +127,17 @@ int64_t		Endian::convert64s (int64_t input, Endianness from, Endianness to)
 	return output;
 }
 
-uint64_t	Endian::convert64u (uint64_t input, Endianness from, Endianness to)
+Int64u	Endian::convert64u (Int64u input, Endianness from, Endianness to)
 {
-	uint64_t	output;
-	int8_t*		source;
-	int8_t*		target;
+	Int64u	output;
+	Int8s*	source;
+	Int8s*	target;
 
 	if (from == to)
 		return input;
 
-	source = reinterpret_cast<int8_t*> (&input);
-	target = reinterpret_cast<int8_t*> (&output);
+	source = reinterpret_cast<Int8s*> (&input);
+	target = reinterpret_cast<Int8s*> (&output);
 
 	target[0] = source[7];
 	target[1] = source[6];
@@ -165,32 +166,32 @@ Endian::Endianness	Endian::getNativeEndianness ()
 {
 }
 
-int16_t		Endian::convert16s (int16_t input, Endianness to) const
+Int16s	Endian::convert16s (Int16s input, Endianness to) const
 {
 	return Endian::convert16s (input, this->from, to);
 }
 
-uint16_t	Endian::convert16u (uint16_t input, Endianness to) const
+Int16u	Endian::convert16u (Int16u input, Endianness to) const
 {
 	return Endian::convert16u (input, this->from, to);
 }
 
-int32_t		Endian::convert32s (int32_t input, Endianness to) const
+Int32s	Endian::convert32s (Int32s input, Endianness to) const
 {
 	return Endian::convert32s (input, this->from, to);
 }
 
-uint32_t	Endian::convert32u (uint32_t input, Endianness to) const
+Int32u	Endian::convert32u (Int32u input, Endianness to) const
 {
 	return Endian::convert32u (input, this->from, to);
 }
 
-int64_t		Endian::convert64s (int64_t input, Endianness to) const
+Int64s	Endian::convert64s (Int64s input, Endianness to) const
 {
 	return Endian::convert64s (input, this->from, to);
 }
 
-uint64_t	Endian::convert64u (uint64_t input, Endianness to) const
+Int64u	Endian::convert64u (Int64u input, Endianness to) const
 {
 	return Endian::convert64u (input, this->from, to);
 }

@@ -32,11 +32,14 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 ** Base thread default constructor.
 ** stackSize:	maximum thread stack size
 */
-/**/	ThreadBase::ThreadBase (int stackSize) :
+/**/	ThreadBase::ThreadBase (Int32u stackSize) :
 	state (STATE_READY)
 {
 #ifdef GLAY_OS_WINDOWS
-	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &this->identifier);
+	unsigned	threadAddress;
+
+	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &threadAddress);
+	this->identifier = static_cast<Int32u> (threadAddress);
 #endif
 }
 
@@ -75,7 +78,7 @@ void	ThreadBase::abort ()
 ** Get thread unique identifier.
 ** return:	thread identifier
 */
-unsigned int	ThreadBase::getIdentifier ()
+Int32u	ThreadBase::getIdentifier ()
 {
 	return this->identifier;
 }
@@ -102,7 +105,7 @@ ThreadBase::State	ThreadBase::getState ()
 ** timeout: timeout delay in milliseconds
 ** return:	true if thread is terminated, false otherwise
 */
-bool	ThreadBase::join (int timeout)
+bool	ThreadBase::join (Int32u timeout)
 {
 #ifdef GLAY_OS_WINDOWS
 	if (this->handle)
@@ -157,6 +160,46 @@ void	ThreadBase::resume ()
 
 		this->state = STATE_ACTIVE;
 #endif
+	}
+
+	this->lock.release ();
+}
+
+/*
+** Parameterless thread default constructor.
+** callback:	thread callback function
+** stackSize:	maximum thread stack size
+*/
+/**/	Thread<void>::Thread (Callback callback, Int32u stackSize) :
+	ThreadBase (stackSize),
+	callback (callback)
+{
+}
+
+/*
+** Invoke callback from current parameterless thread.
+*/
+void	Thread<void>::invoke ()
+{
+	this->callback ();
+}
+
+/*
+** Start parameterless thread execution.
+** value:	parameter value
+*/
+void	Thread<void>::start ()
+{
+	this->lock.acquire ();
+
+	if (this->state == STATE_READY)
+	{
+#ifdef GLAY_OS_WINDOWS
+		if (this->handle)
+			::ResumeThread (this->handle);
+#endif
+
+		this->state = STATE_ACTIVE;
 	}
 
 	this->lock.release ();

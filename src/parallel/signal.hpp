@@ -22,8 +22,8 @@ class	Signal
 
 		void	reset ();
 		void	set ();
-		bool	wait (int);
-		void	wait ();
+		bool	wait (Int32u) const;
+		void	wait () const;
 
 	private:
 #ifdef GLAY_OS_WINDOWS

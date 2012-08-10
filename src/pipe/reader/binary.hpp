@@ -11,19 +11,19 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryReader : public Reader
 {
 	public:
-		/**/		BinaryReader (IStream&, Runtime::Endian::Endianness);
-		/**/		BinaryReader (IStream&);
+		/**/	BinaryReader (IStream&, Runtime::Endian::Endianness);
+		/**/	BinaryReader (IStream&);
 
-		int8_t		read8s ();
-		uint8_t		read8u ();
-		int16_t		read16s ();
-		uint16_t	read16u ();
-		float		read32f ();
-		int32_t		read32s ();
-		uint32_t	read32u ();
-		double		read64f ();
-		int64_t		read64s ();
-		uint64_t	read64u ();
+		Int8s	read8s ();
+		Int8u	read8u ();
+		Int16s	read16s ();
+		Int16u	read16u ();
+		float	read32f ();
+		Int32s	read32s ();
+		Int32u	read32u ();
+		double	read64f ();
+		Int64s	read64s ();
+		Int64u	read64u ();
 
 	private:
 		Runtime::Endian::Endianness	native;

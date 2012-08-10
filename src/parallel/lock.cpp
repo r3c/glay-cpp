@@ -31,7 +31,7 @@ GLAY_NS_BEGIN(Parallel)
 ** timeout:	timeout delay in milliseconds
 ** return:	true if lock has been acquired, false else
 */
-bool	Lock::acquire (int timeout)
+bool	Lock::acquire (Int32u timeout)
 {
 	bool	state;
 

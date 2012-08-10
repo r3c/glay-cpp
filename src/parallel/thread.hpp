@@ -2,7 +2,6 @@
 #ifndef __GLAY_PARALLEL_THREAD_HPP
 #define __GLAY_PARALLEL_THREAD_HPP
 
-#include <stdint.h>
 #include "../config.hpp"
 #include "lock.hpp"
 
@@ -26,16 +25,16 @@ class	ThreadBase
 		};
 
 		/**/			ThreadBase (const ThreadBase&);
-		/**/			ThreadBase (int);
+		/**/			ThreadBase (Int32u);
 		/**/			~ThreadBase ();
 
 		ThreadBase&		operator = (const ThreadBase&);
 
-		unsigned int	getIdentifier ();
+		Int32u			getIdentifier ();
 		State			getState ();
 
 		void			abort ();
-		bool			join (int);
+		bool			join (Int32u);
 		void			join ();
 		void			pause ();
 		void			resume ();
@@ -56,7 +55,7 @@ class	ThreadBase
 		__stdcall static unsigned	execute (void*);
 #endif
 
-		unsigned int	identifier;
+		Int32u			identifier;
 };
 
 template<typename T = void>
@@ -65,7 +64,7 @@ class	Thread : public ThreadBase
 	public:
 		typedef void	(*Callback) (T);
 
-		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		/**/			Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
 
 		void			start (const T&);
 
@@ -83,7 +82,7 @@ class	Thread<void> : public ThreadBase
 	public:
 		typedef void	(*Callback) ();
 
-		/**/			Thread (Callback, int = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		/**/			Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
 
 		void			start ();
 

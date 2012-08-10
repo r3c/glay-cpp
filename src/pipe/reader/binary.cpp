@@ -5,56 +5,56 @@ using namespace Glay::Runtime;
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/		BinaryReader::BinaryReader (IStream& stream, Endian::Endianness source) :
+/**/	BinaryReader::BinaryReader (IStream& stream, Endian::Endianness source) :
 	Reader (stream),
 	native (Endian::getNativeEndianness ()),
 	source (source)
 {
 }
 
-/**/		BinaryReader::BinaryReader (IStream& stream) :
+/**/	BinaryReader::BinaryReader (IStream& stream) :
 	Reader (stream),
 	native (Endian::getNativeEndianness ())
 {
 }
 
-int8_t		BinaryReader::read8s ()
+Int8s	BinaryReader::read8s ()
 {
-	int8_t	value;
+	Int8s	value;
 
 	this->read (&value, sizeof (value));
 
 	return value;
 }
 
-uint8_t		BinaryReader::read8u ()
+Int8u	BinaryReader::read8u ()
 {
-	uint8_t	value;
+	Int8u	value;
 
 	this->read (&value, sizeof (value));
 
 	return value;
 }
 
-int16_t		BinaryReader::read16s ()
+Int16s	BinaryReader::read16s ()
 {
-	int16_t	value;
+	Int16s	value;
 
 	this->read (&value, sizeof (value));
 
 	return this->source.convert16s (value, this->native);
 }
 
-uint16_t	BinaryReader::read16u ()
+Int16u	BinaryReader::read16u ()
 {
-	uint16_t	value;
+	Int16u	value;
 
 	this->read (&value, sizeof (value));
 
 	return this->source.convert16u (value, this->native);
 }
 
-float		BinaryReader::read32f ()
+float	BinaryReader::read32f ()
 {
 	float	value;
 
@@ -63,25 +63,25 @@ float		BinaryReader::read32f ()
 	return value;
 }
 
-int32_t		BinaryReader::read32s ()
+Int32s	BinaryReader::read32s ()
 {
-	int32_t	value;
+	Int32s	value;
 
 	this->read (&value, sizeof (value));
 
 	return this->source.convert32s (value, this->native);
 }
 
-uint32_t	BinaryReader::read32u ()
+Int32u	BinaryReader::read32u ()
 {
-	uint32_t	value;
+	Int32u	value;
 
 	this->read (&value, sizeof (value));
 
 	return this->source.convert32u (value, this->native);
 }
 
-double		BinaryReader::read64f ()
+double	BinaryReader::read64f ()
 {
 	double	value;
 
@@ -90,18 +90,18 @@ double		BinaryReader::read64f ()
 	return value;
 }
 
-int64_t		BinaryReader::read64s ()
+Int64s	BinaryReader::read64s ()
 {
-	int64_t	value;
+	Int64s	value;
 
 	this->read (&value, sizeof (value));
 
 	return this->source.convert64s (value, this->native);
 }
 
-uint64_t	BinaryReader::read64u ()
+Int64u	BinaryReader::read64u ()
 {
-	uint16_t	value;
+	Int16u	value;
 
 	this->read (&value, sizeof (value));
 

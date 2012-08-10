@@ -65,7 +65,7 @@ void	Signal::set ()
 /*
 ** Wait for signal until specified timeout expires.
 */
-bool	Signal::wait (int timeout)
+bool	Signal::wait (Int32u timeout) const
 {
 #ifdef GLAY_OS_WINDOWS
 	if (this->handle)
@@ -78,7 +78,7 @@ bool	Signal::wait (int timeout)
 /*
 ** Wait for signal.
 */
-void	Signal::wait ()
+void	Signal::wait () const
 {
 #ifdef GLAY_OS_WINDOWS
 	this->wait (INFINITE);

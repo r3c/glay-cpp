@@ -19,7 +19,7 @@ class	Lock
 
 		Lock&	operator = (const Lock&);
 
-		bool	acquire (int);
+		bool	acquire (Int32u);
 		void	acquire ();
 		void	release ();
 

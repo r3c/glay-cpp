@@ -2,8 +2,6 @@
 #ifndef __GLAY_RUNTIME_ENDIAN_HPP
 #define __GLAY_RUNTIME_ENDIAN_HPP
 
-#include <stddef.h>
-#include <stdint.h>
 #include "../config.hpp"
 
 GLAY_NS_BEGIN(Runtime)
@@ -17,28 +15,28 @@ class	Endian
 			LITTLE
 		};
 
-		static int16_t		convert16s (int16_t, Endianness, Endianness);
-		static uint16_t		convert16u (uint16_t, Endianness, Endianness);
+		static Int16s		convert16s (Int16s, Endianness, Endianness);
+		static Int16u		convert16u (Int16u, Endianness, Endianness);
 
-		static int32_t		convert32s (int32_t, Endianness, Endianness);
-		static uint32_t		convert32u (uint32_t, Endianness, Endianness);
+		static Int32s		convert32s (Int32s, Endianness, Endianness);
+		static Int32u		convert32u (Int32u, Endianness, Endianness);
 
-		static int64_t		convert64s (int64_t, Endianness, Endianness);
-		static uint64_t		convert64u (uint64_t, Endianness, Endianness);
+		static Int64s		convert64s (Int64s, Endianness, Endianness);
+		static Int64u		convert64u (Int64u, Endianness, Endianness);
 
 		static Endianness	getNativeEndianness ();
 
 		/**/		Endian (Endianness);
 		/**/		Endian ();
 
-		int16_t		convert16s (int16_t, Endianness) const;
-		uint16_t	convert16u (uint16_t, Endianness) const;
+		Int16s		convert16s (Int16s, Endianness) const;
+		Int16u		convert16u (Int16u, Endianness) const;
 
-		int32_t		convert32s (int32_t, Endianness) const;
-		uint32_t	convert32u (uint32_t, Endianness) const;
+		Int32s		convert32s (Int32s, Endianness) const;
+		Int32u		convert32u (Int32u, Endianness) const;
 
-		int64_t		convert64s (int64_t, Endianness) const;
-		uint64_t	convert64u (uint64_t, Endianness) const;
+		Int64s		convert64s (Int64s, Endianness) const;
+		Int64u		convert64u (Int64u, Endianness) const;
 
 		Endianness	getEndianness () const;
 

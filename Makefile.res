@@ -11,6 +11,7 @@ SOURCE	= \
 	parallel/lock.cpp \
 	parallel/signal.cpp \
 	parallel/thread.cpp \
+	parallel/timer.cpp \
 	pipe/reader/binary.cpp \
 	pipe/stream/file.cpp \
 	pipe/stream/memory.cpp \
