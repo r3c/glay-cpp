@@ -3,7 +3,7 @@
 #define __GLAY_PIPE_BINARYWRITER_HPP
 
 #include "../../config.hpp"
-#include "../../runtime/endian.hpp"
+#include "../../system/endian.hpp"
 #include "../writer.hpp"
 
 GLAY_NS_BEGIN(Pipe)
@@ -11,7 +11,7 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryWriter : public Writer
 {
 	public:
-		/**/	BinaryWriter (OStream&, Runtime::Endian::Endianness);
+		/**/	BinaryWriter (OStream&, System::Endian::Endianness);
 		/**/	BinaryWriter (OStream&);
 
 		void	write8s (Int8s);
@@ -26,8 +26,8 @@ class	BinaryWriter : public Writer
 		void	write64u (Int64u);
 
 	private:
-		Runtime::Endian				native;
-		Runtime::Endian::Endianness	target;
+		System::Endian				native;
+		System::Endian::Endianness	target;
 };
 
 GLAY_NS_END()

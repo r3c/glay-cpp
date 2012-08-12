@@ -1,10 +1,10 @@
 
-#ifndef __GLAY_RUNTIME_ENDIAN_HPP
-#define __GLAY_RUNTIME_ENDIAN_HPP
+#ifndef __GLAY_SYSTEM_ENDIAN_HPP
+#define __GLAY_SYSTEM_ENDIAN_HPP
 
 #include "../config.hpp"
 
-GLAY_NS_BEGIN(Runtime)
+GLAY_NS_BEGIN(System)
 
 class	Endian
 {

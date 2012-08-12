@@ -6,7 +6,6 @@
 #include "lock.hpp"
 
 #ifdef GLAY_OS_WINDOWS
-	#include <process.h>
 	#include <windows.h>
 #endif
 

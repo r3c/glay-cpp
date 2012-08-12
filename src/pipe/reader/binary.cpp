@@ -1,7 +1,7 @@
 
 #include "binary.hpp"
 
-using namespace Glay::Runtime;
+using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 

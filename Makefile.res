@@ -18,7 +18,8 @@ SOURCE	= \
 	pipe/writer/binary.cpp \
 	pipe/reader.cpp \
 	pipe/writer.cpp \
-	runtime/endian.cpp
+	system/endian.cpp \
+	system/stopwatch.cpp
 
 UNITS	= \
 	test/parallel/synchronize_with_locks.exe \

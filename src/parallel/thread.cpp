@@ -1,6 +1,10 @@
 
 #include "thread.hpp"
 
+#ifdef GLAY_OS_WINDOWS
+	#include <process.h>
+#endif
+
 GLAY_NS_BEGIN(Parallel)
 
 /*

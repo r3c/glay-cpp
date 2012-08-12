@@ -2,7 +2,7 @@
 #include "endian.hpp"
 
 using namespace Glay;
-using namespace Glay::Runtime;
+using namespace Glay::System;
 
 namespace
 {
@@ -25,7 +25,7 @@ namespace
 	const Endian::Endianness	native = findNativeEndianness ();
 }
 
-GLAY_NS_BEGIN(Runtime)
+GLAY_NS_BEGIN(System)
 
 Int16s	Endian::convert16s (Int16s input, Endianness from, Endianness to)
 {

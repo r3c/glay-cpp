@@ -3,7 +3,7 @@
 #define __GLAY_PIPE_BINARYREADER_HPP
 
 #include "../../config.hpp"
-#include "../../runtime/endian.hpp"
+#include "../../system/endian.hpp"
 #include "../reader.hpp"
 
 GLAY_NS_BEGIN(Pipe)
@@ -11,7 +11,7 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryReader : public Reader
 {
 	public:
-		/**/	BinaryReader (IStream&, Runtime::Endian::Endianness);
+		/**/	BinaryReader (IStream&, System::Endian::Endianness);
 		/**/	BinaryReader (IStream&);
 
 		Int8s	read8s ();
@@ -26,8 +26,8 @@ class	BinaryReader : public Reader
 		Int64u	read64u ();
 
 	private:
-		Runtime::Endian::Endianness	native;
-		Runtime::Endian				source;
+		System::Endian::Endianness	native;
+		System::Endian				source;
 };
 
 GLAY_NS_END()
