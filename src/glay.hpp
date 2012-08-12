@@ -16,6 +16,7 @@
 #include "pipe/stream/memory.hpp"
 #include "pipe/stream/file.hpp"
 #include "pipe/writer/binary.hpp"
-#include "runtime/endian.hpp"
+#include "system/endian.hpp"
+#include "system/stopwatch.hpp"
 
 #endif
