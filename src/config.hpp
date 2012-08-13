@@ -25,6 +25,9 @@
 
 namespace	Glay
 {
+	typedef float		Float32;
+	typedef double		Float64;
+
 	typedef int8_t		Int8s;
 	typedef uint8_t		Int8u;
 

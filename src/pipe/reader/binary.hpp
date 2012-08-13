@@ -14,16 +14,16 @@ class	BinaryReader : public Reader
 		/**/	BinaryReader (IStream&, System::Endian::Endianness);
 		/**/	BinaryReader (IStream&);
 
-		Int8s	read8s ();
-		Int8u	read8u ();
-		Int16s	read16s ();
-		Int16u	read16u ();
-		float	read32f ();
-		Int32s	read32s ();
-		Int32u	read32u ();
-		double	read64f ();
-		Int64s	read64s ();
-		Int64u	read64u ();
+		Float32	readFloat32 ();
+		Float64	readFloat64 ();
+		Int8s	readInt8s ();
+		Int8u	readInt8u ();
+		Int16s	readInt16s ();
+		Int16u	readInt16u ();
+		Int32s	readInt32s ();
+		Int32u	readInt32u ();
+		Int64s	readInt64s ();
+		Int64u	readInt64u ();
 
 	private:
 		System::Endian::Endianness	native;

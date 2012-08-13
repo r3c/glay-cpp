@@ -18,7 +18,25 @@ GLAY_NS_BEGIN(Pipe)
 {
 }
 
-Int8s	BinaryReader::read8s ()
+Float32	BinaryReader::readFloat32 ()
+{
+	Float32	value;
+
+	this->read (&value, sizeof (value));
+
+	return value;
+}
+
+Float64	BinaryReader::readFloat64 ()
+{
+	Float64	value;
+
+	this->read (&value, sizeof (value));
+
+	return value;
+}
+
+Int8s	BinaryReader::readInt8s ()
 {
 	Int8s	value;
 
@@ -27,7 +45,7 @@ Int8s	BinaryReader::read8s ()
 	return value;
 }
 
-Int8u	BinaryReader::read8u ()
+Int8u	BinaryReader::readInt8u ()
 {
 	Int8u	value;
 
@@ -36,7 +54,7 @@ Int8u	BinaryReader::read8u ()
 	return value;
 }
 
-Int16s	BinaryReader::read16s ()
+Int16s	BinaryReader::readInt16s ()
 {
 	Int16s	value;
 
@@ -45,7 +63,7 @@ Int16s	BinaryReader::read16s ()
 	return this->source.convert16s (value, this->native);
 }
 
-Int16u	BinaryReader::read16u ()
+Int16u	BinaryReader::readInt16u ()
 {
 	Int16u	value;
 
@@ -54,16 +72,7 @@ Int16u	BinaryReader::read16u ()
 	return this->source.convert16u (value, this->native);
 }
 
-float	BinaryReader::read32f ()
-{
-	float	value;
-
-	this->read (&value, sizeof (value));
-
-	return value;
-}
-
-Int32s	BinaryReader::read32s ()
+Int32s	BinaryReader::readInt32s ()
 {
 	Int32s	value;
 
@@ -72,7 +81,7 @@ Int32s	BinaryReader::read32s ()
 	return this->source.convert32s (value, this->native);
 }
 
-Int32u	BinaryReader::read32u ()
+Int32u	BinaryReader::readInt32u ()
 {
 	Int32u	value;
 
@@ -81,16 +90,7 @@ Int32u	BinaryReader::read32u ()
 	return this->source.convert32u (value, this->native);
 }
 
-double	BinaryReader::read64f ()
-{
-	double	value;
-
-	this->read (&value, sizeof (value));
-
-	return value;
-}
-
-Int64s	BinaryReader::read64s ()
+Int64s	BinaryReader::readInt64s ()
 {
 	Int64s	value;
 
@@ -99,7 +99,7 @@ Int64s	BinaryReader::read64s ()
 	return this->source.convert64s (value, this->native);
 }
 
-Int64u	BinaryReader::read64u ()
+Int64u	BinaryReader::readInt64u ()
 {
 	Int16u	value;
 

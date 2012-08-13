@@ -17,17 +17,27 @@ GLAY_NS_BEGIN(Pipe)
 {
 }
 
-void	BinaryWriter::write8s (Int8s value)
+void	BinaryWriter::writeFloat32 (Float32 value)
 {
 	this->stream.write (&value, sizeof (value));
 }
 
-void	BinaryWriter::write8u (Int8u value)
+void	BinaryWriter::writeFloat64 (Float64 value)
 {
 	this->stream.write (&value, sizeof (value));
 }
 
-void	BinaryWriter::write16s (Int16s value)
+void	BinaryWriter::writeInt8s (Int8s value)
+{
+	this->stream.write (&value, sizeof (value));
+}
+
+void	BinaryWriter::writeInt8u (Int8u value)
+{
+	this->stream.write (&value, sizeof (value));
+}
+
+void	BinaryWriter::writeInt16s (Int16s value)
 {
 	Int16s	buffer;
 
@@ -36,7 +46,7 @@ void	BinaryWriter::write16s (Int16s value)
 	this->stream.write (&buffer, sizeof (buffer));
 }
 
-void	BinaryWriter::write16u (Int16u value)
+void	BinaryWriter::writeInt16u (Int16u value)
 {
 	Int16u	buffer;
 
@@ -45,12 +55,7 @@ void	BinaryWriter::write16u (Int16u value)
 	this->stream.write (&buffer, sizeof (buffer));
 }
 
-void	BinaryWriter::write32f (float value)
-{
-	this->stream.write (&value, sizeof (value));
-}
-
-void	BinaryWriter::write32s (Int32s value)
+void	BinaryWriter::writeInt32s (Int32s value)
 {
 	Int32s	buffer;
 
@@ -59,7 +64,7 @@ void	BinaryWriter::write32s (Int32s value)
 	this->stream.write (&buffer, sizeof (buffer));
 }
 
-void	BinaryWriter::write32u (Int32u value)
+void	BinaryWriter::writeInt32u (Int32u value)
 {
 	Int32u	buffer;
 
@@ -68,12 +73,7 @@ void	BinaryWriter::write32u (Int32u value)
 	this->stream.write (&buffer, sizeof (buffer));
 }
 
-void	BinaryWriter::write64f (double value)
-{
-	this->stream.write (&value, sizeof (value));
-}
-
-void	BinaryWriter::write64s (Int64s value)
+void	BinaryWriter::writeInt64s (Int64s value)
 {
 	Int64s	buffer;
 
@@ -82,7 +82,7 @@ void	BinaryWriter::write64s (Int64s value)
 	this->stream.write (&buffer, sizeof (buffer));
 }
 
-void	BinaryWriter::write64u (Int64u value)
+void	BinaryWriter::writeInt64u (Int64u value)
 {
 	Int64u	buffer;
 

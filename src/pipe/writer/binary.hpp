@@ -14,16 +14,16 @@ class	BinaryWriter : public Writer
 		/**/	BinaryWriter (OStream&, System::Endian::Endianness);
 		/**/	BinaryWriter (OStream&);
 
-		void	write8s (Int8s);
-		void	write8u (Int8u);
-		void	write16s (Int16s);
-		void	write16u (Int16u);
-		void	write32f (float);
-		void	write32s (Int32s);
-		void	write32u (Int32u);
-		void	write64f (double);
-		void	write64s (Int64s);
-		void	write64u (Int64u);
+		void	writeFloat32 (Float32);
+		void	writeFloat64 (Float64);
+		void	writeInt8s (Int8s);
+		void	writeInt8u (Int8u);
+		void	writeInt16s (Int16s);
+		void	writeInt16u (Int16u);
+		void	writeInt32s (Int32s);
+		void	writeInt32u (Int32u);
+		void	writeInt64s (Int64s);
+		void	writeInt64u (Int64u);
 
 	private:
 		System::Endian				native;
