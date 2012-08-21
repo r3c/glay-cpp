@@ -17,7 +17,9 @@ class	SeekStream
 
 		virtual			~SeekStream () {};
 
-		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
+		virtual size_t	getOffset () const = 0;
+
+		virtual void	setOffset (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
 };
 
 GLAY_NS_END()

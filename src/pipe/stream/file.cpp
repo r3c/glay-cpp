@@ -17,11 +17,6 @@ GLAY_NS_BEGIN(Pipe)
 	this->close ();
 }
 
-FileStream::operator	bool () const
-{
-	return this->file;
-}
-
 size_t	FileStream::getOffset () const
 {
 	if (this->file)
@@ -68,6 +63,11 @@ void	FileStream::close ()
 {
 }
 
+FileIStream::operator bool () const
+{
+	return this->file;
+}
+
 size_t	FileIStream::read (void* buffer, size_t size)
 {
 	if (this->file)
@@ -83,6 +83,11 @@ size_t	FileIStream::read (void* buffer, size_t size)
 /**/	FileOStream::FileOStream (const char* path, bool append) :
 	FileStream (fopen (path, append ? "ab" : "wb"))
 {
+}
+
+FileOStream::operator bool () const
+{
+	return this->file;
 }
 
 size_t	FileOStream::write (const void* buffer, size_t size)
