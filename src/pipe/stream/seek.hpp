@@ -6,7 +6,7 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	SeekStream : public Stream
+class	SeekStream
 {
 	public:
 		enum	SeekMode
@@ -15,11 +15,9 @@ class	SeekStream : public Stream
 			SEEK_RELATIVE
 		};
 
-		virtual				~SeekStream () {};
+		virtual			~SeekStream () {};
 
-		virtual operator	bool () const = 0;
-
-		virtual void		seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
+		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
 };
 
 GLAY_NS_END()

@@ -8,26 +8,22 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	Stream
-{
-	public:
-		virtual				~Stream () {};
-
-		virtual operator	bool () const = 0;
-};
-
-class	IStream : virtual public Stream
+class	IStream
 {
 	public:
 		virtual				~IStream () {};
 
+		virtual operator	bool () const = 0;
+
 		virtual size_t		read (void*, size_t) = 0;
 };
 
-class	OStream : virtual public Stream
+class	OStream
 {
 	public:
 		virtual				~OStream () {};
+
+		virtual operator	bool () const = 0;
 
 		virtual size_t		write (const void*, size_t) = 0;
 };

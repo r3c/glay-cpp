@@ -22,18 +22,15 @@ FileStream::operator	bool () const
 	return this->file;
 }
 
-void	FileStream::close ()
+size_t	FileStream::getOffset () const
 {
 	if (this->file)
-	{
-		fclose (this->file);
+		return ftell (this->file);
 
-		this->file = 0;
-	}
+	return 0;
 }
 
-/*
-void	FileStream::seek (int offset, SeekMode mode)
+void	FileStream::setOffset (size_t offset, SeekMode mode)
 {
 	if (this->file)
 	{
@@ -51,7 +48,16 @@ void	FileStream::seek (int offset, SeekMode mode)
 		}
 	}
 }
-*/
+
+void	FileStream::close ()
+{
+	if (this->file)
+	{
+		fclose (this->file);
+
+		this->file = 0;
+	}
+}
 
 /**
 ** FileIStream

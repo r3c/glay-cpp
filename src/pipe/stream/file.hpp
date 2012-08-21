@@ -3,19 +3,22 @@
 #define __GLAY_PIPE_FILESTREAM_HPP
 
 #include <stdio.h>
-#include "../stream.hpp"
+#include "seek.hpp"
 
 GLAY_NS_BEGIN(Pipe)
 
-class	FileStream : virtual public Stream
+class	FileStream : public SeekStream
 {
 	public:
 		virtual				~FileStream ();
 
 		virtual operator	bool () const;
 
+		virtual size_t		getOffset () const;
+
+		virtual void		setOffset (size_t, SeekMode = SEEK_ABSOLUTE);
+
 		void				close ();
-//		void				seek (int, SeekMode);
 
 	protected:
 		/**/				FileStream (FILE*);
