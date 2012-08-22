@@ -20,7 +20,7 @@ class	SeekStream
 
 		size_t			back ();
 		void			mark ();
-		virtual void	seek (size_t, SeekMode) = 0;
+		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
 		virtual size_t	tell () const = 0;
 
 	private:
