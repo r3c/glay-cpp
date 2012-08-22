@@ -3,12 +3,16 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/	Reader::Reader (IStream& stream) :
+Reader::Reader (IStream& stream) :
 	stream (stream)
 {
 }
 
-/**/	Reader::operator bool () const
+Reader::~Reader ()
+{
+}
+
+Reader::operator bool () const
 {
 	return (bool)this->stream;
 }

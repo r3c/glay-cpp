@@ -12,12 +12,12 @@ GLAY_NS_BEGIN(Pipe)
 class	Writer
 {
 	public:
-		virtual		~Writer () {};
+		virtual	~Writer ();
 
-		operator	bool () const;
+				operator bool () const;
 
-		size_t		write (const void*, size_t);
-		size_t		write (const char*);
+		size_t	write (const void*, size_t);
+		size_t	write (const char*);
 
 	protected:
 		/**/		Writer (OStream&);

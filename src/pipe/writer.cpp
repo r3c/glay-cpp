@@ -3,12 +3,16 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/	Writer::Writer (OStream& stream) :
+Writer::Writer (OStream& stream) :
 	stream (stream)
 {
 }
 
-/**/	Writer::operator bool () const
+Writer::~Writer ()
+{
+}
+
+Writer::operator bool () const
 {
 	return (bool)this->stream;
 }

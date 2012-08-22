@@ -5,13 +5,13 @@ using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/	BinaryWriter::BinaryWriter (OStream& stream, Endian::Endianness target) :
+BinaryWriter::BinaryWriter (OStream& stream, Endian::Endianness target) :
 	Writer (stream),
 	target (target)
 {
 }
 
-/**/	BinaryWriter::BinaryWriter (OStream& stream) :
+BinaryWriter::BinaryWriter (OStream& stream) :
 	Writer (stream),
 	target (Endian::getNativeEndianness ())
 {

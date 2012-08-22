@@ -3,10 +3,9 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/	MemoryStream::MemoryStream (void* buffer) :
-	buffer (reinterpret_cast<int8_t*> (buffer)),
-	rOffset (0),
-	wOffset (0)
+MemoryStream::MemoryStream (void* buffer) :
+	buffer (static_cast<Int8s*> (buffer)),
+	offset (0)
 {
 }
 
@@ -17,34 +16,39 @@ MemoryStream::operator	bool () const
 
 size_t	MemoryStream::read (void* buffer, size_t size)
 {
-	memcpy (buffer, this->buffer + this->rOffset, size);
+	memcpy (buffer, this->buffer + this->offset, size);
 
-	this->rOffset += size;
+	this->offset += size;
 
 	return size;
 }
-/*
-void	MemoryStream::seek (int offset, SeekMode mode)
+
+void	MemoryStream::seek (size_t offset, SeekMode mode)
 {
 	switch (mode)
 	{
 		case SEEK_ABSOLUTE:
-			this->rOffset = offset;
+			this->offset = offset;
 
 			break;
 
 		case SEEK_RELATIVE:
-			this->rOffset += offset;
+			this->offset += offset;
 
 			break;
 	}
 }
-*/
+
+size_t	MemoryStream::tell () const
+{
+	return this->offset;
+}
+
 size_t	MemoryStream::write (const void* buffer, size_t size)
 {
-	memcpy (this->buffer + this->wOffset, buffer, size);
+	memcpy (this->buffer + this->offset, buffer, size);
 
-	this->wOffset += size;
+	this->offset += size;
 
 	return size;
 }

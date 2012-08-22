@@ -5,14 +5,14 @@ using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 
-/**/	BinaryReader::BinaryReader (IStream& stream, Endian::Endianness source) :
+BinaryReader::BinaryReader (IStream& stream, Endian::Endianness source) :
 	Reader (stream),
 	native (Endian::getNativeEndianness ()),
 	source (source)
 {
 }
 
-/**/	BinaryReader::BinaryReader (IStream& stream) :
+BinaryReader::BinaryReader (IStream& stream) :
 	Reader (stream),
 	native (Endian::getNativeEndianness ())
 {

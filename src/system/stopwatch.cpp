@@ -47,7 +47,7 @@ Int64u	Stopwatch::getTicks ()
 /*
 ** Stopwatch default constructor.
 */
-/**/	Stopwatch::Stopwatch ()
+Stopwatch::Stopwatch ()
 {
 	this->reset ();
 }

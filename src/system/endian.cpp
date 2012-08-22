@@ -156,12 +156,16 @@ Endian::Endianness	Endian::getNativeEndianness ()
 	return native;
 }
 
-/**/	Endian::Endian (Endianness from) :
+/*
+** Endian
+** Perform endianness conversions from given fixed endianness.
+*/
+Endian::Endian (Endianness from) :
 	from (from)
 {
 }
 
-/**/	Endian::Endian () :
+Endian::Endian () :
 	from (native)
 {
 }

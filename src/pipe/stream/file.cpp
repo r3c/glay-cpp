@@ -7,25 +7,27 @@ GLAY_NS_BEGIN(Pipe)
 ** FileStream
 ** Abstract stream on a physical file.
 **/
-/**/	FileStream::FileStream (FILE* file) :
+FileStream::FileStream (FILE* file) :
 	file (file)
 {
 }
 
-/**/	FileStream::~FileStream ()
+FileStream::~FileStream ()
 {
 	this->close ();
 }
 
-size_t	FileStream::getOffset () const
+void	FileStream::close ()
 {
 	if (this->file)
-		return ftell (this->file);
+	{
+		fclose (this->file);
 
-	return 0;
+		this->file = 0;
+	}
 }
 
-void	FileStream::setOffset (size_t offset, SeekMode mode)
+void	FileStream::seek (size_t offset, SeekMode mode)
 {
 	if (this->file)
 	{
@@ -44,21 +46,19 @@ void	FileStream::setOffset (size_t offset, SeekMode mode)
 	}
 }
 
-void	FileStream::close ()
+size_t	FileStream::tell () const
 {
 	if (this->file)
-	{
-		fclose (this->file);
+		return ftell (this->file);
 
-		this->file = 0;
-	}
+	return 0;
 }
 
 /**
 ** FileIStream
 ** Input stream on a physical file.
 **/
-/**/	FileIStream::FileIStream (const char* path) :
+FileIStream::FileIStream (const char* path) :
 	FileStream (fopen (path, "rb"))
 {
 }
@@ -80,7 +80,7 @@ size_t	FileIStream::read (void* buffer, size_t size)
 ** FileOStream
 ** Output stream on a physical file.
 **/
-/**/	FileOStream::FileOStream (const char* path, bool append) :
+FileOStream::FileOStream (const char* path, bool append) :
 	FileStream (fopen (path, append ? "ab" : "wb"))
 {
 }

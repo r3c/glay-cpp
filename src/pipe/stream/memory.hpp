@@ -3,27 +3,25 @@
 #define __GLAY_PIPE_MEMORYSTREAM_HPP
 
 #include <string.h>
-#include "../stream.hpp"
+#include "seek.hpp"
 
 GLAY_NS_BEGIN(Pipe)
 
-class	MemoryStream : public IStream, public OStream
+class	MemoryStream : public SeekIStream, public SeekOStream
 {
 	public:
-		/**/				MemoryStream (void*);
+		/**/			MemoryStream (void*);
 
-		virtual operator	bool () const;
+		virtual 		operator bool () const;
 
-		virtual size_t		read (void*, size_t);
-
-//			virtual void		seek (int, SeekMode);
-
-		virtual size_t		write (const void*, size_t);
+		virtual size_t	read (void*, size_t);
+		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
+		virtual size_t	tell () const;
+		virtual size_t	write (const void*, size_t);
 
 	private:
-		int8_t*				buffer;
-		size_t				rOffset;
-		size_t				wOffset;
+		Int8s*	buffer;
+		size_t	offset;
 };
 
 GLAY_NS_END()

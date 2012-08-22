@@ -2,6 +2,7 @@
 #ifndef __GLAY_PIPE_SEEKSTREAM_HPP
 #define __GLAY_PIPE_SEEKSTREAM_HPP
 
+#include <vector>
 #include "../stream.hpp"
 
 GLAY_NS_BEGIN(Pipe)
@@ -15,11 +16,23 @@ class	SeekStream
 			SEEK_RELATIVE
 		};
 
-		virtual			~SeekStream () {};
+		virtual			~SeekStream ();
 
-		virtual size_t	getOffset () const = 0;
+		size_t			back ();
+		void			mark ();
+		virtual void	seek (size_t, SeekMode) = 0;
+		virtual size_t	tell () const = 0;
 
-		virtual void	setOffset (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
+	private:
+		std::vector<size_t>	offsets;
+};
+
+class	SeekIStream : public SeekStream, public IStream
+{
+};
+
+class	SeekOStream : public SeekStream, public OStream
+{
 };
 
 GLAY_NS_END()
