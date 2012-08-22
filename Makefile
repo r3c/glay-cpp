@@ -13,7 +13,7 @@ OBJECT_C	= $(addprefix $(OBJ)/,$(patsubst %.c,%.o,$(filter %.c,$(SOURCE))))
 OBJECT_CXX	= $(addprefix $(OBJ)/,$(patsubst %.cpp,%.o,$(filter %.cpp,$(SOURCE))))
 
 $(TARGET): $(LIBRARIES) $(OBJECT_C) $(OBJECT_CXX)
-	$(LD) -shared -o "$@" $(OBJECT_C) $(OBJECT_CXX) $(LIBRARIES) $(LDFLAGS)
+	$(LD) -o "$@" $(OBJECT_C) $(OBJECT_CXX) $(LIBRARIES) $(LDFLAGS)
 
 build: $(TARGET)
 

@@ -7,7 +7,7 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	FileStream : public SeekStream
+class	FileStream : public virtual SeekStream
 {
 	public:
 		virtual	~FileStream ();

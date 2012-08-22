@@ -27,11 +27,11 @@ class	SeekStream
 		std::vector<size_t>	offsets;
 };
 
-class	SeekIStream : public SeekStream, public IStream
+class	SeekIStream : public virtual SeekStream, public virtual IStream
 {
 };
 
-class	SeekOStream : public SeekStream, public OStream
+class	SeekOStream : public virtual SeekStream, public virtual OStream
 {
 };
 
