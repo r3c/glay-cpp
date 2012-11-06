@@ -32,7 +32,7 @@ void	Thread<T>::invoke ()
 template<typename T>
 void	Thread<T>::start (const T& value)
 {
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	if (this->state == STATE_READY)
 	{
@@ -50,7 +50,7 @@ void	Thread<T>::start (const T& value)
 		Atomic::barrier ();
 	}
 
-	this->lock.release ();
+	this->mutex.release ();
 }
 
 GLAY_NS_END()
