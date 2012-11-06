@@ -20,14 +20,17 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 	ThreadBase*	thread = reinterpret_cast<ThreadBase*> (data);
 
 	thread->invoke ();
-	thread->lock.acquire ();
+	thread->mutex.acquire ();
 
 #ifdef GLAY_OS_WINDOWS
 	::_endthreadex (0);
 #endif
 
 	thread->state = STATE_READY;
-	thread->lock.release ();
+
+	Atomic::barrier ();
+
+	thread->mutex.release ();
 
 	return 0;
 }
@@ -63,7 +66,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 */
 void	ThreadBase::abort ()
 {
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	if (this->state == STATE_ACTIVE || this->state == STATE_PAUSED)
 	{
@@ -73,9 +76,11 @@ void	ThreadBase::abort ()
 #endif
 
 		this->state = STATE_READY;
+
+		Atomic::barrier ();
 	}
 
-	this->lock.release ();
+	this->mutex.release ();
 }
 
 /*
@@ -95,11 +100,13 @@ ThreadBase::State	ThreadBase::getState ()
 {
 	State	state;
 
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	state = this->state;
 
-	this->lock.release ();
+	Atomic::barrier ();
+
+	this->mutex.release ();
 
 	return state;
 }
@@ -134,7 +141,7 @@ void	ThreadBase::join ()
 */
 void	ThreadBase::pause ()
 {
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	if (this->state == STATE_ACTIVE)
 	{
@@ -143,10 +150,12 @@ void	ThreadBase::pause ()
 			::SuspendThread (this->handle);
 
 		this->state = STATE_PAUSED;
+
+		Atomic::barrier ();
 	}
 #endif
 
-	this->lock.release ();
+	this->mutex.release ();
 }
 
 /*
@@ -154,7 +163,7 @@ void	ThreadBase::pause ()
 */
 void	ThreadBase::resume ()
 {
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	if (this->state == STATE_PAUSED)
 	{
@@ -163,10 +172,12 @@ void	ThreadBase::resume ()
 			::ResumeThread (this->handle);
 
 		this->state = STATE_ACTIVE;
+
+		Atomic::barrier ();
 #endif
 	}
 
-	this->lock.release ();
+	this->mutex.release ();
 }
 
 /*
@@ -194,7 +205,7 @@ void	Thread<void>::invoke ()
 */
 void	Thread<void>::start ()
 {
-	this->lock.acquire ();
+	this->mutex.acquire ();
 
 	if (this->state == STATE_READY)
 	{
@@ -204,9 +215,11 @@ void	Thread<void>::start ()
 #endif
 
 		this->state = STATE_ACTIVE;
+
+		Atomic::barrier ();
 	}
 
-	this->lock.release ();
+	this->mutex.release ();
 }
 
 GLAY_NS_END()

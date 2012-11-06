@@ -1,13 +1,13 @@
 
-#include "lock.hpp"
+#include "mutex.hpp"
 
 GLAY_NS_BEGIN(Parallel)
 
 /*
-** Lock default constructor.
-** acquired:	true to initialy acquire lock, false otherwise
+** Mutex default constructor.
+** acquired:	true to initialy acquire mutex, false otherwise
 */
-/**/	Lock::Lock (bool acquired)
+/**/	Mutex::Mutex (bool acquired)
 {
 #ifdef GLAY_OS_WINDOWS
 	this->handle = ::CreateMutex (0, acquired, 0);
@@ -15,9 +15,9 @@ GLAY_NS_BEGIN(Parallel)
 }
 
 /*
-** Lock destructor.
+** Mutex destructor.
 */
-/**/	Lock::~Lock ()
+/**/	Mutex::~Mutex ()
 {
 #ifdef GLAY_OS_WINDOWS
 	if (this->handle)
@@ -26,12 +26,12 @@ GLAY_NS_BEGIN(Parallel)
 }
 
 /*
-** Try to enter critical code section by waiting for lock to be available until
-** specified timeout expires.
+** Try to enter critical code section by waiting for mutex to be available
+** until specified timeout expires.
 ** timeout:	timeout delay in milliseconds
-** return:	true if lock has been acquired, false else
+** return:	true if mutex has been acquired, false else
 */
-bool	Lock::acquire (Int32u timeout)
+bool	Mutex::acquire (Int32u timeout)
 {
 	bool	state;
 
@@ -46,9 +46,9 @@ bool	Lock::acquire (Int32u timeout)
 }
 
 /*
-** Enter critical code section by waiting for lock to be available.
+** Enter critical code section by waiting for mutex to be available.
 */
-void	Lock::acquire ()
+void	Mutex::acquire ()
 {
 #ifdef GLAY_OS_WINDOWS
 	this->acquire (INFINITE);
@@ -56,9 +56,9 @@ void	Lock::acquire ()
 }
 
 /*
-** Leave critical code section by releasing lock.
+** Leave critical code section by releasing mutex.
 */
-void	Lock::release ()
+void	Mutex::release ()
 {
 #ifdef GLAY_OS_WINDOWS
 	if (this->handle)

@@ -8,7 +8,7 @@ TEST	= test
 
 SOURCE	= \
 	parallel/atomic.cpp \
-	parallel/lock.cpp \
+	parallel/mutex.cpp \
 	parallel/signal.cpp \
 	parallel/thread.cpp \
 	parallel/timer.cpp \
@@ -23,5 +23,5 @@ SOURCE	= \
 	system/stopwatch.cpp
 
 UNITS	= \
-	test/parallel/synchronize_with_locks.exe \
-	test/parallel/synchronize_with_signals.exe
+	test/parallel/synchronize_with_mutex.exe \
+	test/parallel/synchronize_with_signal.exe

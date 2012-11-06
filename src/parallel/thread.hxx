@@ -38,12 +38,16 @@ void	Thread<T>::start (const T& value)
 	{
 		this->value = value;
 
+		Atomic::barrier ();
+
 #ifdef GLAY_OS_WINDOWS
 		if (this->handle)
 			::ResumeThread (this->handle);
 #endif
 
 		this->state = STATE_ACTIVE;
+
+		Atomic::barrier ();
 	}
 
 	this->lock.release ();

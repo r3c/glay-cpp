@@ -7,35 +7,35 @@
 using namespace std;
 using namespace Glay::Parallel;
 
-typedef pair<vector<int>*, Lock*>	MyParams;
+typedef pair<vector<int>*, Mutex*>	MyParams;
 typedef Thread<MyParams>			MyThread;
 
 void	worker (MyParams params)
 {
-	Lock&			lock = *params.second;
+	Mutex&			mutex = *params.second;
 	vector<int>&	values = *params.first;
 
 	for (int i = 0; i < 1000; ++i)
 	{
-		lock.acquire ();
+		mutex.acquire ();
 
 		values.push_back (i);
 
-		lock.release ();
+		mutex.release ();
 	}
 }
 
 int	main (int, char* [])
 {
-	Lock		lock;
+	Mutex		mutex;
 	vector<int>	values;
 	MyThread	thread1 (&worker);
 	MyThread	thread2 (&worker);
 	MyThread	thread3 (&worker);
 
-	thread1.start (make_pair (&values, &lock));
-	thread2.start (make_pair (&values, &lock));
-	thread3.start (make_pair (&values, &lock));
+	thread1.start (make_pair (&values, &mutex));
+	thread2.start (make_pair (&values, &mutex));
+	thread3.start (make_pair (&values, &mutex));
 	thread1.join ();
 	thread2.join ();
 	thread3.join ();

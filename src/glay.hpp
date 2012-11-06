@@ -9,7 +9,7 @@
 
 #include "config.hpp"
 #include "parallel/atomic.hpp"
-#include "parallel/lock.hpp"
+#include "parallel/mutex.hpp"
 #include "parallel/signal.hpp"
 #include "parallel/thread.hpp"
 #include "pipe/reader/binary.hpp"

@@ -3,9 +3,14 @@
 
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#include <windows.h>
-#else
+#elif defined(__GNUG__)
 // See:
 // http://gcc.gnu.org/onlinedocs/gcc-4.1.1/gcc/Atomic-Builtins.html
+
+static inline void	atomicBarrier ()
+{
+	__sync_synchronize ();
+}
 
 template <typename T>
 static inline T	atomicCompare (T* target, T current, T replace)
@@ -18,9 +23,21 @@ static inline T	atomicSwap (T* target, T value)
 {
 	return __sync_lock_test_and_set (target, value);
 }
+#else
+	#error "Glay::Parallel::Atomic can't be used on unsupported configuration"
 #endif
 
 GLAY_NS_BEGIN(Parallel)
+
+void	Atomic::barrier ()
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	::_ReadWriteBarrier ();
+#else
+	atomicBarrier ();
+#endif
+}
+
 /*
 Int8s	Atomic::compare (Int8s* target, Int8s current, Int8s replace)
 {
@@ -86,6 +103,7 @@ T*	Atomic::compare (T** target, T* current, T* replace)
 #endif
 }
 */
+
 Int8s	Atomic::swap (Int8s* target, Int8s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)

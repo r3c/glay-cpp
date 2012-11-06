@@ -3,13 +3,15 @@
 #define __GLAY_PARALLEL_ATOMIC_HPP
 
 #include "../config.hpp"
-#include "lock.hpp"
+#include "mutex.hpp"
 
 GLAY_NS_BEGIN(Parallel)
 
 class	Atomic
 {
 	public:
+		static void		barrier ();
+
 /*
 		static Int8s	compare (Int8s*, Int8s, Int8s);
 		static Int8u	compare (Int8u*, Int8u, Int8u);

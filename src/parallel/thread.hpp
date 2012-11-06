@@ -3,7 +3,8 @@
 #define __GLAY_PARALLEL_THREAD_HPP
 
 #include "../config.hpp"
-#include "lock.hpp"
+#include "atomic.hpp"
+#include "mutex.hpp"
 
 #ifdef GLAY_OS_WINDOWS
 	#include <windows.h>
@@ -44,9 +45,9 @@ class	ThreadBase
 #ifdef GLAY_OS_WINDOWS
 		HANDLE			handle;
 #else
-	#error "Glay::Parallel::Thread can't be used on unsupported OS"
+	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
 #endif
-		Lock			lock;
+		Mutex			mutex;
 		State			state;
 
 	private:

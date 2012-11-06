@@ -1,6 +1,6 @@
 
-#ifndef __GLAY_PARALLEL_LOCK_HPP
-#define __GLAY_PARALLEL_LOCK_HPP
+#ifndef __GLAY_PARALLEL_MUTEX_HPP
+#define __GLAY_PARALLEL_MUTEX_HPP
 
 #include "../config.hpp"
 
@@ -10,14 +10,14 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-class	Lock
+class	Mutex
 {
 	public:
-		/**/	Lock (const Lock&);
-		/**/	Lock (bool = false);
-		/**/	~Lock ();
+		/**/	Mutex (const Mutex&);
+		/**/	Mutex (bool = false);
+		/**/	~Mutex ();
 
-		Lock&	operator = (const Lock&);
+		Mutex&	operator = (const Mutex&);
 
 		bool	acquire (Int32u);
 		void	acquire ();
@@ -27,7 +27,7 @@ class	Lock
 #ifdef GLAY_OS_WINDOWS
 		HANDLE	handle;
 #else
-	#error "Glay::Parallel::Lock can't be used on unsupported OS"
+	#error "Glay::Parallel::Mutex can't be used on unsupported configuration"
 #endif
 };
 
