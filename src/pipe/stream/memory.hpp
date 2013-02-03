@@ -7,21 +7,37 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	MemoryStream : public SeekIStream, public SeekOStream
+class	MemoryIStream : public SeekIStream
 {
 	public:
-		/**/			MemoryStream (void*);
+		/**/			MemoryIStream (const MemoryIStream&);
+		/**/			MemoryIStream (const void*, Int32u = INT32U_MAX);
 
+		MemoryIStream&	operator = (const MemoryIStream&);
 		virtual 		operator bool () const;
 
 		virtual size_t	read (void*, size_t);
 		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
 		virtual size_t	tell () const;
+
+	protected:
+		size_t			capacity;
+		size_t			cursor;
+		const Int8s*	source;
+};
+
+class	MemoryIOStream : public MemoryIStream, public SeekOStream
+{
+	public:
+		/**/			MemoryIOStream (const MemoryIOStream&);
+		/**/			MemoryIOStream (void*, Int32u = INT32U_MAX);
+
+		MemoryIOStream&	operator = (const MemoryIOStream&);
+
 		virtual size_t	write (const void*, size_t);
 
 	private:
-		Int8s*	buffer;
-		size_t	offset;
+		Int8s*	target;
 };
 
 GLAY_NS_END()

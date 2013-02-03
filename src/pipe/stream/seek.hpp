@@ -16,7 +16,11 @@ class	SeekStream
 			SEEK_RELATIVE
 		};
 
-		virtual			~SeekStream ();
+		/**/			SeekStream (const SeekStream&);
+		/**/			SeekStream ();
+		virtual			~SeekStream () {};
+
+		SeekStream&		operator = (const SeekStream&);
 
 		size_t			back ();
 		void			mark ();
@@ -27,12 +31,16 @@ class	SeekStream
 		std::vector<size_t>	offsets;
 };
 
-class	SeekIStream : public virtual SeekStream, public virtual IStream
+class	SeekIStream : public virtual SeekStream, public IStream
 {
+	public:
+		virtual	~SeekIStream () {};
 };
 
-class	SeekOStream : public virtual SeekStream, public virtual OStream
+class	SeekOStream : public virtual SeekStream, public OStream
 {
+	public:
+		virtual	~SeekOStream () {};
 };
 
 GLAY_NS_END()

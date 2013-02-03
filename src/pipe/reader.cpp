@@ -3,6 +3,11 @@
 
 GLAY_NS_BEGIN(Pipe)
 
+Reader::Reader (const Reader& other) :
+	stream (other.stream)
+{
+}
+
 Reader::Reader (IStream& stream) :
 	stream (stream)
 {

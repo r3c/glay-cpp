@@ -10,7 +10,7 @@ GLAY_NS_BEGIN(Pipe)
 class	FileStream : public virtual SeekStream
 {
 	public:
-		virtual	~FileStream ();
+		virtual			~FileStream ();
 
 		void			close ();
 		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
@@ -25,8 +25,10 @@ class	FileStream : public virtual SeekStream
 class	FileIStream : public FileStream, public SeekIStream
 {
 	public:
+		/**/			FileIStream (const FileIStream&);
 		/**/			FileIStream (const char*);
 
+		FileIStream&	operator = (const FileIStream&);
 		virtual 		operator bool () const;
 
 		virtual size_t	read (void*, size_t);
@@ -35,8 +37,10 @@ class	FileIStream : public FileStream, public SeekIStream
 class	FileOStream : public FileStream, public SeekOStream
 {
 	public:
+		/**/			FileOStream (const FileOStream&);
 		/**/			FileOStream (const char*, bool = false);
 
+		FileOStream&	operator = (const FileOStream&);
 		virtual			operator bool () const;
 
 		virtual size_t	write (const void*, size_t);
