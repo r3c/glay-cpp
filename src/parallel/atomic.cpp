@@ -19,10 +19,23 @@ static inline T	atomicCompare (T* target, T current, T replace)
 }
 
 template <typename T>
-static inline T	atomicSwap (T* target, T value)
+static inline T	atomicDecrement (T* target, T value)
+{
+	return __sync_fetch_and_sub (target, value);
+}
+
+template <typename T>
+static inline T	atomicIncrement (T* target, T value)
+{
+	return __sync_fetch_and_add (target, value);
+}
+
+template <typename T>
+static inline T	atomicExchange (T* target, T value)
 {
 	return __sync_lock_test_and_set (target, value);
 }
+
 #else
 	#error "Glay::Parallel::Atomic can't be used on unsupported configuration"
 #endif
@@ -37,7 +50,6 @@ void	Atomic::barrier ()
 	atomicBarrier ();
 #endif
 }
-
 /*
 Int8s	Atomic::compare (Int8s* target, Int8s current, Int8s replace)
 {
@@ -93,8 +105,7 @@ Int32u	Atomic::compare (Int32u* target, Int32u current, Int32u replace)
 #endif
 }
 
-template<typename T>
-T*	Atomic::compare (T** target, T* current, T* replace)
+void*	Atomic::compare (void** target, void* current, void* replace)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
@@ -102,70 +113,177 @@ T*	Atomic::compare (T** target, T* current, T* replace)
 	return atomicCompare (target, current, replace);
 #endif
 }
+
+Int8s	Atomic::decrement (Int8s* target, Int8s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicDecrement (target, value);
+#endif
+}
+
+Int8u	Atomic::decrement (Int8u* target, Int8u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicDecrement (target, value);
+#endif
+}
+
+Int16s	Atomic::decrement (Int16s* target, Int16s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicDecrement (target, value);
+#endif
+}
+
+Int16u	Atomic::decrement (Int16u* target, Int16u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicDecrement (target, value);
+#endif
+}
+
+Int32s	Atomic::decrement (Int32s* target, Int32s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	return ::InterlockedAdd (target, value);
+#else
+	return atomicDecrement (target, value);
+#endif
+}
+
+Int32u	Atomic::decrement (Int32u* target, Int32u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicDecrement (target, value);
+#endif
+}
 */
-
-Int8s	Atomic::swap (Int8s* target, Int8s value)
+Int8s	Atomic::exchange (Int8s* target, Int8s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange8 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-Int8u	Atomic::swap (Int8u* target, Int8u value)
+Int8u	Atomic::exchange (Int8u* target, Int8u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange8 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-Int16s	Atomic::swap (Int16s* target, Int16s value)
+Int16s	Atomic::exchange (Int16s* target, Int16s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange16 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-Int16u	Atomic::swap (Int16u* target, Int16u value)
+Int16u	Atomic::exchange (Int16u* target, Int16u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange16 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-Int32s	Atomic::swap (Int32s* target, Int32s value)
+Int32s	Atomic::exchange (Int32s* target, Int32s value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange32 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-Int32u	Atomic::swap (Int32u* target, Int32u value)
+Int32u	Atomic::exchange (Int32u* target, Int32u value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchange32 (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
 
-template<typename T>
-T*	Atomic::swap (T** target, T* value)
+void*	Atomic::exchange (void** target, void* value)
 {
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedExchangePointer (target, value);
 #else
-	return atomicSwap (target, value);
+	return atomicExchange (target, value);
 #endif
 }
+/*
+Int8s	Atomic::increment (Int8s* target, Int8s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+
+Int8u	Atomic::increment (Int8u* target, Int8u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+
+Int16s	Atomic::increment (Int16s* target, Int16s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+
+Int16u	Atomic::increment (Int16u* target, Int16u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+
+Int32s	Atomic::increment (Int32s* target, Int32s value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	return ::InterlockedAdd (target, value);
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+
+Int32u	Atomic::increment (Int32u* target, Int32u value)
+{
+#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+	#error FIXME
+#else
+	return atomicIncrement (target, value);
+#endif
+}
+*/
 
 GLAY_NS_END()
