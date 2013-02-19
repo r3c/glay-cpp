@@ -11,8 +11,8 @@ GLAY_NS_BEGIN(Pipe)
 class	Writer
 {
 	public:
-		/**/	Writer (const Writer&);
-		/**/	Writer (OStream&);
+				Writer (const Writer&);
+				Writer (OStream&);
 		virtual	~Writer ();
 
 		Writer&	operator = (const Writer&);

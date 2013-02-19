@@ -11,8 +11,8 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryWriter : public Writer
 {
 	public:
-		/**/	BinaryWriter (OStream&, System::Endian::Endianness);
-		/**/	BinaryWriter (OStream&);
+		BinaryWriter (OStream&, System::Endian::Endianness);
+		BinaryWriter (OStream&);
 
 		void	writeFloat32 (Float32);
 		void	writeFloat64 (Float64);

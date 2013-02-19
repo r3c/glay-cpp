@@ -16,9 +16,9 @@ class	SeekStream
 			SEEK_RELATIVE
 		};
 
-		/**/			SeekStream (const SeekStream&);
-		/**/			SeekStream ();
-		virtual			~SeekStream () {};
+				SeekStream (const SeekStream&);
+				SeekStream ();
+		virtual	~SeekStream ();
 
 		SeekStream&		operator = (const SeekStream&);
 
@@ -34,13 +34,13 @@ class	SeekStream
 class	SeekIStream : public virtual SeekStream, public IStream
 {
 	public:
-		virtual	~SeekIStream () {};
+		virtual	~SeekIStream ();
 };
 
 class	SeekOStream : public virtual SeekStream, public OStream
 {
 	public:
-		virtual	~SeekOStream () {};
+		virtual	~SeekOStream ();
 };
 
 GLAY_NS_END()

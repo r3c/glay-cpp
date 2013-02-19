@@ -17,6 +17,7 @@ SOURCE	= \
 	pipe/stream/file.cpp \
 	pipe/stream/memory.cpp \
 	pipe/stream/seek.cpp \
+	pipe/stream/standard.cpp \
 	pipe/writer/binary.cpp \
 	pipe/writer/type.cpp \
 	pipe/reader.cpp \

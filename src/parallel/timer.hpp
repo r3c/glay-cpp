@@ -12,8 +12,8 @@ class	Timer
 	public:
 		typedef void	(*Callback) ();
 
-		/**/	Timer (Callback, int);
-		/**/	~Timer ();
+				Timer (Callback, int);
+		virtual	~Timer ();
 
 		Int32u	getPeriod () const;
 
@@ -30,7 +30,7 @@ class	Timer
 		Signal					signal;
 		Thread<const Timer*>	thread;
 
-		static void				tick (const Timer*);
+		static void	tick (const Timer*);
 };
 
 GLAY_NS_END()

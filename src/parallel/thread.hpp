@@ -24,38 +24,38 @@ class	ThreadBase
 			STATE_READY		// Thread is available for use
 		};
 
-		/**/			ThreadBase (const ThreadBase&);
-		/**/			ThreadBase (Int32u);
-		/**/			~ThreadBase ();
+				ThreadBase (const ThreadBase&);
+				ThreadBase (Int32u);
+		virtual	~ThreadBase ();
 
-		ThreadBase&		operator = (const ThreadBase&);
+		ThreadBase&	operator = (const ThreadBase&);
 
-		Int32u			getIdentifier ();
-		State			getState ();
+		Int32u	getIdentifier ();
+		State	getState ();
 
-		void			abort ();
-		bool			join (Int32u);
-		void			join ();
-		void			pause ();
-		void			resume ();
+		void	abort ();
+		bool	join (Int32u);
+		void	join ();
+		void	pause ();
+		void	resume ();
 
 	protected:
 		virtual void	invoke () = 0;
 
 #ifdef GLAY_OS_WINDOWS
-		HANDLE			handle;
+		HANDLE	handle;
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
 #endif
-		Mutex			mutex;
-		State			state;
+		Mutex	mutex;
+		State	state;
 
 	private:
 #ifdef GLAY_OS_WINDOWS
 		__stdcall static unsigned	execute (void*);
 #endif
 
-		Int32u			identifier;
+		Int32u	identifier;
 };
 
 template<typename T = void>
@@ -64,16 +64,16 @@ class	Thread : public ThreadBase
 	public:
 		typedef void	(*Callback) (T);
 
-		/**/			Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
 
-		void			start (const T&);
+		void	start (const T&);
 
 	protected:
 		virtual void	invoke ();
 
 	private:
-		Callback		callback;
-		T				value;
+		Callback	callback;
+		T			value;
 };
 
 template<>
@@ -82,15 +82,15 @@ class	Thread<void> : public ThreadBase
 	public:
 		typedef void	(*Callback) ();
 
-		/**/			Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
 
-		void			start ();
+		void	start ();
 
 	protected:
 		virtual void	invoke ();
 
 	private:
-		Callback		callback;
+		Callback	callback;
 };
 
 GLAY_NS_END()

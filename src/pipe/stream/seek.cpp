@@ -16,6 +16,10 @@ SeekStream::SeekStream ()
 {
 }
 
+SeekStream::~SeekStream ()
+{
+}
+
 SeekStream&	SeekStream::operator = (const SeekStream& other)
 {
 	this->offsets = other.offsets;
@@ -41,6 +45,22 @@ size_t	SeekStream::back ()
 void	SeekStream::mark ()
 {
 	this->offsets.push_back (this->tell ());
+}
+
+/**
+** SeekIStream
+** Input stream with offset jump ability.
+**/
+SeekIStream::~SeekIStream ()
+{
+}
+
+/**
+** SeekOStream
+** Input stream with offset jump ability.
+**/
+SeekOStream::~SeekOStream ()
+{
 }
 
 GLAY_NS_END()

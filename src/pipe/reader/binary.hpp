@@ -11,8 +11,8 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryReader : public Reader
 {
 	public:
-		/**/	BinaryReader (IStream&, System::Endian::Endianness);
-		/**/	BinaryReader (IStream&);
+		BinaryReader (IStream&, System::Endian::Endianness);
+		BinaryReader (IStream&);
 
 		Float32	readFloat32 ();
 		Float64	readFloat64 ();

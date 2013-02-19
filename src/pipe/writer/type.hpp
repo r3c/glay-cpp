@@ -9,8 +9,8 @@ GLAY_NS_BEGIN(Pipe)
 class	TypeWriter : public Writer
 {
 	public:
-		/**/	TypeWriter (const TypeWriter&);
-		/**/	TypeWriter (OStream&);
+				TypeWriter (const TypeWriter&);
+				TypeWriter (OStream&);
 		virtual	~TypeWriter ();
 
 		template<typename T>

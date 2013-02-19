@@ -10,8 +10,9 @@ GLAY_NS_BEGIN(Pipe)
 class	MemoryIStream : public SeekIStream
 {
 	public:
-		/**/			MemoryIStream (const MemoryIStream&);
-		/**/			MemoryIStream (const void*, Int32u = INT32U_MAX);
+				MemoryIStream (const MemoryIStream&);
+				MemoryIStream (const void*, Int32u = INT32U_MAX);
+		virtual	~MemoryIStream ();
 
 		MemoryIStream&	operator = (const MemoryIStream&);
 		virtual 		operator bool () const;
@@ -29,8 +30,9 @@ class	MemoryIStream : public SeekIStream
 class	MemoryIOStream : public MemoryIStream, public SeekOStream
 {
 	public:
-		/**/			MemoryIOStream (const MemoryIOStream&);
-		/**/			MemoryIOStream (void*, Int32u = INT32U_MAX);
+				MemoryIOStream (const MemoryIOStream&);
+				MemoryIOStream (void*, Int32u = INT32U_MAX);
+		virtual	~MemoryIOStream ();
 
 		MemoryIOStream&	operator = (const MemoryIOStream&);
 

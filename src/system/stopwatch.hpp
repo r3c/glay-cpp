@@ -12,7 +12,7 @@ class	Stopwatch
 		static Int64u	getResolution ();
 		static Int64u	getTicks ();
 
-		/**/	Stopwatch ();
+		Stopwatch ();
 
 		Int64u	getElapsed () const;
 

@@ -63,6 +63,10 @@ FileIStream::FileIStream (const char* path) :
 {
 }
 
+FileIStream::~FileIStream ()
+{
+}
+
 FileIStream::operator bool () const
 {
 	return this->file;
@@ -82,6 +86,10 @@ size_t	FileIStream::read (void* buffer, size_t size)
 **/
 FileOStream::FileOStream (const char* path, bool append) :
 	FileStream (fopen (path, append ? "ab" : "wb"))
+{
+}
+
+FileOStream::~FileOStream ()
 {
 }
 

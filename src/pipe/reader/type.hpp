@@ -9,14 +9,14 @@ GLAY_NS_BEGIN(Pipe)
 class	TypeReader : public Reader
 {
 	public:
-		/**/		TypeReader (const TypeReader&);
-		/**/		TypeReader (IStream&);
-		virtual		~TypeReader ();
+				TypeReader (const TypeReader&);
+				TypeReader (IStream&);
+		virtual	~TypeReader ();
 
 		TypeReader&	operator = (const TypeReader&);
 
 		template<typename T>
-		bool		read(T*);
+		bool	read(T*);
 };
 
 GLAY_NS_END()

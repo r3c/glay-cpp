@@ -22,6 +22,10 @@ MemoryIStream::MemoryIStream (const void* source, Int32u capacity) :
 {
 }
 
+MemoryIStream::~MemoryIStream ()
+{
+}
+
 MemoryIStream&	MemoryIStream::operator = (const MemoryIStream& other)
 {
 	SeekStream::operator = (other);
@@ -84,6 +88,10 @@ MemoryIOStream::MemoryIOStream (const MemoryIOStream& other) :
 MemoryIOStream::MemoryIOStream (void* buffer, Int32u capacity) :
 	MemoryIStream (buffer, capacity),
 	target (static_cast<Int8s*> (buffer))
+{
+}
+
+MemoryIOStream::~MemoryIOStream ()
 {
 }
 

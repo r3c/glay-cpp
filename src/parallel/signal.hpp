@@ -13,11 +13,11 @@ GLAY_NS_BEGIN(Parallel)
 class	Signal
 {
 	public:
-		/**/	Signal (const Signal&);
-		/**/	Signal (bool state = false, bool manual = true);
-		/**/	~Signal ();
+				Signal (const Signal&);
+				Signal (bool state = false, bool manual = true);
+		virtual	~Signal ();
 
-		/**/	operator bool () const;
+				operator bool () const;
 		Signal&	operator = (const Signal&);
 
 		void	reset ();
