@@ -25,7 +25,7 @@ StandardIStream::operator bool () const
 
 size_t	StandardIStream::read (void* buffer, size_t size)
 {
-	return this->stream->readsome (static_cast<char*> (buffer), size);
+	return this->stream->read (static_cast<char*> (buffer), size).gcount ();
 }
 
 /**
@@ -48,9 +48,13 @@ StandardOStream::operator bool () const
 
 size_t	StandardOStream::write (const void* buffer, size_t size)
 {
+	size_t	start;
+
+	start = this->stream->tellp ();
+
 	this->stream->write (static_cast<const char*> (buffer), size);
 
-	return this->stream->good () ? size : 0;
+	return this->stream->tellp () - start;
 }
 
 GLAY_NS_END()
