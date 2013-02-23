@@ -27,7 +27,7 @@ namespace
 
 GLAY_NS_BEGIN(System)
 
-Int16s	Endian::convert16s (Int16s input, Endianness from, Endianness to)
+Int16s	Endian::change16s (Int16s input, Endianness from, Endianness to)
 {
 	Int16s	output;
 	Int8s*	source;
@@ -45,7 +45,7 @@ Int16s	Endian::convert16s (Int16s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int16u	Endian::convert16u (Int16u input, Endianness from, Endianness to)
+Int16u	Endian::change16u (Int16u input, Endianness from, Endianness to)
 {
 	Int16u	output;
 	Int8s*	source;
@@ -63,7 +63,7 @@ Int16u	Endian::convert16u (Int16u input, Endianness from, Endianness to)
 	return output;
 }
 
-Int32s	Endian::convert32s (Int32s input, Endianness from, Endianness to)
+Int32s	Endian::change32s (Int32s input, Endianness from, Endianness to)
 {
 	Int32s	output;
 	Int8s*	source;
@@ -83,7 +83,7 @@ Int32s	Endian::convert32s (Int32s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int32u	Endian::convert32u (Int32u input, Endianness from, Endianness to)
+Int32u	Endian::change32u (Int32u input, Endianness from, Endianness to)
 {
 	Int32u	output;
 	Int8s*	source;
@@ -103,7 +103,7 @@ Int32u	Endian::convert32u (Int32u input, Endianness from, Endianness to)
 	return output;
 }
 
-Int64s	Endian::convert64s (Int64s input, Endianness from, Endianness to)
+Int64s	Endian::change64s (Int64s input, Endianness from, Endianness to)
 {
 	Int64s	output;
 	Int8s*	source;
@@ -127,7 +127,7 @@ Int64s	Endian::convert64s (Int64s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int64u	Endian::convert64u (Int64u input, Endianness from, Endianness to)
+Int64u	Endian::change64u (Int64u input, Endianness from, Endianness to)
 {
 	Int64u	output;
 	Int8s*	source;
@@ -170,34 +170,34 @@ Endian::Endian () :
 {
 }
 
-Int16s	Endian::convert16s (Int16s input, Endianness to) const
+Int16s	Endian::change16s (Int16s input, Endianness to) const
 {
-	return Endian::convert16s (input, this->from, to);
+	return Endian::change16s (input, this->from, to);
 }
 
-Int16u	Endian::convert16u (Int16u input, Endianness to) const
+Int16u	Endian::change16u (Int16u input, Endianness to) const
 {
-	return Endian::convert16u (input, this->from, to);
+	return Endian::change16u (input, this->from, to);
 }
 
-Int32s	Endian::convert32s (Int32s input, Endianness to) const
+Int32s	Endian::change32s (Int32s input, Endianness to) const
 {
-	return Endian::convert32s (input, this->from, to);
+	return Endian::change32s (input, this->from, to);
 }
 
-Int32u	Endian::convert32u (Int32u input, Endianness to) const
+Int32u	Endian::change32u (Int32u input, Endianness to) const
 {
-	return Endian::convert32u (input, this->from, to);
+	return Endian::change32u (input, this->from, to);
 }
 
-Int64s	Endian::convert64s (Int64s input, Endianness to) const
+Int64s	Endian::change64s (Int64s input, Endianness to) const
 {
-	return Endian::convert64s (input, this->from, to);
+	return Endian::change64s (input, this->from, to);
 }
 
-Int64u	Endian::convert64u (Int64u input, Endianness to) const
+Int64u	Endian::change64u (Int64u input, Endianness to) const
 {
-	return Endian::convert64u (input, this->from, to);
+	return Endian::change64u (input, this->from, to);
 }
 
 GLAY_NS_END()

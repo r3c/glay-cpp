@@ -41,7 +41,7 @@ void	BinaryWriter::writeInt16s (Int16s value)
 {
 	Int16s	buffer;
 
-	buffer = this->native.convert16s (value, this->target);
+	buffer = this->native.change16s (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }
@@ -50,7 +50,7 @@ void	BinaryWriter::writeInt16u (Int16u value)
 {
 	Int16u	buffer;
 
-	buffer = this->native.convert16u (value, this->target);
+	buffer = this->native.change16u (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }
@@ -59,7 +59,7 @@ void	BinaryWriter::writeInt32s (Int32s value)
 {
 	Int32s	buffer;
 
-	buffer = this->native.convert32s (value, this->target);
+	buffer = this->native.change32s (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }
@@ -68,7 +68,7 @@ void	BinaryWriter::writeInt32u (Int32u value)
 {
 	Int32u	buffer;
 
-	buffer = this->native.convert32u (value, this->target);
+	buffer = this->native.change32u (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }
@@ -77,7 +77,7 @@ void	BinaryWriter::writeInt64s (Int64s value)
 {
 	Int64s	buffer;
 
-	buffer = this->native.convert64s (value, this->target);
+	buffer = this->native.change64s (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }
@@ -86,7 +86,7 @@ void	BinaryWriter::writeInt64u (Int64u value)
 {
 	Int64u	buffer;
 
-	buffer = this->native.convert64u (value, this->target);
+	buffer = this->native.change64u (value, this->target);
 
 	this->stream.write (&buffer, sizeof (buffer));
 }

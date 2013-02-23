@@ -16,9 +16,9 @@
 #include "pipe/reader/type.hpp"
 #include "pipe/stream/file.hpp"
 #include "pipe/stream/memory.hpp"
-#include "pipe/stream/standard.hpp"
 #include "pipe/writer/binary.hpp"
 #include "pipe/writer/type.hpp"
+#include "system/convert.hpp"
 #include "system/endian.hpp"
 #include "system/stopwatch.hpp"
 

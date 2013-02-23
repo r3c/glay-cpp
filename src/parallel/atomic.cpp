@@ -1,44 +1,47 @@
 
 #include "atomic.hpp"
 
+namespace
+{
 #if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#include <windows.h>
 #elif defined(__GNUG__)
-// See:
-// http://gcc.gnu.org/onlinedocs/gcc-4.1.1/gcc/Atomic-Builtins.html
+	// See:
+	// http://gcc.gnu.org/onlinedocs/gcc-4.1.1/gcc/Atomic-Builtins.html
 
-static inline void	atomicBarrier ()
-{
-	__sync_synchronize ();
-}
+	static inline void	atomicBarrier ()
+	{
+		__sync_synchronize ();
+	}
 
-template <typename T>
-static inline T	atomicCompare (T* target, T current, T replace)
-{
-	return __sync_val_compare_and_swap (target, current, replace);
-}
+	template<typename T>
+	static inline T	atomicCompare (T* target, T current, T replace)
+	{
+		return __sync_val_compare_and_swap (target, current, replace);
+	}
 
-template <typename T>
-static inline T	atomicDecrement (T* target, T value)
-{
-	return __sync_fetch_and_sub (target, value);
-}
+	template<typename T>
+	static inline T	atomicDecrement (T* target, T value)
+	{
+		return __sync_fetch_and_sub (target, value);
+	}
 
-template <typename T>
-static inline T	atomicIncrement (T* target, T value)
-{
-	return __sync_fetch_and_add (target, value);
-}
+	template<typename T>
+	static inline T	atomicIncrement (T* target, T value)
+	{
+		return __sync_fetch_and_add (target, value);
+	}
 
-template <typename T>
-static inline T	atomicExchange (T* target, T value)
-{
-	return __sync_lock_test_and_set (target, value);
-}
+	template<typename T>
+	static inline T	atomicExchange (T* target, T value)
+	{
+		return __sync_lock_test_and_set (target, value);
+	}
 
 #else
 	#error "Glay::Parallel::Atomic can't be used on unsupported configuration"
 #endif
+}
 
 GLAY_NS_BEGIN(Parallel)
 

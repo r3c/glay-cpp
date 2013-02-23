@@ -21,9 +21,11 @@ SOURCE	= \
 	pipe/writer/type.cpp \
 	pipe/reader.cpp \
 	pipe/writer.cpp \
+	system/convert.cpp \
 	system/endian.cpp \
 	system/stopwatch.cpp
 
 UNITS	= \
-	test/parallel/synchronize_with_mutex.exe \
-	test/parallel/synchronize_with_signal.exe
+	test/parallel_mutex.exe \
+	test/parallel_signal.exe \
+	test/system_convert.exe

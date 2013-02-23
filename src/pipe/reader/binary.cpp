@@ -60,7 +60,7 @@ Int16s	BinaryReader::readInt16s ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert16s (value, this->native);
+	return this->source.change16s (value, this->native);
 }
 
 Int16u	BinaryReader::readInt16u ()
@@ -69,7 +69,7 @@ Int16u	BinaryReader::readInt16u ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert16u (value, this->native);
+	return this->source.change16u (value, this->native);
 }
 
 Int32s	BinaryReader::readInt32s ()
@@ -78,7 +78,7 @@ Int32s	BinaryReader::readInt32s ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert32s (value, this->native);
+	return this->source.change32s (value, this->native);
 }
 
 Int32u	BinaryReader::readInt32u ()
@@ -87,7 +87,7 @@ Int32u	BinaryReader::readInt32u ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert32u (value, this->native);
+	return this->source.change32u (value, this->native);
 }
 
 Int64s	BinaryReader::readInt64s ()
@@ -96,7 +96,7 @@ Int64s	BinaryReader::readInt64s ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert64s (value, this->native);
+	return this->source.change64s (value, this->native);
 }
 
 Int64u	BinaryReader::readInt64u ()
@@ -105,7 +105,7 @@ Int64u	BinaryReader::readInt64u ()
 
 	this->read (&value, sizeof (value));
 
-	return this->source.convert64u (value, this->native);
+	return this->source.change64u (value, this->native);
 }
 
 GLAY_NS_END()
