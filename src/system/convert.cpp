@@ -33,10 +33,16 @@ namespace
 		char	buffer[64];
 		Int32u	use;
 
-		use = sprintf (buffer, "%f",value);
+		use = sprintf (buffer, "%.10f",value);
 
 		if (use > length)
 			return 0;
+
+		while (use > 1 && buffer[use - 1] == '0')
+			--use;
+
+		if (use > 0 && buffer[use - 1] == '.')
+			--use;
 
 		memcpy (target, buffer, use * sizeof (*target));
 
