@@ -8,6 +8,7 @@
 #define __GLAY_HPP
 
 #include "config.hpp"
+#include "design/event.hpp"
 #include "parallel/atomic.hpp"
 #include "parallel/mutex.hpp"
 #include "parallel/signal.hpp"

@@ -26,6 +26,7 @@ SOURCE	= \
 	system/stopwatch.cpp
 
 UNITS	= \
+	test/design_event.exe \
 	test/parallel_mutex.exe \
 	test/parallel_signal.exe \
 	test/system_convert.exe

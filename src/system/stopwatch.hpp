@@ -4,7 +4,7 @@
 
 #include "../config.hpp"
 
-GLAY_NS_BEGIN(Time)
+GLAY_NS_BEGIN(System)
 
 class	Stopwatch
 {
@@ -12,7 +12,10 @@ class	Stopwatch
 		static Int64u	getResolution ();
 		static Int64u	getTicks ();
 
+		Stopwatch (const Stopwatch&);
 		Stopwatch ();
+
+		Stopwatch&	operator = (const Stopwatch&);
 
 		Int64u	getElapsed () const;
 

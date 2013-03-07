@@ -157,44 +157,102 @@ Endian::Endianness	Endian::getNativeEndianness ()
 }
 
 /*
-** Endian
-** Perform endianness conversions from given fixed endianness.
+** Copy constructor.
+** other:	source instance
+*/
+Endian::Endian (const Endian& other) :
+	from (other.from)
+{
+}
+
+/*
+** Endianness constructor.
+** from:	source endianness
 */
 Endian::Endian (Endianness from) :
 	from (from)
 {
 }
 
+/*
+** Default constructor, using native endianness as source.
+*/
 Endian::Endian () :
 	from (native)
 {
 }
 
+/*
+** Copy operator.
+*/
+Endian&	Endian::operator = (const Endian& other)
+{
+	this->from = other.from;
+
+	return *this;
+}
+
+/*
+** Change endianness of signed 16 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int16s	Endian::change16s (Int16s input, Endianness to) const
 {
 	return Endian::change16s (input, this->from, to);
 }
 
+/*
+** Change endianness of unsigned 16 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int16u	Endian::change16u (Int16u input, Endianness to) const
 {
 	return Endian::change16u (input, this->from, to);
 }
 
+/*
+** Change endianness of signed 32 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int32s	Endian::change32s (Int32s input, Endianness to) const
 {
 	return Endian::change32s (input, this->from, to);
 }
 
+/*
+** Change endianness of unsigned 32 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int32u	Endian::change32u (Int32u input, Endianness to) const
 {
 	return Endian::change32u (input, this->from, to);
 }
 
+/*
+** Change endianness of signed 64 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int64s	Endian::change64s (Int64s input, Endianness to) const
 {
 	return Endian::change64s (input, this->from, to);
 }
 
+/*
+** Change endianness of unsigned 64 bits integer.
+** input:	input integer
+** to:		target endianness
+** return:	changed integer
+*/ 
 Int64u	Endian::change64u (Int64u input, Endianness to) const
 {
 	return Endian::change64u (input, this->from, to);

@@ -11,7 +11,7 @@
 
 using namespace Glay;
 
-GLAY_NS_BEGIN(Time)
+GLAY_NS_BEGIN(System)
 
 /*
 ** Get resolution (number of ticks per second) for all stopwatches.
@@ -45,11 +45,35 @@ Int64u	Stopwatch::getTicks ()
 }
 
 /*
-** Stopwatch default constructor.
+** Copy constructor.
+** other:	source instance
+*/
+Stopwatch::Stopwatch (const Stopwatch& other) :
+	active (other.active),
+	elapsed (other.elapsed),
+	ticks (other.ticks)
+{
+}
+
+/*
+** Default constructor.
 */
 Stopwatch::Stopwatch ()
 {
 	this->reset ();
+}
+
+/*
+** Copy operator.
+** other:	source instance
+*/
+Stopwatch&	Stopwatch::operator = (const Stopwatch& other)
+{
+	this->active = other.active;
+	this->elapsed = other.elapsed;
+	this->ticks = other.ticks;
+
+	return *this;
 }
 
 /*
