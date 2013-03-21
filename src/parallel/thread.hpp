@@ -6,7 +6,9 @@
 #include "atomic.hpp"
 #include "mutex.hpp"
 
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	#include <pthread>
+#elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -35,15 +37,17 @@ class	ThreadBase
 
 		void	abort ();
 		bool	join (Int32u);
-		void	join ();
+		bool	join ();
 		void	pause ();
 		void	resume ();
 
 	protected:
 		virtual void	invoke () = 0;
 
-#ifdef GLAY_OS_WINDOWS
-		HANDLE	handle;
+#if defined(GLAY_LIBRARY_PTHREAD)
+		pthread_t	handle;
+#elif defined(GLAY_OS_WINDOWS)
+		HANDLE		handle;
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
 #endif

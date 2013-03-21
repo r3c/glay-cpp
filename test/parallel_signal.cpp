@@ -2,7 +2,7 @@
 #include <cassert>
 #include <iostream>
 #include <map>
-#include "../src/glay.hpp"
+#include "../src/include.hpp"
 
 using namespace std;
 using namespace Glay::Parallel;

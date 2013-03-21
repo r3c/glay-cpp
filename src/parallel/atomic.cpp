@@ -1,57 +1,146 @@
 
 #include "atomic.hpp"
 
+#if defined(GLAY_BUILTIN_ATOMIC)
 namespace
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	#include <windows.h>
-#elif defined(__GNUG__)
 	// See:
 	// http://gcc.gnu.org/onlinedocs/gcc-4.1.1/gcc/Atomic-Builtins.html
 
-	static inline void	atomicBarrier ()
+	struct	AtomicBarrier
 	{
-		__sync_synchronize ();
-	}
+		static inline void	call ()
+		{
+			__sync_synchronize ();
+		}
+	};
 
 	template<typename T>
-	static inline T	atomicCompare (T* target, T current, T replace)
+	struct	AtomicCompare
 	{
-		return __sync_val_compare_and_swap (target, current, replace);
-	}
+		static inline T	call (T* target, T current, T replace)
+		{
+			return __sync_val_compare_and_swap (target, current, replace);
+		}
+	};
 
 	template<typename T>
-	static inline T	atomicDecrement (T* target, T value)
+	struct	AtomicDecrement
 	{
-		return __sync_fetch_and_sub (target, value);
-	}
+		static inline T	call (T* target, T value)
+		{
+			return __sync_fetch_and_sub (target, value);
+		}
+	};
 
 	template<typename T>
-	static inline T	atomicIncrement (T* target, T value)
+	struct	AtomicIncrement
 	{
-		return __sync_fetch_and_add (target, value);
-	}
+		static inline T	call (T* target, T value)
+		{
+			return __sync_fetch_and_add (target, value);
+		}
+	};
 
 	template<typename T>
-	static inline T	atomicExchange (T* target, T value)
+	struct	AtomicExchange
 	{
-		return __sync_lock_test_and_set (target, value);
-	}
+		static inline T	call (T* target, T value)
+		{
+			return __sync_lock_test_and_set (target, value);
+		}
+	};
+}
+#elif defined(GLAY_OS_WINDOWS)
+#include <windows.h>
 
+namespace
+{
+	struct	AtomicBarrier ()
+	{
+		static inline void	call ()
+		{
+			::_ReadWriteBarrier ();
+		}
+	};
+
+	template<typename T>
+	struct	AtomicExchange
+	{
+	};
+
+	template<typename T>
+	struct	AtomicExchange<T*>
+	{
+		static inline T*	call (T* target, T value)
+		{
+			return ::InterlockedExchangePointer (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int8s>
+	{
+		static inline Int8s	call (Int8s* target, Int8s value)
+		{
+			return ::InterlockedExchange8 (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int8u>
+	{
+		static inline Int8u	call (Int8u* target, Int8u value)
+		{
+			return ::InterlockedExchange8 (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int16s>
+	{
+		static inline Int16s	call (Int16s* target, Int16s value)
+		{
+			return ::InterlockedExchange16 (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int16u>
+	{
+		static inline Int16u	call (Int16u* target, Int16u value)
+		{
+			return ::InterlockedExchange16 (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int32s>
+	{
+		static inline Int32s	call (Int32s* target, Int32s value)
+		{
+			return ::InterlockedExchange32 (target, value);
+		}
+	};
+
+	template<>
+	struct	AtomicExchange<Int32u>
+	{
+		static inline Int32u	call (Int32u* target, Int32u value)
+		{
+			return ::InterlockedExchange32 (target, value);
+		}
+	};
+}
 #else
 	#error "Glay::Parallel::Atomic can't be used on unsupported configuration"
 #endif
-}
 
 GLAY_NS_BEGIN(Parallel)
 
 void	Atomic::barrier ()
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	::_ReadWriteBarrier ();
-#else
-	atomicBarrier ();
-#endif
+	AtomicBarrier::call ();
 }
 /*
 Int8s	Atomic::compare (Int8s* target, Int8s current, Int8s replace)
@@ -173,65 +262,37 @@ Int32u	Atomic::decrement (Int32u* target, Int32u value)
 */
 Int8s	Atomic::exchange (Int8s* target, Int8s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange8 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int8s>::call (target, value);
 }
 
 Int8u	Atomic::exchange (Int8u* target, Int8u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange8 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int8u>::call (target, value);
 }
 
 Int16s	Atomic::exchange (Int16s* target, Int16s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange16 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int16s>::call (target, value);
 }
 
 Int16u	Atomic::exchange (Int16u* target, Int16u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange16 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int16u>::call (target, value);
 }
 
 Int32s	Atomic::exchange (Int32s* target, Int32s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange32 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int32s>::call (target, value);
 }
 
 Int32u	Atomic::exchange (Int32u* target, Int32u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchange32 (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<Int32u>::call (target, value);
 }
 
 void*	Atomic::exchange (void** target, void* value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
-	return ::InterlockedExchangePointer (target, value);
-#else
-	return atomicExchange (target, value);
-#endif
+	return AtomicExchange<void*>::call (target, value);
 }
 /*
 Int8s	Atomic::increment (Int8s* target, Int8s value)

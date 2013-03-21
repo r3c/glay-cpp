@@ -13,7 +13,9 @@ GLAY_NS_BEGIN(Parallel)
 ** data:	untyped ThreadParams pointer
 ** return	always 0
 */
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+void	ThreadBase::execute (void* data)
+#elif defined(GLAY_OS_WINDOWS)
 __stdcall unsigned	ThreadBase::execute (void* data)
 #endif
 {
@@ -22,7 +24,9 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 	thread->invoke ();
 	thread->mutex.acquire ();
 
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	pthread_exit (0);
+#elif defined(GLAY_OS_WINDOWS)
 	::_endthreadex (0);
 #endif
 
@@ -42,11 +46,16 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 /**/	ThreadBase::ThreadBase (Int32u stackSize) :
 	state (STATE_READY)
 {
-#ifdef GLAY_OS_WINDOWS
-	unsigned	threadAddress;
+#if defined(GLAY_LIBRARY_PTHREAD)
+	if (pthread_create (&this->handle, 0, ThreadBase::execute, reinterpret_cast<void*> (this)) == 0)
+		this->identifier = FIXME;
+	else
+		this->identifier = 0;
+#elif defined(GLAY_OS_WINDOWS)
+	unsigned	address;
 
-	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &threadAddress);
-	this->identifier = static_cast<Int32u> (threadAddress);
+	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &address);
+	this->identifier = static_cast<Int32u> (address);
 #endif
 }
 
@@ -55,7 +64,10 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 */
 /**/	ThreadBase::~ThreadBase ()
 {
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	if (this->identifier != 0)
+		pthread_cancel (&this->handle);
+#elif defined(GLAY_OS_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
 #endif
@@ -70,7 +82,10 @@ void	ThreadBase::abort ()
 
 	if (this->state == STATE_ACTIVE || this->state == STATE_PAUSED)
 	{
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+		if (this->identifier != 0)
+			pthread_cancel (&this->handle);
+#elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::TerminateThread (this->handle, 0);
 #endif
@@ -118,7 +133,9 @@ ThreadBase::State	ThreadBase::getState ()
 */
 bool	ThreadBase::join (Int32u timeout)
 {
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	// FIXME
+#elif defined(GLAY_OS_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
 #endif
@@ -129,11 +146,16 @@ bool	ThreadBase::join (Int32u timeout)
 /*
 ** Wait for thread to terminate.
 */
-void	ThreadBase::join ()
+bool	ThreadBase::join ()
 {
-#ifdef GLAY_OS_WINDOWS
-	this->join (INFINITE);
+#if defined(GLAY_LIBRARY_PTHREAD)
+	if (this->identifier != 0)
+		return pthread_join (&this->handle, 0) == 0;
+#elif defined(GLAY_OS_WINDOWS)
+	return this->join (INFINITE);
 #endif
+
+	return false;
 }
 
 /*
@@ -145,7 +167,9 @@ void	ThreadBase::pause ()
 
 	if (this->state == STATE_ACTIVE)
 	{
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	// FIXME
+#elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::SuspendThread (this->handle);
 
@@ -167,7 +191,9 @@ void	ThreadBase::resume ()
 
 	if (this->state == STATE_PAUSED)
 	{
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	// FIXME
+#elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 
@@ -209,7 +235,9 @@ void	Thread<void>::start ()
 
 	if (this->state == STATE_READY)
 	{
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	// FIXME
+#elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 #endif

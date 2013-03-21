@@ -4,10 +4,9 @@
 ** Master header.
 */
 
-#ifndef __GLAY_HPP
-#define __GLAY_HPP
+#ifndef __GLAY_INCLUDE_HPP
+#define __GLAY_INCLUDE_HPP
 
-#include "config.hpp"
 #include "design/event.hpp"
 #include "parallel/atomic.hpp"
 #include "parallel/mutex.hpp"
@@ -22,5 +21,7 @@
 #include "system/convert.hpp"
 #include "system/endian.hpp"
 #include "system/stopwatch.hpp"
+#include "config.hpp"
+#include "setup.hpp"
 
 #endif

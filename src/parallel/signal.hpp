@@ -4,7 +4,9 @@
 
 #include "../config.hpp"
 
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	#include <pthread>
+#elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -26,8 +28,11 @@ class	Signal
 		void	wait () const;
 
 	private:
-#ifdef GLAY_OS_WINDOWS
-		HANDLE		handle;
+#if defined(GLAY_LIBRARY_PTHREAD)
+		pthread_cond_t	handle;
+		pthread_mutex_t	mutex;
+#elif defined(GLAY_OS_WINDOWS)
+		HANDLE			handle;
 #else
 	#error "Glay::Parallel::Signal can't be used on unsupported OS"
 #endif

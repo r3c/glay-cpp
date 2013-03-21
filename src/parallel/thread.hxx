@@ -40,7 +40,9 @@ void	Thread<T>::start (const T& value)
 
 		Atomic::barrier ();
 
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	// FIXME
+#elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 #endif

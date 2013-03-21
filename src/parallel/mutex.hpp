@@ -4,7 +4,9 @@
 
 #include "../config.hpp"
 
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+	#include <pthread>
+#elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -20,12 +22,14 @@ class	Mutex
 		Mutex&	operator = (const Mutex&);
 
 		bool	acquire (Int32u);
-		void	acquire ();
+		bool	acquire ();
 		void	release ();
 
 	private:
-#ifdef GLAY_OS_WINDOWS
-		HANDLE	handle;
+#if defined(GLAY_LIBRARY_PTHREAD)
+		pthread_mutex_t	handle;
+#elif defined(GLAY_OS_WINDOWS)
+		HANDLE			handle;
 #else
 	#error "Glay::Parallel::Mutex can't be used on unsupported configuration"
 #endif
