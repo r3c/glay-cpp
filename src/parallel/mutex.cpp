@@ -15,6 +15,9 @@ GLAY_NS_BEGIN(Parallel)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	this->handle = PTHREAD_MUTEX_INITIALIZER;
+
+	if (acquired)
+		this->acquire ();
 #elif defined(GLAY_OS_WINDOWS)
 	this->handle = ::CreateMutex (0, acquired, 0);
 #endif
@@ -46,7 +49,7 @@ bool	Mutex::acquire (Int32u timeout)
 	delta.tv_sec = timeout / 1000;
 	delta.tv_nsec = timeout * 1000;
 
-	return pthread_mutex_timedlock_np (&this->handle, &delta) == 0;
+	return pthread_mutex_timedlock (&this->handle, &delta) == 0;
 #elif defined(GLAY_OS_WINDOWS)
 	return this->handle && ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
 #endif

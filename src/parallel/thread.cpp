@@ -14,7 +14,7 @@ GLAY_NS_BEGIN(Parallel)
 ** return	always 0
 */
 #if defined(GLAY_LIBRARY_PTHREAD)
-void	ThreadBase::execute (void* data)
+void*	ThreadBase::execute (void* data)
 #elif defined(GLAY_OS_WINDOWS)
 __stdcall unsigned	ThreadBase::execute (void* data)
 #endif
@@ -48,9 +48,11 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (pthread_create (&this->handle, 0, ThreadBase::execute, reinterpret_cast<void*> (this)) == 0)
-		this->identifier = FIXME;
+		this->identifier = 1; // FIXME
 	else
 		this->identifier = 0;
+
+	stackSize = 0; // FIXME
 #elif defined(GLAY_OS_WINDOWS)
 	unsigned	address;
 
@@ -66,7 +68,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
-		pthread_cancel (&this->handle);
+		pthread_cancel (this->handle);
 #elif defined(GLAY_OS_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
@@ -84,7 +86,7 @@ void	ThreadBase::abort ()
 	{
 #if defined(GLAY_LIBRARY_PTHREAD)
 		if (this->identifier != 0)
-			pthread_cancel (&this->handle);
+			pthread_cancel (this->handle);
 #elif defined(GLAY_OS_WINDOWS)
 		if (this->handle)
 			::TerminateThread (this->handle, 0);
@@ -134,7 +136,7 @@ ThreadBase::State	ThreadBase::getState ()
 bool	ThreadBase::join (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-	// FIXME
+	timeout = 0; // FIXME
 #elif defined(GLAY_OS_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
@@ -150,7 +152,7 @@ bool	ThreadBase::join ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
-		return pthread_join (&this->handle, 0) == 0;
+		return pthread_join (this->handle, 0) == 0;
 #elif defined(GLAY_OS_WINDOWS)
 	return this->join (INFINITE);
 #endif
@@ -176,8 +178,8 @@ void	ThreadBase::pause ()
 		this->state = STATE_PAUSED;
 
 		Atomic::barrier ();
-	}
 #endif
+	}
 
 	this->mutex.release ();
 }

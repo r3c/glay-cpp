@@ -7,7 +7,7 @@
 #include "mutex.hpp"
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-	#include <pthread>
+	#include <pthread.h>
 #elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif
@@ -55,7 +55,9 @@ class	ThreadBase
 		State	state;
 
 	private:
-#ifdef GLAY_OS_WINDOWS
+#if defined(GLAY_LIBRARY_PTHREAD)
+                static void*	execute (void*);
+#elif defined(GLAY_OS_WINDOWS)
 		__stdcall static unsigned	execute (void*);
 #endif
 

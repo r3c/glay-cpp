@@ -7,7 +7,7 @@ GLAY_NS_BEGIN(Parallel)
 ** Internal timer tick method.
 ** timer:	timer reference
 */
-void	Timer::tick (const Timer* timer)
+void	Timer::tick (Timer* timer)
 {
 	while (!timer->signal.wait (timer->period) || !timer->interrupt)
 		timer->callback ();

@@ -5,7 +5,7 @@
 #include "../config.hpp"
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-	#include <pthread>
+	#include <pthread.h>
 #elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif

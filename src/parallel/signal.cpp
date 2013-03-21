@@ -1,6 +1,10 @@
 
 #include "signal.hpp"
 
+#if defined(GLAY_LIBRARY_PTHREAD)
+#include <time.h>
+#endif
+
 GLAY_NS_BEGIN(Parallel)
 
 /*
@@ -13,6 +17,11 @@ GLAY_NS_BEGIN(Parallel)
 #if defined(GLAY_LIBRARY_PTHREAD)
 	this->handle = PTHREAD_COND_INITIALIZER;
 	this->mutex = PTHREAD_MUTEX_INITIALIZER;
+
+	manual = false; // FIXME
+
+	if (state)
+		this->set ();
 #elif defined(GLAY_OS_WINDOWS)
 	this->handle = ::CreateEvent (0, manual, state, 0);
 #endif
@@ -76,10 +85,15 @@ void	Signal::set ()
 /*
 ** Wait for signal until specified timeout expires.
 */
-bool	Signal::wait (Int32u timeout) const
+bool	Signal::wait (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-	return pthread_cond_timedwait (&this->handle, &this->mutex) == 0;
+	struct timespec delta;
+
+	delta.tv_sec = timeout / 1000;
+	delta.tv_nsec = timeout * 1000;
+
+	return pthread_cond_timedwait (&this->handle, &this->mutex, &delta) == 0;
 #elif defined(GLAY_OS_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
@@ -91,12 +105,12 @@ bool	Signal::wait (Int32u timeout) const
 /*
 ** Wait for signal.
 */
-void	Signal::wait () const
+bool	Signal::wait ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-	pthread_cond_wait (&this->handle, &this->mutex);
+	return pthread_cond_wait (&this->handle, &this->mutex) == 0;
 #elif defined(GLAY_OS_WINDOWS)
-	this->wait (INFINITE);
+	return this->wait (INFINITE);
 #endif
 }
 

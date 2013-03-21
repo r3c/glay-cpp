@@ -28,9 +28,9 @@ class	Timer
 		volatile bool			interrupt;
 		Int32u					period;
 		Signal					signal;
-		Thread<const Timer*>	thread;
+		Thread<Timer*>		thread;
 
-		static void	tick (const Timer*);
+		static void	tick (Timer*);
 };
 
 GLAY_NS_END()

@@ -5,7 +5,7 @@
 #include "../config.hpp"
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-	#include <pthread>
+	#include <pthread.h>
 #elif defined(GLAY_OS_WINDOWS)
 	#include <windows.h>
 #endif
@@ -24,8 +24,8 @@ class	Signal
 
 		void	reset ();
 		void	set ();
-		bool	wait (Int32u) const;
-		void	wait () const;
+		bool	wait (Int32u);
+		bool	wait ();
 
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
