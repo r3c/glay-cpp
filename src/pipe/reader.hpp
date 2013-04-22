@@ -11,8 +11,8 @@ GLAY_NS_BEGIN(Pipe)
 class	Reader
 {
 	public:
-		Reader (const Reader&);
-		Reader (IStream&);
+				Reader (const Reader&);
+				Reader (IStream&);
 		virtual	~Reader ();
 
 		Reader&	operator = (const Reader&);

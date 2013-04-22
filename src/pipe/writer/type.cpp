@@ -13,8 +13,4 @@ TypeWriter::TypeWriter (OStream& stream) :
 {
 }
 
-TypeWriter::~TypeWriter ()
-{
-}
-
 GLAY_NS_END()

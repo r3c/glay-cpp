@@ -13,8 +13,4 @@ TypeReader::TypeReader (IStream& stream) :
 {
 }
 
-TypeReader::~TypeReader ()
-{
-}
-
 GLAY_NS_END()

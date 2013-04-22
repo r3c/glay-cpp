@@ -11,7 +11,6 @@ class	TypeWriter : public Writer
 	public:
 		TypeWriter (const TypeWriter&);
 		TypeWriter (OStream&);
-		virtual	~TypeWriter ();
 
 		template<typename T>
 		bool	write (const T&);

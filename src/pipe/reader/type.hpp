@@ -11,7 +11,6 @@ class	TypeReader : public Reader
 	public:
 		TypeReader (const TypeReader&);
 		TypeReader (IStream&);
-		virtual	~TypeReader ();
 
 		TypeReader&	operator = (const TypeReader&);
 
