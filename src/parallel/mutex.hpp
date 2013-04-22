@@ -6,7 +6,7 @@
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 	#include <pthread.h>
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -28,7 +28,7 @@ class	Mutex
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
 		pthread_mutex_t	handle;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		HANDLE			handle;
 #else
 	#error "Glay::Parallel::Mutex can't be used on unsupported configuration"

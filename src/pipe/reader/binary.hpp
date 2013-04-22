@@ -1,6 +1,6 @@
 
-#ifndef __GLAY_PIPE_BINARYREADER_HPP
-#define __GLAY_PIPE_BINARYREADER_HPP
+#ifndef __GLAY_PIPE_READER_BINARY_HPP
+#define __GLAY_PIPE_READER_BINARY_HPP
 
 #include "../../config.hpp"
 #include "../../system/endian.hpp"
@@ -11,8 +11,11 @@ GLAY_NS_BEGIN(Pipe)
 class	BinaryReader : public Reader
 {
 	public:
+		BinaryReader (const BinaryReader&);
 		BinaryReader (IStream&, System::Endian::Endianness);
 		BinaryReader (IStream&);
+
+		BinaryReader&	operator = (const BinaryReader&);
 
 		Float32	readFloat32 ();
 		Float64	readFloat64 ();

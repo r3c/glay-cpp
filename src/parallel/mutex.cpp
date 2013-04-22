@@ -18,7 +18,7 @@ GLAY_NS_BEGIN(Parallel)
 
 	if (acquired)
 		this->acquire ();
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	this->handle = ::CreateMutex (0, acquired, 0);
 #endif
 }
@@ -29,7 +29,7 @@ GLAY_NS_BEGIN(Parallel)
 /**/	Mutex::~Mutex ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
 #endif
@@ -50,7 +50,7 @@ bool	Mutex::acquire (Int32u timeout)
 	delta.tv_nsec = timeout * 1000;
 
 	return pthread_mutex_timedlock (&this->handle, &delta) == 0;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	return this->handle && ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
 #endif
 }
@@ -62,7 +62,7 @@ bool	Mutex::acquire ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	return pthread_mutex_lock (&this->handle) == 0;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	return this->acquire (INFINITE);
 #endif
 }
@@ -74,7 +74,7 @@ void	Mutex::release ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_mutex_unlock (&this->handle);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::ReleaseMutex (this->handle);
 #endif

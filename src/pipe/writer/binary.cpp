@@ -17,78 +17,78 @@ BinaryWriter::BinaryWriter (OStream& stream) :
 {
 }
 
-void	BinaryWriter::writeFloat32 (Float32 value)
+bool	BinaryWriter::writeFloat32 (Float32 value)
 {
-	this->stream.write (&value, sizeof (value));
+	return this->stream.write (&value, sizeof (value)) == sizeof (value);
 }
 
-void	BinaryWriter::writeFloat64 (Float64 value)
+bool	BinaryWriter::writeFloat64 (Float64 value)
 {
-	this->stream.write (&value, sizeof (value));
+	return this->stream.write (&value, sizeof (value)) == sizeof (value);
 }
 
-void	BinaryWriter::writeInt8s (Int8s value)
+bool	BinaryWriter::writeInt8s (Int8s value)
 {
-	this->stream.write (&value, sizeof (value));
+	return this->stream.write (&value, sizeof (value)) == sizeof (value);
 }
 
-void	BinaryWriter::writeInt8u (Int8u value)
+bool	BinaryWriter::writeInt8u (Int8u value)
 {
-	this->stream.write (&value, sizeof (value));
+	return this->stream.write (&value, sizeof (value)) == sizeof (value);
 }
 
-void	BinaryWriter::writeInt16s (Int16s value)
+bool	BinaryWriter::writeInt16s (Int16s value)
 {
 	Int16s	buffer;
 
 	buffer = this->native.change16s (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-void	BinaryWriter::writeInt16u (Int16u value)
+bool	BinaryWriter::writeInt16u (Int16u value)
 {
 	Int16u	buffer;
 
 	buffer = this->native.change16u (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-void	BinaryWriter::writeInt32s (Int32s value)
+bool	BinaryWriter::writeInt32s (Int32s value)
 {
 	Int32s	buffer;
 
 	buffer = this->native.change32s (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-void	BinaryWriter::writeInt32u (Int32u value)
+bool	BinaryWriter::writeInt32u (Int32u value)
 {
 	Int32u	buffer;
 
 	buffer = this->native.change32u (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-void	BinaryWriter::writeInt64s (Int64s value)
+bool	BinaryWriter::writeInt64s (Int64s value)
 {
 	Int64s	buffer;
 
 	buffer = this->native.change64s (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-void	BinaryWriter::writeInt64u (Int64u value)
+bool	BinaryWriter::writeInt64u (Int64u value)
 {
 	Int64u	buffer;
 
 	buffer = this->native.change64u (value, this->target);
 
-	this->stream.write (&buffer, sizeof (buffer));
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
 GLAY_NS_END()

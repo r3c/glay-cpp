@@ -1,7 +1,7 @@
 
 #include "stopwatch.hpp"
 
-#ifdef GLAY_OS_WINDOWS
+#ifdef GLAY_SYSTEM_WINDOWS
 	#include <windows.h>
 #else
 	#include <time.h>
@@ -28,7 +28,7 @@ Int64u	Stopwatch::getResolution ()
 */
 Int64u	Stopwatch::getTicks ()
 {
-#ifdef GLAY_OS_WINDOWS
+#ifdef GLAY_SYSTEM_WINDOWS
 	#if _WIN32_WINNT >= 0x0600
 		return ::GetTickCount64 ();
 	#else

@@ -22,7 +22,7 @@ GLAY_NS_BEGIN(Parallel)
 
 	if (state)
 		this->set ();
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	this->handle = ::CreateEvent (0, manual, state, 0);
 #endif
 }
@@ -34,7 +34,7 @@ GLAY_NS_BEGIN(Parallel)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_cond_destroy (&this->handle);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
 #endif
@@ -48,7 +48,7 @@ GLAY_NS_BEGIN(Parallel)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, 0) == WAIT_OBJECT_0;
 #endif
@@ -63,7 +63,7 @@ void	Signal::reset ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::ResetEvent (this->handle);
 #endif
@@ -76,7 +76,7 @@ void	Signal::set ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_cond_signal (&this->handle);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::SetEvent (this->handle);
 #endif
@@ -94,7 +94,7 @@ bool	Signal::wait (Int32u timeout)
 	delta.tv_nsec = timeout * 1000;
 
 	return pthread_cond_timedwait (&this->handle, &this->mutex, &delta) == 0;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
 #endif
@@ -109,7 +109,7 @@ bool	Signal::wait ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	return pthread_cond_wait (&this->handle, &this->mutex) == 0;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	return this->wait (INFINITE);
 #endif
 }

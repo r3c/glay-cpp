@@ -13,13 +13,16 @@ SOURCE	= \
 	parallel/thread.cpp \
 	parallel/timer.cpp \
 	pipe/reader/binary.cpp \
+	pipe/reader/string.cpp \
 	pipe/reader/type.cpp \
 	pipe/stream/file.cpp \
 	pipe/stream/memory.cpp \
 	pipe/stream/seek.cpp \
 	pipe/writer/binary.cpp \
+	pipe/writer/string.cpp \
 	pipe/writer/type.cpp \
 	pipe/reader.cpp \
+	pipe/stream.cpp \
 	pipe/writer.cpp \
 	system/convert.cpp \
 	system/endian.cpp \

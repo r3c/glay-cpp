@@ -51,7 +51,7 @@ namespace
 		}
 	};
 }
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 #include <windows.h>
 
 namespace
@@ -145,7 +145,7 @@ void	Atomic::barrier ()
 /*
 Int8s	Atomic::compare (Int8s* target, Int8s current, Int8s replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -154,7 +154,7 @@ Int8s	Atomic::compare (Int8s* target, Int8s current, Int8s replace)
 
 Int8u	Atomic::compare (Int8u* target, Int8u current, Int8u replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -163,7 +163,7 @@ Int8u	Atomic::compare (Int8u* target, Int8u current, Int8u replace)
 
 Int16s	Atomic::compare (Int16s* target, Int16s current, Int16s replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -172,7 +172,7 @@ Int16s	Atomic::compare (Int16s* target, Int16s current, Int16s replace)
 
 Int16u	Atomic::compare (Int16u* target, Int16u current, Int16u replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (static_cast<LONG> (target), static_cast<LONG> (replace), static_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -181,7 +181,7 @@ Int16u	Atomic::compare (Int16u* target, Int16u current, Int16u replace)
 
 Int32s	Atomic::compare (Int32s* target, Int32s current, Int32s replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -190,7 +190,7 @@ Int32s	Atomic::compare (Int32s* target, Int32s current, Int32s replace)
 
 Int32u	Atomic::compare (Int32u* target, Int32u current, Int32u replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -199,7 +199,7 @@ Int32u	Atomic::compare (Int32u* target, Int32u current, Int32u replace)
 
 void*	Atomic::compare (void** target, void* current, void* replace)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	::InterlockedCompareExchange (reinterpret_cast<LONG> (target), reinterpret_cast<LONG> (replace), reinterpret_cast<LONG> (current));
 #else
 	return atomicCompare (target, current, replace);
@@ -208,7 +208,7 @@ void*	Atomic::compare (void** target, void* current, void* replace)
 
 Int8s	Atomic::decrement (Int8s* target, Int8s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicDecrement (target, value);
@@ -217,7 +217,7 @@ Int8s	Atomic::decrement (Int8s* target, Int8s value)
 
 Int8u	Atomic::decrement (Int8u* target, Int8u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicDecrement (target, value);
@@ -226,7 +226,7 @@ Int8u	Atomic::decrement (Int8u* target, Int8u value)
 
 Int16s	Atomic::decrement (Int16s* target, Int16s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicDecrement (target, value);
@@ -235,7 +235,7 @@ Int16s	Atomic::decrement (Int16s* target, Int16s value)
 
 Int16u	Atomic::decrement (Int16u* target, Int16u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicDecrement (target, value);
@@ -244,7 +244,7 @@ Int16u	Atomic::decrement (Int16u* target, Int16u value)
 
 Int32s	Atomic::decrement (Int32s* target, Int32s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedAdd (target, value);
 #else
 	return atomicDecrement (target, value);
@@ -253,7 +253,7 @@ Int32s	Atomic::decrement (Int32s* target, Int32s value)
 
 Int32u	Atomic::decrement (Int32u* target, Int32u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicDecrement (target, value);
@@ -297,7 +297,7 @@ void*	Atomic::exchange (void** target, void* value)
 /*
 Int8s	Atomic::increment (Int8s* target, Int8s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicIncrement (target, value);
@@ -306,7 +306,7 @@ Int8s	Atomic::increment (Int8s* target, Int8s value)
 
 Int8u	Atomic::increment (Int8u* target, Int8u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicIncrement (target, value);
@@ -315,7 +315,7 @@ Int8u	Atomic::increment (Int8u* target, Int8u value)
 
 Int16s	Atomic::increment (Int16s* target, Int16s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicIncrement (target, value);
@@ -324,7 +324,7 @@ Int16s	Atomic::increment (Int16s* target, Int16s value)
 
 Int16u	Atomic::increment (Int16u* target, Int16u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicIncrement (target, value);
@@ -333,7 +333,7 @@ Int16u	Atomic::increment (Int16u* target, Int16u value)
 
 Int32s	Atomic::increment (Int32s* target, Int32s value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	return ::InterlockedAdd (target, value);
 #else
 	return atomicIncrement (target, value);
@@ -342,7 +342,7 @@ Int32s	Atomic::increment (Int32s* target, Int32s value)
 
 Int32u	Atomic::increment (Int32u* target, Int32u value)
 {
-#if defined(GLAY_OS_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
+#if defined(GLAY_SYSTEM_WINDOWS) && defined(GLAY_PARALLEL_ATOMIC_NATIVE)
 	#error FIXME
 #else
 	return atomicIncrement (target, value);

@@ -1,6 +1,6 @@
 
-#ifndef __GLAY_PIPE_SEEKSTREAM_HPP
-#define __GLAY_PIPE_SEEKSTREAM_HPP
+#ifndef __GLAY_PIPE_STREAM_SEEK_HPP
+#define __GLAY_PIPE_STREAM_SEEK_HPP
 
 #include <vector>
 #include "../stream.hpp"
@@ -16,8 +16,8 @@ class	SeekStream
 			SEEK_RELATIVE
 		};
 
-				SeekStream (const SeekStream&);
-				SeekStream ();
+		SeekStream (const SeekStream&);
+		SeekStream ();
 		virtual	~SeekStream ();
 
 		SeekStream&		operator = (const SeekStream&);

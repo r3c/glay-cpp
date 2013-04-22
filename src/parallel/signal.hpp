@@ -6,7 +6,7 @@
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 	#include <pthread.h>
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -31,7 +31,7 @@ class	Signal
 #if defined(GLAY_LIBRARY_PTHREAD)
 		pthread_cond_t	handle;
 		pthread_mutex_t	mutex;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		HANDLE			handle;
 #else
 	#error "Glay::Parallel::Signal can't be used on unsupported OS"

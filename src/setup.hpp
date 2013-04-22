@@ -17,11 +17,11 @@
 #endif
 
 #if defined(__APPLE__)
-	#define GLAY_OS_MAXOSX
+	#define GLAY_SYSTEM_MAXOSX
 #elif defined(__linux__)
-	#define GLAY_OS_UNIX
+	#define GLAY_SYSTEM_UNIX
 #elif defined(__WIN32__) || defined(__WIN64__)
-	#define GLAY_OS_WINDOWS
+	#define GLAY_SYSTEM_WINDOWS
 
 	#define _WIN32_WINNT	0x0502
 	#define WINVER			0x0502

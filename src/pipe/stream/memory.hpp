@@ -1,6 +1,6 @@
 
-#ifndef __GLAY_PIPE_MEMORYSTREAM_HPP
-#define __GLAY_PIPE_MEMORYSTREAM_HPP
+#ifndef __GLAY_PIPE_STREAM_MEMORY_HPP
+#define __GLAY_PIPE_STREAM_MEMORY_HPP
 
 #include <string.h>
 #include "seek.hpp"
@@ -10,8 +10,8 @@ GLAY_NS_BEGIN(Pipe)
 class	MemoryIStream : public SeekIStream
 {
 	public:
-				MemoryIStream (const MemoryIStream&);
-				MemoryIStream (const void*, Int32u = INT32U_MAX);
+		MemoryIStream (const MemoryIStream&);
+		MemoryIStream (const void*, Int32u = INT32U_MAX);
 		virtual	~MemoryIStream ();
 
 		MemoryIStream&	operator = (const MemoryIStream&);
@@ -30,8 +30,8 @@ class	MemoryIStream : public SeekIStream
 class	MemoryIOStream : public MemoryIStream, public SeekOStream
 {
 	public:
-				MemoryIOStream (const MemoryIOStream&);
-				MemoryIOStream (void*, Int32u = INT32U_MAX);
+		MemoryIOStream (const MemoryIOStream&);
+		MemoryIOStream (void*, Int32u = INT32U_MAX);
 		virtual	~MemoryIOStream ();
 
 		MemoryIOStream&	operator = (const MemoryIOStream&);

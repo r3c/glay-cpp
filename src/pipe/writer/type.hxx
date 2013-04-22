@@ -4,9 +4,9 @@
 GLAY_NS_BEGIN(Pipe)
 
 template<typename T>
-bool	TypeWriter::write (const T* buffer)
+bool	TypeWriter::write (const T& buffer)
 {
-	return this->stream.write (buffer, sizeof (T)) == sizeof (T);
+	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
 GLAY_NS_END()

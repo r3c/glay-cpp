@@ -8,7 +8,7 @@
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 	#include <pthread.h>
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	#include <windows.h>
 #endif
 
@@ -46,7 +46,7 @@ class	ThreadBase
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 		pthread_t	handle;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		HANDLE		handle;
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
@@ -57,7 +57,7 @@ class	ThreadBase
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
                 static void*	execute (void*);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		__stdcall static unsigned	execute (void*);
 #endif
 

@@ -1,6 +1,6 @@
 
-#ifndef __GLAY_PIPE_FILESTREAM_HPP
-#define __GLAY_PIPE_FILESTREAM_HPP
+#ifndef __GLAY_PIPE_STREAM_FILE_HPP
+#define __GLAY_PIPE_STREAM_FILE_HPP
 
 #include <cstdio>
 #include "seek.hpp"
@@ -26,9 +26,9 @@ class	FileStream : public virtual SeekStream
 class	FileIStream : public FileStream, public SeekIStream
 {
 	public:
-				FileIStream (const FileIStream&);
-				FileIStream (const char*);
-				FileIStream (FILE*);
+		FileIStream (const FileIStream&);
+		FileIStream (const char*);
+		FileIStream (FILE*);
 		virtual	~FileIStream ();
 
 		FileIStream&	operator = (const FileIStream&);
@@ -40,9 +40,9 @@ class	FileIStream : public FileStream, public SeekIStream
 class	FileOStream : public FileStream, public SeekOStream
 {
 	public:
-				FileOStream (const FileOStream&);
-				FileOStream (const char*, bool = false);
-				FileOStream (FILE*);
+		FileOStream (const FileOStream&);
+		FileOStream (const char*, bool = false);
+		FileOStream (FILE*);
 		virtual	~FileOStream ();
 
 		FileOStream&	operator = (const FileOStream&);

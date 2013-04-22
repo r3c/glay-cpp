@@ -1,7 +1,7 @@
 
 #include "thread.hpp"
 
-#ifdef GLAY_OS_WINDOWS
+#ifdef GLAY_SYSTEM_WINDOWS
 	#include <process.h>
 #endif
 
@@ -15,7 +15,7 @@ GLAY_NS_BEGIN(Parallel)
 */
 #if defined(GLAY_LIBRARY_PTHREAD)
 void*	ThreadBase::execute (void* data)
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 __stdcall unsigned	ThreadBase::execute (void* data)
 #endif
 {
@@ -26,7 +26,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_exit (0);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	::_endthreadex (0);
 #endif
 
@@ -53,7 +53,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 		this->identifier = 0;
 
 	stackSize = 0; // FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	unsigned	address;
 
 	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &address);
@@ -69,7 +69,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
 		pthread_cancel (this->handle);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
 #endif
@@ -87,7 +87,7 @@ void	ThreadBase::abort ()
 #if defined(GLAY_LIBRARY_PTHREAD)
 		if (this->identifier != 0)
 			pthread_cancel (this->handle);
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::TerminateThread (this->handle, 0);
 #endif
@@ -137,7 +137,7 @@ bool	ThreadBase::join (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	timeout = 0; // FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		return ::WaitForSingleObject (this->handle, timeout) == WAIT_OBJECT_0;
 #endif
@@ -153,7 +153,7 @@ bool	ThreadBase::join ()
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
 		return pthread_join (this->handle, 0) == 0;
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 	return this->join (INFINITE);
 #endif
 
@@ -171,7 +171,7 @@ void	ThreadBase::pause ()
 	{
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::SuspendThread (this->handle);
 
@@ -195,7 +195,7 @@ void	ThreadBase::resume ()
 	{
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 
@@ -239,7 +239,7 @@ void	Thread<void>::start ()
 	{
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 #endif

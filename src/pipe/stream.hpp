@@ -11,9 +11,9 @@ GLAY_NS_BEGIN(Pipe)
 class	IStream
 {
 	public:
-		virtual			~IStream () {};
+		virtual	~IStream ();
 
-		virtual 		operator bool () const = 0;
+		virtual operator bool () const = 0;
 
 		virtual size_t	read (void*, size_t) = 0;
 };
@@ -21,9 +21,9 @@ class	IStream
 class	OStream
 {
 	public:
-		virtual			~OStream () {};
+		virtual	~OStream ();
 
-		virtual			operator bool () const = 0;
+		virtual	operator bool () const = 0;
 
 		virtual size_t	write (const void*, size_t) = 0;
 };
