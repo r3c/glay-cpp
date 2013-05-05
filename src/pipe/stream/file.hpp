@@ -56,9 +56,9 @@ class	FileOStream : public FileStream, public SeekOStream
 		virtual size_t	write (const void*, size_t);
 };
 
-extern const FileOStream	err;
-extern const FileIStream	in;
-extern const FileOStream	out;
+extern FileOStream	err;
+extern FileIStream	in;
+extern FileOStream	out;
 
 GLAY_NS_END()
 

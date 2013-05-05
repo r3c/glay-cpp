@@ -6,9 +6,9 @@ GLAY_NS_BEGIN(Pipe)
 /*
 ** Global constants.
 */
-const FileOStream	err (stderr);
-const FileIStream	in (stdin);
-const FileOStream	out (stdout);
+FileOStream	err (stderr);
+FileIStream	in (stdin);
+FileOStream	out (stdout);
 
 /**
 ** FileStream
