@@ -3,30 +3,49 @@
 
 GLAY_NS_BEGIN(Pipe)
 
+/*
+** Global constants.
+*/
+const FileOStream	err (stderr);
+const FileIStream	in (stdin);
+const FileOStream	out (stdout);
+
 /**
 ** FileStream
 ** Abstract stream on a physical file.
 **/
-FileStream::FileStream (FILE* file, bool own) :
-	file (file),
-	own (own)
+FileStream::FileStream () :
+	file (0),
+	own (false)
 {
 }
 
 FileStream::~FileStream ()
 {
-	if (this->own)
-		this->close ();
+	this->close ();
 }
 
 void	FileStream::close ()
 {
 	if (this->file)
 	{
-		fclose (this->file);
+		if (this->own)
+			fclose (this->file);
 
 		this->file = 0;
 	}
+
+	this->own = false;
+}
+
+bool	FileStream::open (FILE* file)
+{
+	this->close ();
+
+	this->file = file;
+	this->own = false;
+
+	return this;
 }
 
 void	FileStream::seek (size_t offset, SeekMode mode)
@@ -60,13 +79,17 @@ size_t	FileStream::tell () const
 ** FileIStream
 ** Input stream on a physical file.
 **/
-FileIStream::FileIStream (const char* path) :
-	FileStream (fopen (path, "rb"), true)
+FileIStream::FileIStream (const char* path)
 {
+	this->open (path);
 }
 
-FileIStream::FileIStream (FILE* file) :
-	FileStream (file, false)
+FileIStream::FileIStream (FILE* file)
+{
+	this->FileStream::open (file);
+}
+
+FileIStream::FileIStream ()
 {
 }
 
@@ -77,6 +100,16 @@ FileIStream::~FileIStream ()
 FileIStream::operator bool () const
 {
 	return this->file;
+}
+
+bool	FileIStream::open (const char* path)
+{
+	this->close ();
+
+	this->file = fopen (path, "rb");
+	this->own = true;
+
+	return this;
 }
 
 size_t	FileIStream::read (void* buffer, size_t size)
@@ -91,13 +124,17 @@ size_t	FileIStream::read (void* buffer, size_t size)
 ** FileOStream
 ** Output stream on a physical file.
 **/
-FileOStream::FileOStream (const char* path, bool append) :
-	FileStream (fopen (path, append ? "ab" : "wb"), true)
+FileOStream::FileOStream (const char* path, bool append)
 {
+	this->open (path, append);
 }
 
-FileOStream::FileOStream (FILE* file) :
-	FileStream (file, false)
+FileOStream::FileOStream (FILE* file)
+{
+	this->FileStream::open (file);
+}
+
+FileOStream::FileOStream ()
 {
 }
 
@@ -108,6 +145,16 @@ FileOStream::~FileOStream ()
 FileOStream::operator bool () const
 {
 	return this->file;
+}
+
+bool	FileOStream::open (const char* path, bool append)
+{
+	this->close ();
+
+	this->file = fopen (path, append ? "ab" : "wb");
+	this->own = true;
+
+	return this;
 }
 
 size_t	FileOStream::write (const void* buffer, size_t size)

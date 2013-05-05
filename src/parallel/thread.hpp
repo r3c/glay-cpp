@@ -32,8 +32,8 @@ class	ThreadBase
 
 		ThreadBase&	operator = (const ThreadBase&);
 
-		Int32u	getIdentifier ();
-		State	getState ();
+		Int32u	getIdentifier () const;
+		State	getState () const;
 
 		void	abort ();
 		bool	join (Int32u);
@@ -45,14 +45,15 @@ class	ThreadBase
 		virtual void	invoke () = 0;
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-		pthread_t	handle;
+		pthread_attr_t	attribute;
+		pthread_t		thread;
 #elif defined(GLAY_SYSTEM_WINDOWS)
-		HANDLE		handle;
+		HANDLE	handle;
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
 #endif
-		Mutex	mutex;
-		State	state;
+		mutable Mutex	mutex;
+		State			state;
 
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)

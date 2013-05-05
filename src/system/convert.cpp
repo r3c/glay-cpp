@@ -33,7 +33,7 @@ namespace
 		char	buffer[64];
 		Int32u	use;
 
-		use = sprintf (buffer, "%.10f",value);
+		use = sprintf (buffer, "%.10f", value);
 
 		if (use > length)
 			return 0;

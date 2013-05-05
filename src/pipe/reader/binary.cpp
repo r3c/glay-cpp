@@ -1,6 +1,7 @@
 
 #include "binary.hpp"
 
+using namespace std;
 using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
@@ -106,6 +107,26 @@ Int64u	BinaryReader::readInt64u ()
 	this->read (&value, sizeof (value));
 
 	return this->source.change64u (value, this->native);
+}
+
+string	BinaryReader::readString ()
+{
+	char	buffer;
+	Int32u	length;
+	string	value;
+
+	length = this->readInt32u ();
+	value.reserve (length);
+
+	while (length-- > 0)
+	{
+		if (this->read (&buffer, sizeof (buffer)) != sizeof (buffer))
+			return "";
+
+		value.push_back (buffer);
+	}
+
+	return value;
 }
 
 GLAY_NS_END()

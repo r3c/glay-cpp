@@ -13,11 +13,12 @@ class	FileStream : public virtual SeekStream
 		virtual	~FileStream ();
 
 		void			close ();
+		bool			open (FILE*);
 		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
 		virtual size_t	tell () const;
 
 	protected:
-		FileStream (FILE*, bool);
+		FileStream ();
 
 		FILE*	file;
 		bool	own;
@@ -26,30 +27,38 @@ class	FileStream : public virtual SeekStream
 class	FileIStream : public FileStream, public SeekIStream
 {
 	public:
-				FileIStream (const FileIStream&);
-				FileIStream (const char*);
-				FileIStream (FILE*);
+		FileIStream (const FileIStream&);
+		FileIStream (const char*);
+		FileIStream (FILE*);
+		FileIStream ();
 		virtual	~FileIStream ();
 
 		FileIStream&	operator = (const FileIStream&);
 		virtual 		operator bool () const;
 
+		bool			open (const char*);
 		virtual size_t	read (void*, size_t);
 };
 
 class	FileOStream : public FileStream, public SeekOStream
 {
 	public:
-				FileOStream (const FileOStream&);
-				FileOStream (const char*, bool = false);
-				FileOStream (FILE*);
+		FileOStream (const FileOStream&);
+		FileOStream (const char*, bool = false);
+		FileOStream (FILE*);
+		FileOStream ();
 		virtual	~FileOStream ();
 
 		FileOStream&	operator = (const FileOStream&);
 		virtual			operator bool () const;
 
+		bool			open (const char*, bool = false);
 		virtual size_t	write (const void*, size_t);
 };
+
+extern const FileOStream	err;
+extern const FileIStream	in;
+extern const FileOStream	out;
 
 GLAY_NS_END()
 

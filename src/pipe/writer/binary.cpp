@@ -1,6 +1,7 @@
 
 #include "binary.hpp"
 
+using namespace std;
 using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
@@ -89,6 +90,17 @@ bool	BinaryWriter::writeInt64u (Int64u value)
 	buffer = this->native.change64u (value, this->target);
 
 	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
+}
+
+bool	BinaryWriter::writeString (const string& value)
+{
+	const char*	buffer;
+	Int32u		length;
+
+	buffer = value.data ();
+	length = value.length ();
+
+	return this->stream.write (buffer, length * sizeof (*buffer)) == length;
 }
 
 GLAY_NS_END()

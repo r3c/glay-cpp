@@ -2,6 +2,7 @@
 #ifndef __GLAY_PIPE_WRITER_BINARY_HPP
 #define __GLAY_PIPE_WRITER_BINARY_HPP
 
+#include <string>
 #include "../../config.hpp"
 #include "../../system/endian.hpp"
 #include "../writer.hpp"
@@ -27,6 +28,7 @@ class	BinaryWriter : public Writer
 		bool	writeInt32u (Int32u);
 		bool	writeInt64s (Int64s);
 		bool	writeInt64u (Int64u);
+		bool	writeString (const std::string&);
 
 	private:
 		System::Endian				native;

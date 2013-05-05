@@ -2,6 +2,7 @@
 #ifndef __GLAY_PIPE_READER_BINARY_HPP
 #define __GLAY_PIPE_READER_BINARY_HPP
 
+#include <string>
 #include "../../config.hpp"
 #include "../../system/endian.hpp"
 #include "../reader.hpp"
@@ -17,16 +18,17 @@ class	BinaryReader : public Reader
 
 		BinaryReader&	operator = (const BinaryReader&);
 
-		Float32	readFloat32 ();
-		Float64	readFloat64 ();
-		Int8s	readInt8s ();
-		Int8u	readInt8u ();
-		Int16s	readInt16s ();
-		Int16u	readInt16u ();
-		Int32s	readInt32s ();
-		Int32u	readInt32u ();
-		Int64s	readInt64s ();
-		Int64u	readInt64u ();
+		Float32		readFloat32 ();
+		Float64		readFloat64 ();
+		Int8s		readInt8s ();
+		Int8u		readInt8u ();
+		Int16s		readInt16s ();
+		Int16u		readInt16u ();
+		Int32s		readInt32s ();
+		Int32u		readInt32u ();
+		Int64s		readInt64s ();
+		Int64u		readInt64u ();
+		std::string	readString ();
 
 	private:
 		System::Endian::Endianness	native;

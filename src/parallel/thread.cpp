@@ -47,12 +47,17 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 	state (STATE_READY)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-	if (pthread_create (&this->handle, 0, ThreadBase::execute, reinterpret_cast<void*> (this)) == 0)
-		this->identifier = 1; // FIXME
+	if (pthread_attr_init (&this->attribute) == 0)
+	{
+		pthread_attr_setstacksize (&this->attribute, stackSize);
+
+		if (pthread_create (&this->thread, 0, ThreadBase::execute, reinterpret_cast<void*> (this)) == 0)
+			this->identifier = this->thread.x;
+		else
+			this->identifier = 0;
+	}
 	else
 		this->identifier = 0;
-
-	stackSize = 0; // FIXME
 #elif defined(GLAY_SYSTEM_WINDOWS)
 	unsigned	address;
 
@@ -68,7 +73,10 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
-		pthread_cancel (this->handle);
+	{
+		pthread_attr_destroy (&this->attribute);
+		pthread_cancel (this->thread);
+	}
 #elif defined(GLAY_SYSTEM_WINDOWS)
 	if (this->handle)
 		::CloseHandle (this->handle);
@@ -86,7 +94,7 @@ void	ThreadBase::abort ()
 	{
 #if defined(GLAY_LIBRARY_PTHREAD)
 		if (this->identifier != 0)
-			pthread_cancel (this->handle);
+			pthread_cancel (this->thread);
 #elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::TerminateThread (this->handle, 0);
@@ -104,7 +112,7 @@ void	ThreadBase::abort ()
 ** Get thread unique identifier.
 ** return:	thread identifier
 */
-Int32u	ThreadBase::getIdentifier ()
+Int32u	ThreadBase::getIdentifier () const
 {
 	return this->identifier;
 }
@@ -113,7 +121,7 @@ Int32u	ThreadBase::getIdentifier ()
 ** Get current thread state.
 ** return:	thread state
 */
-ThreadBase::State	ThreadBase::getState ()
+ThreadBase::State	ThreadBase::getState () const
 {
 	State	state;
 
@@ -152,7 +160,7 @@ bool	ThreadBase::join ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
-		return pthread_join (this->handle, 0) == 0;
+		return pthread_join (this->thread, 0) == 0;
 #elif defined(GLAY_SYSTEM_WINDOWS)
 	return this->join (INFINITE);
 #endif
