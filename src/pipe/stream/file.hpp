@@ -14,10 +14,11 @@ class	FileStream : public virtual SeekStream
 
 		void			close ();
 		bool			open (FILE*);
-		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
-		virtual size_t	tell () const;
+		virtual void	seek (Int32u, SeekMode = SEEK_ABSOLUTE);
+		virtual Int32u	tell () const;
 
 	protected:
+		FileStream (const FileStream&);
 		FileStream ();
 
 		FILE*	file;
@@ -37,7 +38,7 @@ class	FileIStream : public FileStream, public SeekIStream
 		virtual 		operator bool () const;
 
 		bool			open (const char*);
-		virtual size_t	read (void*, size_t);
+		virtual Int32u	read (void*, Int32u);
 };
 
 class	FileOStream : public FileStream, public SeekOStream
@@ -53,7 +54,7 @@ class	FileOStream : public FileStream, public SeekOStream
 		virtual			operator bool () const;
 
 		bool			open (const char*, bool = false);
-		virtual size_t	write (const void*, size_t);
+		virtual Int32u	write (const void*, Int32u);
 };
 
 extern FileOStream	err;

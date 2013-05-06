@@ -30,6 +30,9 @@ class	BinaryReader : public Reader
 		Int64u		readInt64u ();
 		std::string	readString ();
 
+		template<typename T>
+		T			read ();
+
 	private:
 		System::Endian::Endianness	native;
 		System::Endian				source;

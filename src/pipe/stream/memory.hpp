@@ -2,12 +2,25 @@
 #ifndef __GLAY_PIPE_STREAM_MEMORY_HPP
 #define __GLAY_PIPE_STREAM_MEMORY_HPP
 
-#include <string.h>
 #include "seek.hpp"
 
 GLAY_NS_BEGIN(Pipe)
 
-class	MemoryIStream : public SeekIStream
+class	MemoryStream : public virtual SeekStream
+{
+	public:
+		virtual void	seek (Int32u, SeekMode = SEEK_ABSOLUTE);
+		virtual Int32u	tell () const;
+
+	protected:
+		MemoryStream (const MemoryStream&);
+		MemoryStream (Int32u, Int32u);
+
+		Int32u	capacity;
+		Int32u	cursor;
+};
+
+class	MemoryIStream : public MemoryStream, public SeekIStream
 {
 	public:
 		MemoryIStream (const MemoryIStream&);
@@ -16,27 +29,34 @@ class	MemoryIStream : public SeekIStream
 		MemoryIStream&	operator = (const MemoryIStream&);
 		virtual 		operator bool () const;
 
-		virtual size_t	read (void*, size_t);
-		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
-		virtual size_t	tell () const;
+		const Int8s*	getBuffer () const;
+		Int32u			getSize () const;
+
+		virtual Int32u	read (void*, Int32u);
 
 	protected:
-		size_t			capacity;
-		size_t			cursor;
 		const Int8s*	source;
 };
 
-class	MemoryIOStream : public MemoryIStream, public SeekOStream
+class	MemoryOStream : public MemoryStream, public SeekOStream
 {
 	public:
-		MemoryIOStream (const MemoryIOStream&);
-		MemoryIOStream (void*, Int32u = INT32U_MAX);
+		MemoryOStream (const MemoryOStream&);
+		MemoryOStream (void*, Int32u = INT32U_MAX);
+		MemoryOStream ();
+		virtual ~MemoryOStream ();
 
-		MemoryIOStream&	operator = (const MemoryIOStream&);
+		MemoryOStream&	operator = (const MemoryOStream&);
+		virtual 		operator bool () const;
 
-		virtual size_t	write (const void*, size_t);
+		const Int8s*	getBuffer () const;
+		Int8s*			getBuffer ();
+		Int32u			getSize () const;
+
+		virtual Int32u	write (const void*, Int32u);
 
 	private:
+		bool	allocate;
 		Int8s*	target;
 };
 

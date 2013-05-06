@@ -16,7 +16,7 @@ void	Timer::tick (Timer* timer)
 /*
 ** Timer default constructor.
 */
-/**/	Timer::Timer (Callback callback, int period) :
+Timer::Timer (Callback callback, Int32u period) :
 	callback (callback),
 	interrupt (false),
 	period (period),
@@ -24,7 +24,7 @@ void	Timer::tick (Timer* timer)
 {
 }
 
-/**/	Timer::~Timer ()
+Timer::~Timer ()
 {
 	this->interrupt = true;
 	this->signal.set ();

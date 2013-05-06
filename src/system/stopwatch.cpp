@@ -7,8 +7,6 @@
 	#include <time.h>
 #endif
 
-#define GLAY_SYSTEM_STOPWATCH_RESOLUTION	1000
-
 using namespace Glay;
 
 GLAY_NS_BEGIN(System)
@@ -19,7 +17,7 @@ GLAY_NS_BEGIN(System)
 */
 Int64u	Stopwatch::getResolution ()
 {
-	return GLAY_SYSTEM_STOPWATCH_RESOLUTION;
+	return GLAY_MODULE_SYSTEM_STOPWATCH_RESOLUTION;
 }
 
 /*
@@ -40,7 +38,7 @@ Int64u	Stopwatch::getTicks ()
 	if (clock_gettime (CLOCK_MONOTONIC, &ts) != 0)
 		return 0;
 
-	return ts.tv_sec * GLAY_SYSTEM_STOPWATCH_RESOLUTION + ts.tv_nsec * GLAY_SYSTEM_STOPWATCH_RESOLUTION / 1000000;
+	return ts.tv_sec * GLAY_MODULE_SYSTEM_STOPWATCH_RESOLUTION + ts.tv_nsec * GLAY_MODULE_SYSTEM_STOPWATCH_RESOLUTION / 1000000;
 #endif
 }
 

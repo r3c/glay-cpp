@@ -23,6 +23,11 @@ namespace
 
 GLAY_NS_BEGIN(Pipe)
 
+FormatWriter::FormatWriter (const FormatWriter& other) :
+	Writer (other.stream)
+{
+}
+
 FormatWriter::FormatWriter (OStream& stream) :
 	Writer (stream)
 {
@@ -36,6 +41,34 @@ FormatWriter&	FormatWriter::write (Float32 value)
 }
 
 FormatWriter&	FormatWriter::write (Float64 value)
+{
+	writeConvert (this->stream, Convert::toString, value);
+
+	return *this;
+}
+
+FormatWriter&	FormatWriter::write (Int8s value)
+{
+	writeConvert (this->stream, Convert::toString, value);
+
+	return *this;
+}
+
+FormatWriter&	FormatWriter::write (Int8u value)
+{
+	writeConvert (this->stream, Convert::toString, value);
+
+	return *this;
+}
+
+FormatWriter&	FormatWriter::write (Int16s value)
+{
+	writeConvert (this->stream, Convert::toString, value);
+
+	return *this;
+}
+
+FormatWriter&	FormatWriter::write (Int16u value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 

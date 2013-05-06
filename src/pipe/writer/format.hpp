@@ -18,6 +18,10 @@ class	FormatWriter : public Writer
 
 		FormatWriter&	write (Float32);
 		FormatWriter&	write (Float64);
+		FormatWriter&	write (Int8s);
+		FormatWriter&	write (Int8u);
+		FormatWriter&	write (Int16s);
+		FormatWriter&	write (Int16u);
 		FormatWriter&	write (Int32s);
 		FormatWriter&	write (Int32u);
 		FormatWriter&	write (Int64s);

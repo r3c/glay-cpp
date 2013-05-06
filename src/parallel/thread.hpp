@@ -12,8 +12,6 @@
 	#include <windows.h>
 #endif
 
-#define GLAY_PARALLEL_THREAD_STACK_SIZE	10 * 1024 * 1024
-
 GLAY_NS_BEGIN(Parallel)
 
 class	ThreadBase
@@ -26,8 +24,8 @@ class	ThreadBase
 			STATE_READY		// Thread is available for use
 		};
 
-				ThreadBase (const ThreadBase&);
-				ThreadBase (Int32u);
+		ThreadBase (const ThreadBase&);
+		ThreadBase (Int32u);
 		virtual	~ThreadBase ();
 
 		ThreadBase&	operator = (const ThreadBase&);
@@ -71,7 +69,7 @@ class	Thread : public ThreadBase
 	public:
 		typedef void	(*Callback) (T);
 
-		Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		Thread (Callback, Int32u = GLAY_MODULE_PARALLEL_THREAD_STACK_SIZE);
 
 		void	start (const T&);
 
@@ -89,7 +87,7 @@ class	Thread<void> : public ThreadBase
 	public:
 		typedef void	(*Callback) ();
 
-		Thread (Callback, Int32u = GLAY_PARALLEL_THREAD_STACK_SIZE);
+		Thread (Callback, Int32u = GLAY_MODULE_PARALLEL_THREAD_STACK_SIZE);
 
 		void	start ();
 

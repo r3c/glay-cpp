@@ -32,7 +32,7 @@ rebuild: clean build
 run: build
 	$(TARGET)
 
-units: $(UNITS)
+tests: $(TESTS)
 
 -include $(DEPENDS_C)
 -include $(DEPENDS_CXX)
@@ -57,4 +57,4 @@ $(TEST)/%.exe: $(TEST)/%.cpp $(TARGET)
 #	$(CXX) $(CXXFLAGS) -o "$@" -L"$(dirname $(TARGET))" -l"$(basename $(TARGET))" "$<"
 	$(CXX) $(CXXFLAGS) -o "$@" $(TARGET) "$<"
 
-.PHONY: build clean distclean rebuild run units
+.PHONY: build clean distclean rebuild run tests

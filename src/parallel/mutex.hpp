@@ -15,8 +15,8 @@ GLAY_NS_BEGIN(Parallel)
 class	Mutex
 {
 	public:
-				Mutex (const Mutex&);
-				Mutex (bool = false);
+		Mutex (const Mutex&);
+		Mutex (bool = false);
 		virtual	~Mutex ();
 
 		Mutex&	operator = (const Mutex&);

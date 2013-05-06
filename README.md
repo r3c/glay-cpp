@@ -9,7 +9,7 @@ My small utility library for C++.
 Installation
 ------------
 
-Currently builds only on Windows.
+Currently works only on Windows (mostly because of the "parallel" module).
 
 Grab a C++ compiler compatible with basic C++11 features such as GCC, update
 the Makefile.conf if needed and run make.

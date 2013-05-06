@@ -1,3 +1,4 @@
+
 #ifndef __GLAY_PARALLEL_TIMER_HPP
 #define __GLAY_PARALLEL_TIMER_HPP
 
@@ -12,7 +13,7 @@ class	Timer
 	public:
 		typedef void	(*Callback) ();
 
-				Timer (Callback, int);
+		Timer (Callback, Int32u);
 		virtual	~Timer ();
 
 		Int32u	getPeriod () const;
@@ -24,13 +25,13 @@ class	Timer
 		void	stop ();
 
 	private:
-		Callback				callback;
-		volatile bool			interrupt;
-		Int32u					period;
-		Signal					signal;
-		Thread<Timer*>		thread;
-
 		static void	tick (Timer*);
+
+		Callback		callback;
+		volatile bool	interrupt;
+		Int32u			period;
+		Signal			signal;
+		Thread<Timer*>	thread;
 };
 
 GLAY_NS_END()

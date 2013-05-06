@@ -30,11 +30,16 @@ class	BinaryWriter : public Writer
 		bool	writeInt64u (Int64u);
 		bool	writeString (const std::string&);
 
+		template<typename T>
+		bool	write (const T&);
+
 	private:
 		System::Endian				native;
 		System::Endian::Endianness	target;
 };
 
 GLAY_NS_END()
+
+#include "binary.hxx"
 
 #endif

@@ -6,6 +6,13 @@ using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 
+BinaryWriter::BinaryWriter (const BinaryWriter& other) :
+	Writer (other),
+	native (other.native),
+	target (other.target)
+{
+}
+
 BinaryWriter::BinaryWriter (OStream& stream, Endian::Endianness target) :
 	Writer (stream),
 	target (target)

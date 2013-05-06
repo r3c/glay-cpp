@@ -1,10 +1,10 @@
 
-#include "type.hpp"
+#include "binary.hpp"
 
 GLAY_NS_BEGIN(Pipe)
 
 template<typename T>
-bool	TypeWriter::write (const T& buffer)
+bool	BinaryWriter::write (const T& buffer)
 {
 	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }

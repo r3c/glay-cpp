@@ -1,7 +1,50 @@
 
 #include "memory.hpp"
 
+#include <cstdlib>
+#include <cstring>
+
+using namespace std;
+
 GLAY_NS_BEGIN(Pipe)
+
+/**
+** MemoryStream
+** Abstract stream on memory buffer.
+**/
+MemoryStream::MemoryStream (const MemoryStream& other) :
+	SeekStream (other),
+	capacity (other.capacity),
+	cursor (other.cursor)
+{
+}
+
+MemoryStream::MemoryStream (Int32u capacity, Int32u cursor) :
+	capacity (capacity),
+	cursor (cursor)
+{
+}
+
+void	MemoryStream::seek (Int32u offset, SeekMode mode)
+{
+	switch (mode)
+	{
+		case SEEK_ABSOLUTE:
+			this->cursor = min (offset, this->capacity);
+
+			break;
+
+		case SEEK_RELATIVE:
+			this->cursor = min (this->cursor + offset, this->capacity);
+
+			break;
+	}
+}
+
+Int32u	MemoryStream::tell () const
+{
+	return this->cursor;
+}
 
 /**
 ** MemoryIStream
@@ -9,26 +52,23 @@ GLAY_NS_BEGIN(Pipe)
 **/
 MemoryIStream::MemoryIStream (const MemoryIStream& other) :
 	SeekStream (other),
-	capacity (other.capacity),
-	cursor (other.cursor),
+	MemoryStream (other),	
 	source (other.source)
 {
 }
 
 MemoryIStream::MemoryIStream (const void* source, Int32u capacity) :
-	capacity (capacity),
-	cursor (0),
+	MemoryStream (capacity, 0),
 	source (static_cast<const Int8s*> (source))
 {
 }
 
 MemoryIStream&	MemoryIStream::operator = (const MemoryIStream& other)
 {
+	MemoryStream::operator = (other);
 	SeekStream::operator = (other);
 
-	this->capacity = capacity;
-	this->cursor = cursor;
-	this->source = source;
+	this->source = other.source;
 
 	return *this;
 }
@@ -38,9 +78,19 @@ MemoryIStream::operator	bool () const
 	return true;
 }
 
-size_t	MemoryIStream::read (void* target, size_t size)
+const Int8s*	MemoryIStream::getBuffer () const
 {
-	size = std::min (size, this->capacity - this->cursor);
+	return this->source;
+}
+
+Int32u	MemoryIStream::getSize () const
+{
+	return this->cursor;
+}
+
+Int32u	MemoryIStream::read (void* target, Int32u size)
+{
+	size = min (size, this->capacity - this->cursor);
 
 	memcpy (target, this->source + this->cursor, size);
 
@@ -49,59 +99,92 @@ size_t	MemoryIStream::read (void* target, size_t size)
 	return size;
 }
 
-void	MemoryIStream::seek (size_t offset, SeekMode mode)
-{
-	switch (mode)
-	{
-		case SEEK_ABSOLUTE:
-			this->cursor = std::min (offset, this->capacity);
-
-			break;
-
-		case SEEK_RELATIVE:
-			this->cursor = std::min (this->cursor + offset, this->capacity);
-
-			break;
-	}
-}
-
-size_t	MemoryIStream::tell () const
-{
-	return this->cursor;
-}
-
 /**
-** MemoryIOStream
-** In-memory readable and writable stream.
+** MemoryOStream
+** In-memory writable stream.
 **/
-MemoryIOStream::MemoryIOStream (const MemoryIOStream& other) :
+MemoryOStream::MemoryOStream (const MemoryOStream& other) :
 	SeekStream (other),
-	MemoryIStream (other),
+	MemoryStream (other),
+	allocate (false),
 	target (other.target)
 {
 }
 
-MemoryIOStream::MemoryIOStream (void* buffer, Int32u capacity) :
-	MemoryIStream (buffer, capacity),
+MemoryOStream::MemoryOStream (void* buffer, Int32u capacity) :
+	MemoryStream (capacity, 0),
+	allocate (false),
 	target (static_cast<Int8s*> (buffer))
 {
 }
 
-MemoryIOStream&	MemoryIOStream::operator = (const MemoryIOStream& other)
+MemoryOStream::MemoryOStream () :
+	MemoryStream (0, 0),
+	allocate (true),
+	target (0)
 {
-	SeekStream::operator = (other);
-	MemoryIStream::operator = (other);
+}
 
+MemoryOStream::~MemoryOStream ()
+{
+	if (this->allocate && this->target)
+		free (this->target);
+}
+
+MemoryOStream&	MemoryOStream::operator = (const MemoryOStream& other)
+{
+	MemoryStream::operator = (other);
+	SeekStream::operator = (other);
+
+	this->allocate = false;
 	this->target = other.target;
 
 	return *this;
 }
 
-size_t	MemoryIOStream::write (const void* source, size_t size)
+MemoryOStream::operator	bool () const
 {
-	size = std::min (size, this->capacity - this->cursor);
+	return true;
+}
 
-	memcpy (this->target + this->cursor, source, size);
+const Int8s*	MemoryOStream::getBuffer () const
+{
+	return this->target;
+}
+
+Int8s*	MemoryOStream::getBuffer ()
+{
+	return this->target;
+}
+
+Int32u	MemoryOStream::getSize () const
+{
+	return this->cursor;
+}
+
+Int32u	MemoryOStream::write (const void* source, Int32u size)
+{
+	Int32u	capacity;
+	Int8s*	swap;
+
+	if (this->cursor + size > this->capacity)
+	{
+		if (this->allocate)
+		{
+			capacity = max (this->cursor + size, this->capacity * 2);
+			swap = static_cast<Int8s*> (realloc (this->target, capacity * sizeof (*this->target)));
+
+			if (!swap)
+				return 0;
+
+			this->capacity = capacity;
+			this->target = swap;
+		}
+		else
+			size = this->capacity - this->cursor;
+	}
+
+	memcpy (this->target + this->cursor, source, size * sizeof (*this->target));
 
 	this->cursor += size;
 
