@@ -13,7 +13,7 @@ class	FileStream : public virtual SeekStream
 		virtual	~FileStream ();
 
 		void			close ();
-		bool			open (FILE*);
+		virtual bool	open (FILE*);
 		virtual void	seek (Int32u, SeekMode = SEEK_ABSOLUTE);
 		virtual Int32u	tell () const;
 

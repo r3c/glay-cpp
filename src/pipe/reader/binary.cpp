@@ -26,114 +26,206 @@ BinaryReader::BinaryReader (IStream& stream) :
 {
 }
 
+bool	BinaryReader::readFloat32 (Float32* value)
+{
+	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
+}
+
 Float32	BinaryReader::readFloat32 ()
 {
 	Float32	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readFloat32 (&value) ? value : 0;
+}
 
-	return value;
+bool	BinaryReader::readFloat64 (Float64* value)
+{
+	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
 Float64	BinaryReader::readFloat64 ()
 {
 	Float64	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readFloat64 (&value) ? value : 0;
+}
 
-	return value;
+bool	BinaryReader::readInt8s (Int8s* value)
+{
+	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
 Int8s	BinaryReader::readInt8s ()
 {
 	Int8s	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt8s (&value) ? value : 0;
+}
 
-	return value;
+bool	BinaryReader::readInt8u (Int8u* value)
+{
+	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
 Int8u	BinaryReader::readInt8u ()
 {
 	Int8u	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt8u (&value) ? value : 0;
+}
 
-	return value;
+bool	BinaryReader::readInt16s (Int16s* value)
+{
+	Int16s	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change16s (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int16s	BinaryReader::readInt16s ()
 {
 	Int16s	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt16s (&value) ? value : 0;
+}
 
-	return this->source.change16s (value, this->native);
+bool	BinaryReader::readInt16u (Int16u* value)
+{
+	Int16u	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change16u (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int16u	BinaryReader::readInt16u ()
 {
 	Int16u	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt16u (&value) ? value : 0;
+}
 
-	return this->source.change16u (value, this->native);
+bool	BinaryReader::readInt32s (Int32s* value)
+{
+	Int32s	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change32s (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int32s	BinaryReader::readInt32s ()
 {
 	Int32s	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt32s (&value) ? value : 0;
+}
 
-	return this->source.change32s (value, this->native);
+bool	BinaryReader::readInt32u (Int32u* value)
+{
+	Int32u	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change32u (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int32u	BinaryReader::readInt32u ()
 {
 	Int32u	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt32u (&value) ? value : 0;
+}
 
-	return this->source.change32u (value, this->native);
+bool	BinaryReader::readInt64s (Int64s* value)
+{
+	Int64s	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change64s (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int64s	BinaryReader::readInt64s ()
 {
 	Int64s	value;
 
-	this->stream.read (&value, sizeof (value));
+	return this->readInt64s (&value) ? value : 0;
+}
 
-	return this->source.change64s (value, this->native);
+bool	BinaryReader::readInt64u (Int64u* value)
+{
+	Int64u	raw;
+
+	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
+	{
+		*value = this->source.change64u (raw, this->native);
+
+		return true;
+	}
+
+	return false;
 }
 
 Int64u	BinaryReader::readInt64u ()
 {
-	Int16u	value;
+	Int64u	value;
 
-	this->stream.read (&value, sizeof (value));
-
-	return this->source.change64u (value, this->native);
+	return this->readInt64u (&value) ? value : 0;
 }
 
-string	BinaryReader::readString ()
+bool	BinaryReader::readString (string* value)
 {
 	char	buffer;
 	Int32u	length;
-	string	value;
 
-	length = this->readInt32u ();
-	value.reserve (length);
+	if (!this->readInt32u (&length))
+		return false;
+
+	value->reserve (length);
 
 	while (length-- > 0)
 	{
 		if (this->stream.read (&buffer, sizeof (buffer)) != sizeof (buffer))
-			return "";
+			return false;
 
-		value.push_back (buffer);
+		value->push_back (buffer);
 	}
 
-	return value;
+	return true;
+}
+
+string	BinaryReader::readString ()
+{
+	string	value;
+
+	return this->readString (&value) ? value : "";
 }
 
 GLAY_NS_END()
