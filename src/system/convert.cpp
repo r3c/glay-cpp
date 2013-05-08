@@ -9,310 +9,393 @@ using namespace Glay;
 
 namespace
 {
-	template<typename T, bool is_signed>
-	struct	Integer
-	{
-		static inline bool	negative (const T& value)
-		{
-			return value < 0;
-		}
-	};
-
 	template<typename T>
-	struct	Integer<T, false>
+	struct	Float
 	{
-		static inline bool	negative (const T&)
+		static inline bool	toFloat (T* target, const char* buffer, Int32u length)
 		{
-			return false;
-		}
-	};
+			bool	decimal;
+			T		multiplier;
+			T		value;
 
-	template<typename T>
-	static inline Int32u	convertFloatToString (char* target, Int32u length, T value)
-	{
-		char	buffer[64];
-		Int32u	use;
-
-		use = sprintf (buffer, "%.10f", value);
-
-		if (use > length)
-			return 0;
-
-		while (use > 1 && buffer[use - 1] == '0')
-			--use;
-
-		if (use > 0 && buffer[use - 1] == '.')
-			--use;
-
-		memcpy (target, buffer, use * sizeof (*target));
-
-		return use;
-	}
-
-	template<typename T>
-	static inline Int32u	convertIntegerToString (char* target, Int32u length, T value)
-	{
-		char	buffer[32];
-		Int32u	index;
-		bool	negative;
-		T		next;
-		Int32u	use;
-
-		index = sizeof (buffer) / sizeof (*buffer);
-		negative = Integer<T, std::numeric_limits<T>::is_signed>::negative (value);
-
-		if (negative)
-			value = -value;
-
-		do
-		{
-			next = value / 10;
-
-			buffer[--index] = value - next * 10;
-
-			value = next;
-		}
-		while (value > 0);
-
-		if (negative)
-			buffer[--index] = '-';
-
-		use = (sizeof (buffer) / sizeof (*buffer)) - index;
-
-		if (use > length)
-			return 0;
-
-		memcpy (target, buffer + index, use * sizeof (*target));
-
-		return use;
-	}
-
-	template<typename T>
-	static inline bool	convertStringToFloat (T* target, const char* buffer, Int32u length)
-	{
-		bool	decimal;
-		T		multiplier;
-		T		value;
-
-		if (length < 1)
-			return false;
-
-		decimal = false;
-		value = 0;
-
-		switch (*buffer)
-		{
-			case '-':
-				if (--length < 1)
-					return false;
-
-				++buffer;
-
-				multiplier = -1;
-
-				break;
-
-			case '+':
-				if (--length < 1)
-					return false;
-
-				++buffer;
-
-			default:
-				multiplier = 1;
-
-				break;
-		}
-
-		for (Int32u i = length; i-- > 0; ++buffer)
-		{
-			if (*buffer == '.')
-			{
-				if (decimal)
-					return false;
-
-				decimal = true;
-
-				continue;
-			}
-			else if (*buffer < '0' || *buffer > '9')
+			if (length < 1)
 				return false;
 
-			if (decimal)
-				multiplier *= 0.1;
+			decimal = false;
+			value = 0;
 
-			value = value * 10 + *buffer - '0';
+			switch (*buffer)
+			{
+				case '-':
+					if (--length < 1)
+						return false;
+
+					++buffer;
+
+					multiplier = -1;
+
+					break;
+
+				case '+':
+					if (--length < 1)
+						return false;
+
+					++buffer;
+
+				default:
+					multiplier = 1;
+
+					break;
+			}
+
+			for (Int32u i = length; i-- > 0; ++buffer)
+			{
+				if (*buffer == '.')
+				{
+					if (decimal)
+						return false;
+
+					decimal = true;
+
+					continue;
+				}
+				else if (*buffer < '0' || *buffer > '9')
+					return false;
+
+				if (decimal)
+					multiplier *= 0.1;
+
+				value = value * 10 + *buffer - '0';
+			}
+
+			*target = value * multiplier;
+
+			return true;
 		}
 
-		*target = value * multiplier;
+		static inline Int32u	toString (char* target, Int32u length, T value)
+		{
+			char	buffer[64];
+			Int32u	use;
 
-		return true;
-	}
+			use = sprintf (buffer, "%.10f", value);
+
+			if (use > length)
+				return 0;
+
+			while (use > 1 && buffer[use - 1] == '0')
+				--use;
+
+			if (use > 0 && buffer[use - 1] == '.')
+				--use;
+
+			memcpy (target, buffer, use * sizeof (*target));
+
+			return use;
+		}
+	};
+
+	template<typename T, bool is_signed>
+	struct	IntegerSign
+	{
+		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
+		{
+			T	last;
+			T	next;
+
+			if (length < 1)
+				return false;
+
+			last = 0;
+			next = 0;
+
+			switch (*buffer)
+			{
+				case '-':
+					if (--length < 1)
+						return false;
+
+					++buffer;
+
+					for (Int32u i = length; i-- > 0; ++buffer)
+					{
+						if (*buffer < '0' || *buffer > '9')
+							return false;
+
+						next = last * 10 - *buffer + '0';
+
+						if (last < next)
+							return false;
+
+						last = next;
+					}
+
+					break;
+
+				case '+':
+					if (--length < 1)
+						return false;
+
+					++buffer;
+
+				default:
+					for (Int32u i = length; i-- > 0; ++buffer)
+					{
+						if (*buffer < '0' || *buffer > '9')
+							return false;
+
+						next = last * 10 + *buffer - '0';
+
+						if (last > next)
+							return false;
+
+						last = next;
+					}
+
+					break;
+			}
+
+			*target = last;
+
+			return true;
+		}
+
+		static inline Int32u	toString (char* target, Int32u length, T value)
+		{
+			char	buffer[32];
+			Int32u	index;
+			T		next;
+			Int32u	use;
+
+			index = sizeof (buffer) / sizeof (*buffer);
+
+			if (value < 0)
+			{
+				do
+				{
+					next = value / 10;
+
+					buffer[--index] = '0' + next * 10 - value;
+
+					value = next;
+				}
+				while (value < 0);
+
+				buffer[--index] = '-';
+			}
+			else
+			{
+				do
+				{
+					next = value / 10;
+
+					buffer[--index] = '0' + value - next * 10;
+
+					value = next;
+				}
+				while (value > 0);
+			}
+
+			use = sizeof (buffer) / sizeof (*buffer) - index;
+
+			if (use > length)
+				return 0;
+
+			memcpy (target, buffer + index, use * sizeof (*target));
+
+			return use;
+		}
+	};
 
 	template<typename T>
-	static inline bool	convertStringToInteger (T* target, const char* buffer, Int32u length)
+	struct	IntegerSign<T, false>
 	{
-		T	last;
-		T	next;
-
-		if (length < 1)
-			return false;
-
-		last = 0;
-		next = 0;
-
-		switch (*buffer)
+		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
 		{
-			case '-':
-				if (--length < 1)
-					return false;
+			T	last;
+			T	next;
 
-				++buffer;
+			if (length < 1)
+				return false;
 
-				for (Int32u i = length; i-- > 0; ++buffer)
-				{
-					if (*buffer < '0' || *buffer > '9')
+			last = 0;
+			next = 0;
+
+			switch (*buffer)
+			{
+				case '+':
+					if (--length < 1)
 						return false;
 
-					next = last * 10 - *buffer + '0';
+					++buffer;
 
-					if (last < next)
-						return false;
+				default:
+					for (Int32u i = length; i-- > 0; ++buffer)
+					{
+						if (*buffer < '0' || *buffer > '9')
+							return false;
 
-					last = next;
-				}
+						next = last * 10 + *buffer - '0';
 
-				break;
+						if (last > next)
+							return false;
 
-			case '+':
-				if (--length < 1)
-					return false;
+						last = next;
+					}
 
-				++buffer;
+					break;
+			}
 
-			default:
-				for (Int32u i = length; i-- > 0; ++buffer)
-				{
-					if (*buffer < '0' || *buffer > '9')
-						return false;
+			*target = last;
 
-					next = last * 10 + *buffer - '0';
-
-					if (last > next)
-						return false;
-
-					last = next;
-				}
-
-				break;
+			return true;
 		}
 
-		*target = last;
+		static inline Int32u	toString (char* target, Int32u length, T value)
+		{
+			char	buffer[32];
+			Int32u	index;
+			T		next;
+			Int32u	use;
 
-		return true;
-	}
+			index = sizeof (buffer) / sizeof (*buffer);
+
+			do
+			{
+				next = value / 10;
+
+				buffer[--index] = '0' + value - next * 10;
+
+				value = next;
+			}
+			while (value > 0);
+
+			use = sizeof (buffer) / sizeof (*buffer) - index;
+
+			if (use > length)
+				return 0;
+
+			memcpy (target, buffer + index, use * sizeof (*target));
+
+			return use;
+		}
+	};
+
+	template<typename T>
+	struct	Integer
+	{
+		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
+		{
+			return IntegerSign<T, std::numeric_limits<T>::is_signed>::toInteger (target, buffer, length);
+		}
+
+		static inline Int32u	toString (char* target, Int32u length, T value)
+		{
+			return IntegerSign<T, std::numeric_limits<T>::is_signed>::toString (target, length, value);
+		}
+	};
 }
 
 GLAY_NS_BEGIN(System)
 
-bool	Convert::toFloat32 (Float32* target, const char* buffer, Int32u length)
+bool	Convert::toFloat (Float32* target, const char* buffer, Int32u length)
 {
-	return convertStringToFloat<Float32> (target, buffer, length);
+	return Float<Float32>::toFloat (target, buffer, length);
 }
 
-bool	Convert::toFloat64 (Float64* target, const char* buffer, Int32u length)
+bool	Convert::toFloat (Float64* target, const char* buffer, Int32u length)
 {
-	return convertStringToFloat<Float64> (target, buffer, length);
+	return Float<Float64>::toFloat (target, buffer, length);
 }
 
-bool	Convert::toInt8s (Int8s* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int8s* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int8s> (target, buffer, length);
+	return Integer<Int8s>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt8u (Int8u* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int8u* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int8u> (target, buffer, length);
+	return Integer<Int8u>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt16s (Int16s* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int16s* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int16s> (target, buffer, length);
+	return Integer<Int16s>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt16u (Int16u* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int16u* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int16u> (target, buffer, length);
+	return Integer<Int16u>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt32s (Int32s* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int32s* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int32s> (target, buffer, length);
+	return Integer<Int32s>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt32u (Int32u* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int32u* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int32u> (target, buffer, length);
+	return Integer<Int32u>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt64s (Int64s* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int64s* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int64s> (target, buffer, length);
+	return Integer<Int64s>::toInteger (target, buffer, length);
 }
 
-bool	Convert::toInt64u (Int64u* target, const char* buffer, Int32u length)
+bool	Convert::toInteger (Int64u* target, const char* buffer, Int32u length)
 {
-	return convertStringToInteger<Int64u> (target, buffer, length);
+	return Integer<Int64u>::toInteger (target, buffer, length);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Float32 value)
 {
-	return convertFloatToString<Float32> (target, length, value);
+	return Float<Float32>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Float64 value)
 {
-	return convertFloatToString<Float64> (target, length, value);
+	return Float<Float64>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int8s value)
 {
-	return convertIntegerToString<Int8s> (target, length, value);
+	return Integer<Int8s>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int8u value)
 {
-	return convertIntegerToString<Int8u> (target, length, value);
+	return Integer<Int8u>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int16s value)
 {
-	return convertIntegerToString<Int16s> (target, length, value);
+	return Integer<Int16s>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int16u value)
 {
-	return convertIntegerToString<Int16u> (target, length, value);
+	return Integer<Int16u>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int32s value)
 {
-	return convertIntegerToString<Int32s> (target, length, value);
+	return Integer<Int32s>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int32u value)
 {
-	return convertIntegerToString<Int32u> (target, length, value);
+	return Integer<Int32u>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int64s value)
 {
-	return convertIntegerToString<Int64s> (target, length, value);
+	return Integer<Int64s>::toString (target, length, value);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Int64u value)
 {
-	return convertIntegerToString<Int64u> (target, length, value);
+	return Integer<Int64u>::toString (target, length, value);
 }
 
 GLAY_NS_END()
