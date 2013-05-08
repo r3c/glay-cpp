@@ -2,7 +2,7 @@
 #include "mutex.hpp"
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-#include <time.h>
+	#include <ctime>
 #endif
 
 GLAY_NS_BEGIN(Parallel)

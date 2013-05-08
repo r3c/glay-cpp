@@ -13,7 +13,7 @@ class	FileStream : public virtual SeekStream
 		virtual	~FileStream ();
 
 		void			close ();
-		virtual bool	open (FILE*);
+		bool			open (FILE*);
 		virtual void	seek (Int32u, SeekMode = SEEK_ABSOLUTE);
 		virtual Int32u	tell () const;
 
@@ -28,6 +28,8 @@ class	FileStream : public virtual SeekStream
 class	FileIStream : public FileStream, public SeekIStream
 {
 	public:
+		using FileStream::open;
+
 		FileIStream (const FileIStream&);
 		FileIStream (const char*);
 		FileIStream (FILE*);
@@ -44,6 +46,8 @@ class	FileIStream : public FileStream, public SeekIStream
 class	FileOStream : public FileStream, public SeekOStream
 {
 	public:
+		using FileStream::open;
+
 		FileOStream (const FileOStream&);
 		FileOStream (const char*, bool = false);
 		FileOStream (FILE*);

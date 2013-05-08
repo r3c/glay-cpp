@@ -7,7 +7,7 @@
 #ifndef __GLAY_SETUP_HPP
 #define __GLAY_SETUP_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #define GLAY_NS_BEGIN(ns)	namespace Glay { namespace ns {
 #define GLAY_NS_END()		}; };

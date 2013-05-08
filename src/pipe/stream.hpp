@@ -2,8 +2,8 @@
 #ifndef __GLAY_PIPE_STREAM_HPP
 #define __GLAY_PIPE_STREAM_HPP
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 #include "../config.hpp"
 
 GLAY_NS_BEGIN(Pipe)

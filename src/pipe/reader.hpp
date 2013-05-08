@@ -2,7 +2,7 @@
 #ifndef __GLAY_PIPE_READER_HPP
 #define __GLAY_PIPE_READER_HPP
 
-#include <stdint.h>
+#include <cstdint>
 #include "../config.hpp"
 #include "stream.hpp"
 

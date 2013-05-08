@@ -4,7 +4,7 @@
 #ifdef GLAY_SYSTEM_WINDOWS
 	#include <windows.h>
 #else
-	#include <time.h>
+	#include <ctime>
 #endif
 
 using namespace Glay;
