@@ -54,4 +54,6 @@ class	BinaryReader : public Reader
 
 GLAY_NS_END()
 
+#include "binary.hxx"
+
 #endif
