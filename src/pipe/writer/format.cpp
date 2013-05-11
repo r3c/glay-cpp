@@ -103,6 +103,13 @@ FormatWriter&	FormatWriter::write (Int64u value)
 	return *this;
 }
 
+FormatWriter&	FormatWriter::write (char value)
+{
+	this->stream.write (&value, sizeof (value));
+
+	return *this;
+}
+
 FormatWriter&	FormatWriter::write (const string& value)
 {
 	const char*	buffer;

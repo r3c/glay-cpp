@@ -26,6 +26,7 @@ class	FormatWriter : public Writer
 		FormatWriter&	write (Int32u);
 		FormatWriter&	write (Int64s);
 		FormatWriter&	write (Int64u);
+		FormatWriter&	write (char);
 		FormatWriter&	write (const std::string&);
 };
 
