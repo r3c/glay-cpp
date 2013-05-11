@@ -22,13 +22,13 @@ class	SeekStream
 
 		SeekStream&		operator = (const SeekStream&);
 
-		Int32u			back ();
+		size_t			back ();
 		void			mark ();
-		virtual void	seek (Int32u, SeekMode = SEEK_ABSOLUTE) = 0;
+		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
 		virtual size_t	tell () const = 0;
 
 	private:
-		std::vector<Int32u>	offsets;
+		std::vector<size_t>	offsets;
 };
 
 class	SeekIStream : public virtual SeekStream, public IStream

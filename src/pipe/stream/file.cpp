@@ -55,7 +55,7 @@ bool	FileStream::open (FILE* file)
 	return this;
 }
 
-void	FileStream::seek (Int32u offset, SeekMode mode)
+void	FileStream::seek (size_t offset, SeekMode mode)
 {
 	if (this->file)
 	{
@@ -74,7 +74,7 @@ void	FileStream::seek (Int32u offset, SeekMode mode)
 	}
 }
 
-Int32u	FileStream::tell () const
+size_t	FileStream::tell () const
 {
 	if (this->file)
 		return ftell (this->file);
@@ -125,7 +125,7 @@ bool	FileIStream::open (const char* path)
 	return this;
 }
 
-Int32u	FileIStream::read (void* buffer, Int32u size)
+size_t	FileIStream::read (void* buffer, size_t size)
 {
 	if (this->file)
 		return fread (buffer, 1, size, this->file);
@@ -176,7 +176,7 @@ bool	FileOStream::open (const char* path, bool append)
 	return this;
 }
 
-Int32u	FileOStream::write (const void* buffer, Int32u size)
+size_t	FileOStream::write (const void* buffer, size_t size)
 {
 	if (this->file)
 		return fwrite (buffer, 1, size, this->file);

@@ -27,9 +27,9 @@ SeekStream&	SeekStream::operator = (const SeekStream& other)
 	return *this;
 }
 
-Int32u	SeekStream::back ()
+size_t	SeekStream::back ()
 {
-	Int32u	offset;
+	size_t	offset;
 
 	if (this->offsets.size () <= 0)
 		return 0;
