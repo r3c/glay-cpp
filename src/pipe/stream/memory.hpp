@@ -9,12 +9,13 @@ GLAY_NS_BEGIN(Pipe)
 class	MemoryStream : public virtual SeekStream
 {
 	public:
-		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
-		virtual size_t	tell () const;
+		virtual size_t	getPosition () const;
+
+		virtual bool	seek (size_t, SeekMode = SEEK_ABSOLUTE);
 
 	protected:
 		MemoryStream (const MemoryStream&);
-		MemoryStream (size_t, size_t);
+		MemoryStream (size_t);
 
 		size_t	capacity;
 		size_t	cursor;
@@ -30,7 +31,7 @@ class	MemoryIStream : public MemoryStream, public SeekIStream
 		virtual 		operator bool () const;
 
 		const Int8s*	getBuffer () const;
-		size_t			getSize () const;
+		virtual size_t	getSize () const;
 
 		virtual size_t	read (void*, size_t);
 
@@ -51,7 +52,7 @@ class	MemoryOStream : public MemoryStream, public SeekOStream
 
 		const Int8s*	getBuffer () const;
 		Int8s*			getBuffer ();
-		size_t			getSize () const;
+		virtual size_t	getSize () const;
 
 		virtual size_t	write (const void*, size_t);
 

@@ -32,6 +32,36 @@ FileStream::~FileStream ()
 	this->close ();
 }
 
+size_t	FileStream::getPosition () const
+{
+	if (this->file)
+		return ftell (this->file);
+
+	return 0;
+}
+
+size_t	FileStream::getSize () const
+{
+	size_t	position;
+	size_t	size;
+
+	if (this->file)
+	{
+		position = ftell (this->file);
+
+		if (fseek (this->file, 0, SEEK_SET) == 0)
+			size = ftell (this->file);
+		else
+			size = 0;
+
+		fseek (this->file, position, SEEK_SET);
+
+		return size;
+	}
+
+	return 0;
+}
+
 void	FileStream::close ()
 {
 	if (this->file)
@@ -55,31 +85,24 @@ bool	FileStream::open (FILE* file)
 	return this;
 }
 
-void	FileStream::seek (size_t offset, SeekMode mode)
+bool	FileStream::seek (size_t offset, SeekMode mode)
 {
 	if (this->file)
 	{
 		switch (mode)
 		{
 			case SEEK_ABSOLUTE:
-				fseek (this->file, offset, SEEK_SET);
-
-				break;
+				return fseek (this->file, offset, SEEK_SET) == 0;
 
 			case SEEK_RELATIVE:
-				fseek (this->file, offset, SEEK_CUR);
+				return fseek (this->file, offset, SEEK_CUR) == 0;
 
-				break;
+			case SEEK_REVERSE:
+				return fseek (this->file, offset, SEEK_END) == 0;
 		}
 	}
-}
 
-size_t	FileStream::tell () const
-{
-	if (this->file)
-		return ftell (this->file);
-
-	return 0;
+	return false;
 }
 
 /**

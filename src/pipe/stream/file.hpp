@@ -12,10 +12,12 @@ class	FileStream : public virtual SeekStream
 	public:
 		virtual	~FileStream ();
 
+		virtual size_t	getPosition () const;
+		virtual size_t	getSize () const;
+
 		void			close ();
 		bool			open (FILE*);
-		virtual void	seek (size_t, SeekMode = SEEK_ABSOLUTE);
-		virtual size_t	tell () const;
+		virtual bool	seek (size_t, SeekMode = SEEK_ABSOLUTE);
 
 	protected:
 		FileStream (const FileStream&);

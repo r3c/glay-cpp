@@ -44,7 +44,7 @@ size_t	SeekStream::back ()
 
 void	SeekStream::mark ()
 {
-	this->offsets.push_back (this->tell ());
+	this->offsets.push_back (this->getPosition ());
 }
 
 /**

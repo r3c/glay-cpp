@@ -19,31 +19,51 @@ MemoryStream::MemoryStream (const MemoryStream& other) :
 {
 }
 
-MemoryStream::MemoryStream (size_t capacity, size_t cursor) :
+MemoryStream::MemoryStream (size_t capacity) :
 	capacity (capacity),
-	cursor (cursor)
+	cursor (0)
 {
 }
 
-void	MemoryStream::seek (size_t offset, SeekMode mode)
+size_t	MemoryStream::getPosition () const
 {
+	return this->cursor;
+}
+
+bool	MemoryStream::seek (size_t offset, SeekMode mode)
+{
+	size_t	position;
+
 	switch (mode)
 	{
 		case SEEK_ABSOLUTE:
-			this->cursor = min (offset, this->capacity);
+			position = offset;
 
 			break;
 
 		case SEEK_RELATIVE:
-			this->cursor = min (this->cursor + offset, this->capacity);
+			position = this->cursor + offset;
 
 			break;
-	}
-}
 
-size_t	MemoryStream::tell () const
-{
-	return this->cursor;
+		case SEEK_REVERSE:
+			if (offset > this->capacity)
+				return false;
+
+			position = this->capacity - offset;
+
+			break;
+
+		default:
+			return false;
+	}
+
+	if (position > this->capacity)
+		return false;
+
+	this->cursor = position;
+
+	return true;
 }
 
 /**
@@ -58,7 +78,7 @@ MemoryIStream::MemoryIStream (const MemoryIStream& other) :
 }
 
 MemoryIStream::MemoryIStream (const void* source, size_t capacity) :
-	MemoryStream (capacity, 0),
+	MemoryStream (capacity),
 	source (static_cast<const Int8s*> (source))
 {
 }
@@ -112,14 +132,14 @@ MemoryOStream::MemoryOStream (const MemoryOStream& other) :
 }
 
 MemoryOStream::MemoryOStream (void* buffer, size_t capacity) :
-	MemoryStream (capacity, 0),
+	MemoryStream (capacity),
 	allocate (false),
 	target (static_cast<Int8s*> (buffer))
 {
 }
 
 MemoryOStream::MemoryOStream () :
-	MemoryStream (0, 0),
+	MemoryStream (0),
 	allocate (true),
 	target (0)
 {
@@ -159,7 +179,7 @@ Int8s*	MemoryOStream::getBuffer ()
 
 size_t	MemoryOStream::getSize () const
 {
-	return this->cursor;
+	return this->capacity;
 }
 
 size_t	MemoryOStream::write (const void* source, size_t size)
