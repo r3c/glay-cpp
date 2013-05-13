@@ -49,7 +49,7 @@ size_t	FileStream::getSize () const
 	{
 		position = ftell (this->file);
 
-		if (fseek (this->file, 0, SEEK_SET) == 0)
+		if (fseek (this->file, 0, SEEK_END) == 0)
 			size = ftell (this->file);
 		else
 			size = 0;
