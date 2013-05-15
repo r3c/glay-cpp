@@ -54,6 +54,7 @@ class	MemoryOStream : public MemoryStream, public SeekOStream
 		Int8s*			getBuffer ();
 		virtual size_t	getSize () const;
 
+		virtual void	flush ();
 		virtual size_t	write (const void*, size_t);
 
 	private:

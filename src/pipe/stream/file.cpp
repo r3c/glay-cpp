@@ -189,6 +189,12 @@ FileOStream::operator bool () const
 	return this->file;
 }
 
+void	FileOStream::flush ()
+{
+	if (this->file)
+		fflush (this->file);
+}
+
 bool	FileOStream::open (const char* path, bool append)
 {
 	this->close ();

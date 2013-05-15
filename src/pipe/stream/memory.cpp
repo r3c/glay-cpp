@@ -182,6 +182,10 @@ size_t	MemoryOStream::getSize () const
 	return this->capacity;
 }
 
+void	MemoryOStream::flush ()
+{
+}
+
 size_t	MemoryOStream::write (const void* source, size_t size)
 {
 	size_t	capacity;

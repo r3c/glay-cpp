@@ -59,6 +59,7 @@ class	FileOStream : public FileStream, public SeekOStream
 		FileOStream&	operator = (const FileOStream&);
 		virtual			operator bool () const;
 
+		virtual void	flush ();
 		bool			open (const char*, bool = false);
 		virtual size_t	write (const void*, size_t);
 };

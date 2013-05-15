@@ -25,6 +25,7 @@ class	OStream
 
 		virtual	operator bool () const = 0;
 
+		virtual void	flush () = 0;
 		virtual size_t	write (const void*, size_t) = 0;
 };
 

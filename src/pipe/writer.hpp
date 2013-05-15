@@ -18,6 +18,7 @@ class	Writer
 		Writer&	operator = (const Writer&);
 		virtual	operator bool () const;
 
+		void	flush ();
 		size_t	write (const void*, size_t);
 
 	protected:
