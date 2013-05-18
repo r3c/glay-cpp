@@ -31,7 +31,7 @@ class	BinaryWriter : public Writer
 		bool	writeString (const std::string&);
 
 		template<typename T>
-		bool	write (const T&);
+		bool	writeType (const T&);
 
 	private:
 		System::Endian				native;

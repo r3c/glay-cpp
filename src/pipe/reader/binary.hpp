@@ -42,10 +42,10 @@ class	BinaryReader : public Reader
 		std::string	readString ();
 
 		template<typename T>
-		bool		read (T*);
+		bool		readType (T*);
 
 		template<typename T>
-		T			read ();
+		T			readType ();
 
 	private:
 		System::Endian::Endianness	native;

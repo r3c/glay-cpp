@@ -4,13 +4,13 @@
 GLAY_NS_BEGIN(Pipe)
 
 template<typename T>
-bool	BinaryReader::read (T* value)
+bool	BinaryReader::readType (T* value)
 {
 	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
 template<typename T>
-T	BinaryReader::read ()
+T	BinaryReader::readType ()
 {
 	T	value;
 
