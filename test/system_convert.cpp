@@ -15,10 +15,31 @@ bool	equal_approx (T a, T b)
 	return delta <= epsilon && -delta >= -epsilon;
 }
 
-void	toInteger ()
+void	toFloat ()
 {
 	Float32	float32;
 	Float64	float64;
+
+	assert (Convert::toFloat (&float32, "1.0", 3) && equal_approx (float32, 1.0f));
+	assert (Convert::toFloat (&float32, "-6545.546", 9) && equal_approx (float32, -6545.546f));
+	assert (Convert::toFloat (&float32, "+1567873.56", 11) && equal_approx (float32, 1567873.56f));
+
+	assert (Convert::toFloat (&float64, ".03", 3) && equal_approx (float64, .03));
+	assert (Convert::toFloat (&float64, "-6545.", 6) && equal_approx (float64, -6545.));
+	assert (Convert::toFloat (&float64, "+1567873.56", 11) && equal_approx (float64, 1567873.56));
+
+	assert (Convert::toFloat (&float32, "1.0e1", 5) && equal_approx (float32, 1.0e1f));
+	assert (Convert::toFloat (&float32, "17.0e-3", 7) && equal_approx (float32, 17.0e-3f));
+	assert (Convert::toFloat (&float32, "48.6e12", 7) && equal_approx (float32, 48.6e12f));
+
+	assert (!Convert::toFloat (&float32, "1.0 e1", 6));
+	assert (!Convert::toFloat (&float32, ".0-", 3));
+	assert (!Convert::toFloat (&float32, "0.0.0", 5));
+	assert (!Convert::toFloat (&float32, "..5", 3));
+}
+
+void	toInteger ()
+{
 	Int8s	int8s;
 	Int8u	int8u;
 	Int16s	int16s;
@@ -27,14 +48,6 @@ void	toInteger ()
 	Int32u	int32u;
 	Int64s	int64s;
 	Int64u	int64u;
-
-	assert (Convert::toFloat (&float32, "1.0", 3) && equal_approx (float32, 1.0f));
-	assert (Convert::toFloat (&float32, "-6545.546", 9) && equal_approx (float32, -6545.546f));
-	assert (Convert::toFloat (&float32, "+1567873.56", 11) && equal_approx (float32, 1567873.56f));
-
-	assert (Convert::toFloat (&float64, "1.0", 3) && equal_approx (float64, 1.0));
-	assert (Convert::toFloat (&float64, "-6545.546", 9) && equal_approx (float64, -6545.546));
-	assert (Convert::toFloat (&float64, "+1567873.56", 11) && equal_approx (float64, 1567873.56));
 
 	assert (Convert::toInteger (&int8s, "53", 2) && int8s == 53);
 	assert (Convert::toInteger (&int8s, "-98", 3) && int8s == -98);
@@ -96,6 +109,7 @@ void	toString ()
 
 int	main (int, char* [])
 {
+	toFloat ();
 	toInteger ();
 	toString ();
 }

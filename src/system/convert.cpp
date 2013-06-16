@@ -12,17 +12,15 @@ namespace
 	template<typename T>
 	struct	Float
 	{
-		static inline bool	toFloat (T* target, const char* buffer, Int32u length)
+		static inline bool		fromString (T* target, const char* buffer, Int32u length)
 		{
-			bool	decimal;
+			Int32u	exponent;
+			T		mantissa;
 			T		multiplier;
 			T		value;
 
 			if (length < 1)
 				return false;
-
-			decimal = false;
-			value = 0;
 
 			switch (*buffer)
 			{
@@ -48,25 +46,86 @@ namespace
 					break;
 			}
 
-			for (Int32u i = length; i-- > 0; ++buffer)
+			value = 0;
+
+			// Parse integral part
+			while (length > 0 && *buffer >= '0' && *buffer <= '9')
 			{
-				if (*buffer == '.')
-				{
-					if (decimal)
-						return false;
-
-					decimal = true;
-
-					continue;
-				}
-				else if (*buffer < '0' || *buffer > '9')
-					return false;
-
-				if (decimal)
-					multiplier *= 0.1;
-
 				value = value * 10 + *buffer - '0';
+
+				++buffer;
+				--length;
 			}
+
+			// Parse decimal separator
+			if (length > 0 && *buffer == '.')
+			{
+				++buffer;
+				--length;
+			}
+
+			// Parse decimal part
+			while (length > 0 && *buffer >= '0' && *buffer <= '9')
+			{
+				multiplier *= 0.1;
+				value = value * 10 + *buffer - '0';
+
+				++buffer;
+				--length;
+			}
+
+			// Parse exponent part
+			if (length > 1 && (*buffer == 'E' || *buffer == 'e'))
+			{
+				++buffer;
+				--length;
+
+				switch (*buffer)
+				{
+					case '-':
+						if (--length < 1)
+							return false;
+
+						++buffer;
+
+						mantissa = 0.1;
+
+						break;
+
+					case '+':
+						if (--length < 1)
+							return false;
+
+						++buffer;
+
+					default:
+						mantissa = 10;
+
+						break;
+				}
+
+				exponent = 0;
+
+				while (length > 0 && *buffer >= '0' && *buffer <= '9')
+				{
+					exponent = exponent * 10 + *buffer - '0';
+
+					++buffer;
+					--length;
+				}
+
+				while (exponent > 0)
+				{
+					if ((exponent & 1) != 0)
+						multiplier *= mantissa;
+
+					exponent >>= 1;
+					mantissa *= mantissa;
+				}
+			}
+
+			if (length > 0)
+				return false;
 
 			*target = value * multiplier;
 
@@ -98,7 +157,7 @@ namespace
 	template<typename T, bool is_signed>
 	struct	IntegerSign
 	{
-		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
+		static inline bool	fromString (T* target, const char* buffer, Int32u length)
 		{
 			T	last;
 			T	next;
@@ -210,7 +269,7 @@ namespace
 	template<typename T>
 	struct	IntegerSign<T, false>
 	{
-		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
+		static inline bool	fromString (T* target, const char* buffer, Int32u length)
 		{
 			T	last;
 			T	next;
@@ -284,9 +343,9 @@ namespace
 	template<typename T>
 	struct	Integer
 	{
-		static inline bool	toInteger (T* target, const char* buffer, Int32u length)
+		static inline bool	fromString (T* target, const char* buffer, Int32u length)
 		{
-			return IntegerSign<T, std::numeric_limits<T>::is_signed>::toInteger (target, buffer, length);
+			return IntegerSign<T, std::numeric_limits<T>::is_signed>::fromString (target, buffer, length);
 		}
 
 		static inline Int32u	toString (char* target, Int32u length, T value)
@@ -300,52 +359,52 @@ GLAY_NS_BEGIN(System)
 
 bool	Convert::toFloat (Float32* target, const char* buffer, Int32u length)
 {
-	return Float<Float32>::toFloat (target, buffer, length);
+	return Float<Float32>::fromString (target, buffer, length);
 }
 
 bool	Convert::toFloat (Float64* target, const char* buffer, Int32u length)
 {
-	return Float<Float64>::toFloat (target, buffer, length);
+	return Float<Float64>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int8s* target, const char* buffer, Int32u length)
 {
-	return Integer<Int8s>::toInteger (target, buffer, length);
+	return Integer<Int8s>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int8u* target, const char* buffer, Int32u length)
 {
-	return Integer<Int8u>::toInteger (target, buffer, length);
+	return Integer<Int8u>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int16s* target, const char* buffer, Int32u length)
 {
-	return Integer<Int16s>::toInteger (target, buffer, length);
+	return Integer<Int16s>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int16u* target, const char* buffer, Int32u length)
 {
-	return Integer<Int16u>::toInteger (target, buffer, length);
+	return Integer<Int16u>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int32s* target, const char* buffer, Int32u length)
 {
-	return Integer<Int32s>::toInteger (target, buffer, length);
+	return Integer<Int32s>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int32u* target, const char* buffer, Int32u length)
 {
-	return Integer<Int32u>::toInteger (target, buffer, length);
+	return Integer<Int32u>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int64s* target, const char* buffer, Int32u length)
 {
-	return Integer<Int64s>::toInteger (target, buffer, length);
+	return Integer<Int64s>::fromString (target, buffer, length);
 }
 
 bool	Convert::toInteger (Int64u* target, const char* buffer, Int32u length)
 {
-	return Integer<Int64u>::toInteger (target, buffer, length);
+	return Integer<Int64u>::fromString (target, buffer, length);
 }
 
 Int32u	Convert::toString (char* target, Int32u length, Float32 value)
