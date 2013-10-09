@@ -23,8 +23,13 @@
 #elif defined(__WIN32__) || defined(__WIN64__)
 	#define GLAY_SYSTEM_WINDOWS
 
-	#define _WIN32_WINNT	0x0502
-	#define WINVER			0x0502
+	#ifndef _WIN32_WINNT
+		#define _WIN32_WINNT	0x0502
+	#endif
+
+	#ifndef WINVER
+		#define WINVER			0x0502
+	#endif
 #endif
 
 namespace	Glay
