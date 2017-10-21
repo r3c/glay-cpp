@@ -82,7 +82,7 @@ bool	FileStream::open (FILE* file)
 	this->file = file;
 	this->own = false;
 
-	return this;
+	return true;
 }
 
 bool	FileStream::seek (size_t offset, SeekMode mode)
@@ -145,7 +145,7 @@ bool	FileIStream::open (const char* path)
 	this->file = fopen (path, "rb");
 	this->own = true;
 
-	return this;
+	return true;
 }
 
 size_t	FileIStream::read (void* buffer, size_t size)
@@ -202,7 +202,7 @@ bool	FileOStream::open (const char* path, bool append)
 	this->file = fopen (path, append ? "ab" : "wb");
 	this->own = true;
 
-	return this;
+	return true;
 }
 
 size_t	FileOStream::write (const void* buffer, size_t size)
