@@ -26,57 +26,57 @@ BinaryReader::BinaryReader (IStream& stream) :
 {
 }
 
-bool	BinaryReader::readFloat32 (Float32* value)
+bool BinaryReader::readFloat32 (Float32* value)
 {
 	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
-Float32	BinaryReader::readFloat32 ()
+Float32 BinaryReader::readFloat32 ()
 {
-	Float32	value;
+	Float32 value;
 
 	return this->readFloat32 (&value) ? value : 0;
 }
 
-bool	BinaryReader::readFloat64 (Float64* value)
+bool BinaryReader::readFloat64 (Float64* value)
 {
 	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
-Float64	BinaryReader::readFloat64 ()
+Float64 BinaryReader::readFloat64 ()
 {
-	Float64	value;
+	Float64 value;
 
 	return this->readFloat64 (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt8s (Int8s* value)
+bool BinaryReader::readInt8s (Int8s* value)
 {
 	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
-Int8s	BinaryReader::readInt8s ()
+Int8s BinaryReader::readInt8s ()
 {
-	Int8s	value;
+	Int8s value;
 
 	return this->readInt8s (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt8u (Int8u* value)
+bool BinaryReader::readInt8u (Int8u* value)
 {
 	return this->stream.read (value, sizeof (*value)) == sizeof (*value);
 }
 
-Int8u	BinaryReader::readInt8u ()
+Int8u BinaryReader::readInt8u ()
 {
-	Int8u	value;
+	Int8u value;
 
 	return this->readInt8u (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt16s (Int16s* value)
+bool BinaryReader::readInt16s (Int16s* value)
 {
-	Int16s	raw;
+	Int16s raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -88,16 +88,16 @@ bool	BinaryReader::readInt16s (Int16s* value)
 	return false;
 }
 
-Int16s	BinaryReader::readInt16s ()
+Int16s BinaryReader::readInt16s ()
 {
-	Int16s	value;
+	Int16s value;
 
 	return this->readInt16s (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt16u (Int16u* value)
+bool BinaryReader::readInt16u (Int16u* value)
 {
-	Int16u	raw;
+	Int16u raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -109,16 +109,16 @@ bool	BinaryReader::readInt16u (Int16u* value)
 	return false;
 }
 
-Int16u	BinaryReader::readInt16u ()
+Int16u BinaryReader::readInt16u ()
 {
-	Int16u	value;
+	Int16u value;
 
 	return this->readInt16u (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt32s (Int32s* value)
+bool BinaryReader::readInt32s (Int32s* value)
 {
-	Int32s	raw;
+	Int32s raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -130,16 +130,16 @@ bool	BinaryReader::readInt32s (Int32s* value)
 	return false;
 }
 
-Int32s	BinaryReader::readInt32s ()
+Int32s BinaryReader::readInt32s ()
 {
-	Int32s	value;
+	Int32s value;
 
 	return this->readInt32s (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt32u (Int32u* value)
+bool BinaryReader::readInt32u (Int32u* value)
 {
-	Int32u	raw;
+	Int32u raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -151,16 +151,16 @@ bool	BinaryReader::readInt32u (Int32u* value)
 	return false;
 }
 
-Int32u	BinaryReader::readInt32u ()
+Int32u BinaryReader::readInt32u ()
 {
-	Int32u	value;
+	Int32u value;
 
 	return this->readInt32u (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt64s (Int64s* value)
+bool BinaryReader::readInt64s (Int64s* value)
 {
-	Int64s	raw;
+	Int64s raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -172,16 +172,16 @@ bool	BinaryReader::readInt64s (Int64s* value)
 	return false;
 }
 
-Int64s	BinaryReader::readInt64s ()
+Int64s BinaryReader::readInt64s ()
 {
-	Int64s	value;
+	Int64s value;
 
 	return this->readInt64s (&value) ? value : 0;
 }
 
-bool	BinaryReader::readInt64u (Int64u* value)
+bool BinaryReader::readInt64u (Int64u* value)
 {
-	Int64u	raw;
+	Int64u raw;
 
 	if (this->stream.read (&raw, sizeof (raw)) == sizeof (raw))
 	{
@@ -193,17 +193,17 @@ bool	BinaryReader::readInt64u (Int64u* value)
 	return false;
 }
 
-Int64u	BinaryReader::readInt64u ()
+Int64u BinaryReader::readInt64u ()
 {
-	Int64u	value;
+	Int64u value;
 
 	return this->readInt64u (&value) ? value : 0;
 }
 
-bool	BinaryReader::readString (string* value)
+bool BinaryReader::readString (string* value)
 {
-	char	buffer;
-	Int32u	length;
+	char buffer;
+	Int32u length;
 
 	if (!this->readInt32u (&length))
 		return false;
@@ -221,9 +221,9 @@ bool	BinaryReader::readString (string* value)
 	return true;
 }
 
-string	BinaryReader::readString ()
+string BinaryReader::readString ()
 {
-	string	value;
+	string value;
 
 	return this->readString (&value) ? value : "";
 }

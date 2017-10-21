@@ -10,10 +10,10 @@ using namespace Glay::System;
 namespace
 {
 	template<typename T>
-	static inline void	writeConvert (Pipe::OStream& stream, Int32u (*converter) (char*, Int32u, T), T value)
+	static inline void writeConvert (Pipe::OStream& stream, Int32u (*converter) (char*, Int32u, T), T value)
 	{
-		char	buffer[64];
-		Int32u	length;
+		char buffer[64];
+		Int32u length;
 
 		length = converter (buffer, sizeof (buffer) / sizeof (*buffer), value);
 
@@ -33,86 +33,86 @@ FormatWriter::FormatWriter (OStream& stream) :
 {
 }
 
-FormatWriter&	FormatWriter::write (Float32 value)
+FormatWriter& FormatWriter::write (Float32 value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Float64 value)
+FormatWriter& FormatWriter::write (Float64 value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int8s value)
+FormatWriter& FormatWriter::write (Int8s value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int8u value)
+FormatWriter& FormatWriter::write (Int8u value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int16s value)
+FormatWriter& FormatWriter::write (Int16s value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int16u value)
+FormatWriter& FormatWriter::write (Int16u value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int32s value)
+FormatWriter& FormatWriter::write (Int32s value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int32u value)
+FormatWriter& FormatWriter::write (Int32u value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int64s value)
+FormatWriter& FormatWriter::write (Int64s value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (Int64u value)
+FormatWriter& FormatWriter::write (Int64u value)
 {
 	writeConvert (this->stream, Convert::toString, value);
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (char value)
+FormatWriter& FormatWriter::write (char value)
 {
 	this->stream.write (&value, sizeof (value));
 
 	return *this;
 }
 
-FormatWriter&	FormatWriter::write (const string& value)
+FormatWriter& FormatWriter::write (const string& value)
 {
-	const char*	buffer;
+	const char* buffer;
 
 	buffer = value.data ();
 

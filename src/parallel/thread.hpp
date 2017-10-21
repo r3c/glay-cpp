@@ -14,88 +14,88 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-class	ThreadBase
+class ThreadBase
 {
 	public:
-		enum	State
+		enum State
 		{
 			STATE_ACTIVE,	// Thread is currently working
 			STATE_PAUSED,	// Thread is paused
-			STATE_READY		// Thread is available for use
+			STATE_READY // Thread is available for use
 		};
 
 		ThreadBase (const ThreadBase&);
 		ThreadBase (Int32u);
-		virtual	~ThreadBase ();
+		virtual ~ThreadBase ();
 
-		ThreadBase&	operator = (const ThreadBase&);
+		ThreadBase& operator = (const ThreadBase&);
 
-		Int32u	getIdentifier () const;
-		State	getState () const;
+		Int32u getIdentifier () const;
+		State getState () const;
 
-		void	abort ();
-		bool	join (Int32u);
-		bool	join ();
-		void	pause ();
-		void	resume ();
+		void abort ();
+		bool join (Int32u);
+		bool join ();
+		void pause ();
+		void resume ();
 
 	protected:
-		virtual void	invoke () = 0;
+		virtual void invoke () = 0;
 
 #if defined(GLAY_LIBRARY_PTHREAD)
-		pthread_attr_t	attribute;
-		pthread_t		thread;
+		pthread_attr_t attribute;
+		pthread_t thread;
 #elif defined(GLAY_SYSTEM_WINDOWS)
-		HANDLE	handle;
+		HANDLE handle;
 #else
 	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
 #endif
-		mutable Mutex	mutex;
-		State			state;
+		mutable Mutex mutex;
+		State state;
 
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
-                static void*	execute (void*);
+                static void* execute (void*);
 #elif defined(GLAY_SYSTEM_WINDOWS)
-		__stdcall static unsigned	execute (void*);
+		__stdcall static unsigned execute (void*);
 #endif
 
-		Int32u	identifier;
+		Int32u identifier;
 };
 
 template<typename T = void>
-class	Thread : public ThreadBase
+class Thread : public ThreadBase
 {
 	public:
-		typedef void	(*Callback) (T);
+		typedef void (*Callback) (T);
 
 		Thread (Callback, Int32u = GLAY_MODULE_PARALLEL_THREAD_STACK_SIZE);
 
-		void	start (const T&);
+		void start (const T&);
 
 	protected:
-		virtual void	invoke ();
+		virtual void invoke ();
 
 	private:
-		Callback	callback;
-		T			value;
+		Callback callback;
+		T value;
 };
 
 template<>
-class	Thread<void> : public ThreadBase
+class Thread<void> : public ThreadBase
 {
 	public:
-		typedef void	(*Callback) ();
+		typedef void (*Callback) ();
 
 		Thread (Callback, Int32u = GLAY_MODULE_PARALLEL_THREAD_STACK_SIZE);
 
-		void	start ();
+		void start ();
 
 	protected:
-		virtual void	invoke ();
+		virtual void invoke ();
 
 	private:
-		Callback	callback;
+		Callback callback;
 };
 
 GLAY_NS_END()

@@ -5,20 +5,20 @@
 using namespace Glay;
 using namespace Glay::System;
 
-static const Float32	epsilon = 0.001;
+static const Float32 epsilon = 0.001;
 
 template<typename T>
-bool	equal_approx (T a, T b)
+bool equal_approx (T a, T b)
 {
-	T	delta = a - b;
+	T delta = a - b;
 
 	return delta <= epsilon && -delta >= -epsilon;
 }
 
-void	toFloat ()
+void toFloat ()
 {
-	Float32	float32;
-	Float64	float64;
+	Float32 float32;
+	Float64 float64;
 
 	assert (Convert::toFloat (&float32, "1.0", 3) && equal_approx (float32, 1.0f));
 	assert (Convert::toFloat (&float32, "-6545.546", 9) && equal_approx (float32, -6545.546f));
@@ -38,16 +38,16 @@ void	toFloat ()
 	assert (!Convert::toFloat (&float32, "..5", 3));
 }
 
-void	toInteger ()
+void toInteger ()
 {
-	Int8s	int8s;
-	Int8u	int8u;
-	Int16s	int16s;
-	Int16u	int16u;
-	Int32s	int32s;
-	Int32u	int32u;
-	Int64s	int64s;
-	Int64u	int64u;
+	Int8s int8s;
+	Int8u int8u;
+	Int16s int16s;
+	Int16u int16u;
+	Int32s int32s;
+	Int32u int32u;
+	Int64s int64s;
+	Int64u int64u;
 
 	assert (Convert::toInteger (&int8s, "53", 2) && int8s == 53);
 	assert (Convert::toInteger (&int8s, "-98", 3) && int8s == -98);
@@ -76,10 +76,10 @@ void	toInteger ()
 	assert (Convert::toInteger (&int64u, "0", 1) && int64u == 0);
 }
 
-void	toString ()
+void toString ()
 {
-	char	buffer[32];
-	Int32u	length;
+	char buffer[32];
+	Int32u length;
 
 	assert ((length = Convert::toString (buffer, 32, 1.0f)) > 0 && !memcmp (buffer, "1", length));
 	assert ((length = Convert::toString (buffer, 32, 17.0f)) > 0 && !memcmp (buffer, "17", length));
@@ -107,7 +107,7 @@ void	toString ()
 	assert ((length = Convert::toString (buffer, 2, (Int8u)200)) == 0);
 }
 
-int	main (int, char* [])
+int main (int, char* [])
 {
 	toFloat ();
 	toInteger ();

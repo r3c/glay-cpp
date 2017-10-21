@@ -10,16 +10,16 @@ GLAY_NS_BEGIN(Parallel)
 /*
 ** Internal thread entry point, used to force __stdcall calling convention
 ** and provide automatic system resources release.
-** data:	untyped ThreadParams pointer
-** return	always 0
+** data: untyped ThreadParams pointer
+** return always 0
 */
 #if defined(GLAY_LIBRARY_PTHREAD)
-void*	ThreadBase::execute (void* data)
+void* ThreadBase::execute (void* data)
 #elif defined(GLAY_SYSTEM_WINDOWS)
-__stdcall unsigned	ThreadBase::execute (void* data)
+__stdcall unsigned ThreadBase::execute (void* data)
 #endif
 {
-	ThreadBase*	thread = reinterpret_cast<ThreadBase*> (data);
+	ThreadBase* thread = reinterpret_cast<ThreadBase*> (data);
 
 	thread->invoke ();
 	thread->mutex.acquire ();
@@ -41,9 +41,9 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 
 /*
 ** Base thread default constructor.
-** stackSize:	maximum thread stack size
+** stackSize: maximum thread stack size
 */
-/**/	ThreadBase::ThreadBase (Int32u stackSize) :
+/**/ ThreadBase::ThreadBase (Int32u stackSize) :
 	state (STATE_READY)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
@@ -59,7 +59,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 	else
 		this->identifier = 0;
 #elif defined(GLAY_SYSTEM_WINDOWS)
-	unsigned	address;
+	unsigned address;
 
 	this->handle = (HANDLE)::_beginthreadex (0, stackSize, ThreadBase::execute, reinterpret_cast<void*> (this), CREATE_SUSPENDED, &address);
 	this->identifier = static_cast<Int32u> (address);
@@ -69,7 +69,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 /*
 ** Base thread destructor.
 */
-/**/	ThreadBase::~ThreadBase ()
+/**/ ThreadBase::~ThreadBase ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
@@ -86,7 +86,7 @@ __stdcall unsigned	ThreadBase::execute (void* data)
 /*
 ** Force thread to terminate (allocated resources won't be released).
 */
-void	ThreadBase::abort ()
+void ThreadBase::abort ()
 {
 	this->mutex.acquire ();
 
@@ -110,20 +110,20 @@ void	ThreadBase::abort ()
 
 /*
 ** Get thread unique identifier.
-** return:	thread identifier
+** return: thread identifier
 */
-Int32u	ThreadBase::getIdentifier () const
+Int32u ThreadBase::getIdentifier () const
 {
 	return this->identifier;
 }
 
 /*
 ** Get current thread state.
-** return:	thread state
+** return: thread state
 */
-ThreadBase::State	ThreadBase::getState () const
+ThreadBase::State ThreadBase::getState () const
 {
-	State	state;
+	State state;
 
 	this->mutex.acquire ();
 
@@ -139,9 +139,9 @@ ThreadBase::State	ThreadBase::getState () const
 /*
 ** Wait for thread to terminate until specified timeout expires.
 ** timeout: timeout delay in milliseconds
-** return:	true if thread is terminated, false otherwise
+** return: true if thread is terminated, false otherwise
 */
-bool	ThreadBase::join (Int32u timeout)
+bool ThreadBase::join (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	timeout = 0; // FIXME
@@ -156,7 +156,7 @@ bool	ThreadBase::join (Int32u timeout)
 /*
 ** Wait for thread to terminate.
 */
-bool	ThreadBase::join ()
+bool ThreadBase::join ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	if (this->identifier != 0)
@@ -171,7 +171,7 @@ bool	ThreadBase::join ()
 /*
 ** Pause thread execution.
 */
-void	ThreadBase::pause ()
+void ThreadBase::pause ()
 {
 	this->mutex.acquire ();
 
@@ -195,7 +195,7 @@ void	ThreadBase::pause ()
 /*
 ** Resume thread execution.
 */
-void	ThreadBase::resume ()
+void ThreadBase::resume ()
 {
 	this->mutex.acquire ();
 
@@ -218,10 +218,10 @@ void	ThreadBase::resume ()
 
 /*
 ** Parameterless thread default constructor.
-** callback:	thread callback function
-** stackSize:	maximum thread stack size
+** callback: thread callback function
+** stackSize: maximum thread stack size
 */
-/**/	Thread<void>::Thread (Callback callback, Int32u stackSize) :
+/**/ Thread<void>::Thread (Callback callback, Int32u stackSize) :
 	ThreadBase (stackSize),
 	callback (callback)
 {
@@ -230,16 +230,16 @@ void	ThreadBase::resume ()
 /*
 ** Invoke callback from current parameterless thread.
 */
-void	Thread<void>::invoke ()
+void Thread<void>::invoke ()
 {
 	this->callback ();
 }
 
 /*
 ** Start parameterless thread execution.
-** value:	parameter value
+** value: parameter value
 */
-void	Thread<void>::start ()
+void Thread<void>::start ()
 {
 	this->mutex.acquire ();
 

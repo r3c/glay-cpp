@@ -22,12 +22,12 @@ Writer::operator bool () const
 	return (bool)this->stream;
 }
 
-void	Writer::flush ()
+void Writer::flush ()
 {
 	this->stream.flush ();
 }
 
-size_t	Writer::write (const void* buffer, size_t length)
+size_t Writer::write (const void* buffer, size_t length)
 {
 	return this->stream.write (buffer, length);
 }

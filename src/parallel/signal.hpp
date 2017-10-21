@@ -12,27 +12,27 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-class	Signal
+class Signal
 {
 	public:
 		Signal (const Signal&);
 		Signal (bool state = false, bool manual = true);
-		virtual	~Signal ();
+		virtual ~Signal ();
 
 				operator bool () const;
-		Signal&	operator = (const Signal&);
+		Signal& operator = (const Signal&);
 
-		void	reset ();
-		void	set ();
-		bool	wait (Int32u);
-		bool	wait ();
+		void reset ();
+		void set ();
+		bool wait (Int32u);
+		bool wait ();
 
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
-		pthread_cond_t	handle;
-		pthread_mutex_t	mutex;
+		pthread_cond_t handle;
+		pthread_mutex_t mutex;
 #elif defined(GLAY_SYSTEM_WINDOWS)
-		HANDLE			handle;
+		HANDLE handle;
 #else
 	#error "Glay::Parallel::Signal can't be used on unsupported OS"
 #endif

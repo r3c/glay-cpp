@@ -8,21 +8,21 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	Writer
+class Writer
 {
 	public:
 		Writer (const Writer&);
 		Writer (OStream&);
-		virtual	~Writer ();
+		virtual ~Writer ();
 
-		Writer&	operator = (const Writer&);
-		virtual	operator bool () const;
+		Writer& operator = (const Writer&);
+		virtual operator bool () const;
 
-		void	flush ();
-		size_t	write (const void*, size_t);
+		void flush ();
+		size_t write (const void*, size_t);
 
 	protected:
-		OStream&	stream;
+		OStream& stream;
 };
 
 GLAY_NS_END()

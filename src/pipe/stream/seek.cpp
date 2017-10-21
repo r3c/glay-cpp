@@ -20,16 +20,16 @@ SeekStream::~SeekStream ()
 {
 }
 
-SeekStream&	SeekStream::operator = (const SeekStream& other)
+SeekStream& SeekStream::operator = (const SeekStream& other)
 {
 	this->offsets = other.offsets;
 
 	return *this;
 }
 
-size_t	SeekStream::back ()
+size_t SeekStream::back ()
 {
-	size_t	offset;
+	size_t offset;
 
 	if (this->offsets.size () <= 0)
 		return 0;
@@ -42,7 +42,7 @@ size_t	SeekStream::back ()
 	return offset;
 }
 
-void	SeekStream::mark ()
+void SeekStream::mark ()
 {
 	this->offsets.push_back (this->getPosition ());
 }

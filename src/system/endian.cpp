@@ -6,9 +6,9 @@ using namespace Glay::System;
 
 namespace
 {
-	static inline Endian::Endianness	findNativeEndianness ()
+	static inline Endian::Endianness findNativeEndianness ()
 	{
-		Int16u	value;
+		Int16u value;
 
 		value = 0x0102;
 
@@ -22,16 +22,16 @@ namespace
 		}
 	}
 
-	const Endian::Endianness	native = findNativeEndianness ();
+	const Endian::Endianness native = findNativeEndianness ();
 }
 
 GLAY_NS_BEGIN(System)
 
-Int16s	Endian::change16s (Int16s input, Endianness from, Endianness to)
+Int16s Endian::change16s (Int16s input, Endianness from, Endianness to)
 {
-	Int16s	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int16s output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -45,11 +45,11 @@ Int16s	Endian::change16s (Int16s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int16u	Endian::change16u (Int16u input, Endianness from, Endianness to)
+Int16u Endian::change16u (Int16u input, Endianness from, Endianness to)
 {
-	Int16u	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int16u output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -63,11 +63,11 @@ Int16u	Endian::change16u (Int16u input, Endianness from, Endianness to)
 	return output;
 }
 
-Int32s	Endian::change32s (Int32s input, Endianness from, Endianness to)
+Int32s Endian::change32s (Int32s input, Endianness from, Endianness to)
 {
-	Int32s	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int32s output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -83,11 +83,11 @@ Int32s	Endian::change32s (Int32s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int32u	Endian::change32u (Int32u input, Endianness from, Endianness to)
+Int32u Endian::change32u (Int32u input, Endianness from, Endianness to)
 {
-	Int32u	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int32u output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -103,11 +103,11 @@ Int32u	Endian::change32u (Int32u input, Endianness from, Endianness to)
 	return output;
 }
 
-Int64s	Endian::change64s (Int64s input, Endianness from, Endianness to)
+Int64s Endian::change64s (Int64s input, Endianness from, Endianness to)
 {
-	Int64s	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int64s output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -127,11 +127,11 @@ Int64s	Endian::change64s (Int64s input, Endianness from, Endianness to)
 	return output;
 }
 
-Int64u	Endian::change64u (Int64u input, Endianness from, Endianness to)
+Int64u Endian::change64u (Int64u input, Endianness from, Endianness to)
 {
-	Int64u	output;
-	Int8s*	source;
-	Int8s*	target;
+	Int64u output;
+	Int8s* source;
+	Int8s* target;
 
 	if (from == to)
 		return input;
@@ -151,14 +151,14 @@ Int64u	Endian::change64u (Int64u input, Endianness from, Endianness to)
 	return output;
 }
 
-Endian::Endianness	Endian::getNativeEndianness ()
+Endian::Endianness Endian::getNativeEndianness ()
 {
 	return native;
 }
 
 /*
 ** Copy constructor.
-** other:	source instance
+** other: source instance
 */
 Endian::Endian (const Endian& other) :
 	from (other.from)
@@ -167,7 +167,7 @@ Endian::Endian (const Endian& other) :
 
 /*
 ** Endianness constructor.
-** from:	source endianness
+** from: source endianness
 */
 Endian::Endian (Endianness from) :
 	from (from)
@@ -185,7 +185,7 @@ Endian::Endian () :
 /*
 ** Copy operator.
 */
-Endian&	Endian::operator = (const Endian& other)
+Endian& Endian::operator = (const Endian& other)
 {
 	this->from = other.from;
 
@@ -194,66 +194,66 @@ Endian&	Endian::operator = (const Endian& other)
 
 /*
 ** Change endianness of signed 16 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int16s	Endian::change16s (Int16s input, Endianness to) const
+Int16s Endian::change16s (Int16s input, Endianness to) const
 {
 	return Endian::change16s (input, this->from, to);
 }
 
 /*
 ** Change endianness of unsigned 16 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int16u	Endian::change16u (Int16u input, Endianness to) const
+Int16u Endian::change16u (Int16u input, Endianness to) const
 {
 	return Endian::change16u (input, this->from, to);
 }
 
 /*
 ** Change endianness of signed 32 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int32s	Endian::change32s (Int32s input, Endianness to) const
+Int32s Endian::change32s (Int32s input, Endianness to) const
 {
 	return Endian::change32s (input, this->from, to);
 }
 
 /*
 ** Change endianness of unsigned 32 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int32u	Endian::change32u (Int32u input, Endianness to) const
+Int32u Endian::change32u (Int32u input, Endianness to) const
 {
 	return Endian::change32u (input, this->from, to);
 }
 
 /*
 ** Change endianness of signed 64 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int64s	Endian::change64s (Int64s input, Endianness to) const
+Int64s Endian::change64s (Int64s input, Endianness to) const
 {
 	return Endian::change64s (input, this->from, to);
 }
 
 /*
 ** Change endianness of unsigned 64 bits integer.
-** input:	input integer
-** to:		target endianness
-** return:	changed integer
+** input: input integer
+** to: target endianness
+** return: changed integer
 */ 
-Int64u	Endian::change64u (Int64u input, Endianness to) const
+Int64u Endian::change64u (Int64u input, Endianness to) const
 {
 	return Endian::change64u (input, this->from, to);
 }

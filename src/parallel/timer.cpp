@@ -5,9 +5,9 @@ GLAY_NS_BEGIN(Parallel)
 
 /*
 ** Internal timer tick method.
-** timer:	timer reference
+** timer: timer reference
 */
-void	Timer::tick (Timer* timer)
+void Timer::tick (Timer* timer)
 {
 	while (!timer->signal.wait (timer->period) || !timer->interrupt)
 		timer->callback ();
@@ -33,18 +33,18 @@ Timer::~Timer ()
 
 /*
 ** Get timer period.
-** return:	timer period in milliseconds
+** return: timer period in milliseconds
 */
-Int32u	Timer::getPeriod () const
+Int32u Timer::getPeriod () const
 {
 	return this->period;
 }
 
 /*
 ** Set timer period
-** period:	timer period in milliseconds
+** period: timer period in milliseconds
 */
-void	Timer::setPeriod (Int32u period)
+void Timer::setPeriod (Int32u period)
 {
 	this->period = period;
 }
@@ -52,7 +52,7 @@ void	Timer::setPeriod (Int32u period)
 /*
 ** Force timer to fire immediately.
 */
-void	Timer::fire ()
+void Timer::fire ()
 {
 	this->signal.set ();
 }
@@ -60,7 +60,7 @@ void	Timer::fire ()
 /*
 ** Start timer.
 */
-void	Timer::start ()
+void Timer::start ()
 {
 	this->thread.resume ();
 }
@@ -68,7 +68,7 @@ void	Timer::start ()
 /*
 ** Stop timer.
 */
-void	Timer::stop ()
+void Timer::stop ()
 {
 	this->thread.pause ();
 }

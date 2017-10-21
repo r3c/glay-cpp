@@ -13,18 +13,18 @@ GLAY_NS_BEGIN(System)
 
 /*
 ** Get resolution (number of ticks per second) for all stopwatches.
-** return:	stopwatches resolution
+** return: stopwatches resolution
 */
-Int64u	Stopwatch::getResolution ()
+Int64u Stopwatch::getResolution ()
 {
 	return GLAY_MODULE_SYSTEM_STOPWATCH_RESOLUTION;
 }
 
 /*
 ** Get number of milliseconds elapsed since system started.
-** return:	ticks in milliseconds
+** return: ticks in milliseconds
 */
-Int64u	Stopwatch::getTicks ()
+Int64u Stopwatch::getTicks ()
 {
 #ifdef GLAY_SYSTEM_WINDOWS
 	#if _WIN32_WINNT >= 0x0600
@@ -33,7 +33,7 @@ Int64u	Stopwatch::getTicks ()
 		return ::GetTickCount ();
 	#endif
 #else
-	timespec	ts;
+	timespec ts;
 
 	if (clock_gettime (CLOCK_MONOTONIC, &ts) != 0)
 		return 0;
@@ -44,7 +44,7 @@ Int64u	Stopwatch::getTicks ()
 
 /*
 ** Copy constructor.
-** other:	source instance
+** other: source instance
 */
 Stopwatch::Stopwatch (const Stopwatch& other) :
 	active (other.active),
@@ -63,9 +63,9 @@ Stopwatch::Stopwatch ()
 
 /*
 ** Copy operator.
-** other:	source instance
+** other: source instance
 */
-Stopwatch&	Stopwatch::operator = (const Stopwatch& other)
+Stopwatch& Stopwatch::operator = (const Stopwatch& other)
 {
 	this->active = other.active;
 	this->elapsed = other.elapsed;
@@ -77,9 +77,9 @@ Stopwatch&	Stopwatch::operator = (const Stopwatch& other)
 /*
 ** Get number of elapsed milliseconds (ticks) since construction of this
 ** Stopwatch instance.
-** return:	elapsed milliseconds
+** return: elapsed milliseconds
 */
-Int64u	Stopwatch::getElapsed () const
+Int64u Stopwatch::getElapsed () const
 {
 	return this->elapsed;
 }
@@ -87,7 +87,7 @@ Int64u	Stopwatch::getElapsed () const
 /*
 ** Stop counting and reset internal stopwatch values.
 */
-void	Stopwatch::reset ()
+void Stopwatch::reset ()
 {
 	this->active = false;
 	this->elapsed = 0;
@@ -96,7 +96,7 @@ void	Stopwatch::reset ()
 /*
 ** Start stopwatch.
 */
-void	Stopwatch::start ()
+void Stopwatch::start ()
 {
 	if (!this->active)
 	{
@@ -108,7 +108,7 @@ void	Stopwatch::start ()
 /*
 ** Stop stopwatch.
 */
-void	Stopwatch::stop ()
+void Stopwatch::stop ()
 {
 	if (this->active)
 	{

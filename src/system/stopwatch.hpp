@@ -6,27 +6,27 @@
 
 GLAY_NS_BEGIN(System)
 
-class	Stopwatch
+class Stopwatch
 {
 	public:
-		static Int64u	getResolution ();
-		static Int64u	getTicks ();
+		static Int64u getResolution ();
+		static Int64u getTicks ();
 
 		Stopwatch (const Stopwatch&);
 		Stopwatch ();
 
-		Stopwatch&	operator = (const Stopwatch&);
+		Stopwatch& operator = (const Stopwatch&);
 
-		Int64u	getElapsed () const;
+		Int64u getElapsed () const;
 
-		void	reset ();
-		void	start ();
-		void	stop ();
+		void reset ();
+		void start ();
+		void stop ();
 
 	private:
-		bool	active;
-		Int64u	elapsed;
-		Int64u	ticks;
+		bool active;
+		Int64u elapsed;
+		Int64u ticks;
 };
 
 GLAY_NS_END()

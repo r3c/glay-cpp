@@ -9,17 +9,17 @@ using namespace Glay::Design;
 
 static int a = 0;
 
-void	increment (int i)
+void increment (int i)
 {
 	a += i;
 }
 
-int	main (int, char* [])
+int main (int, char* [])
 {
-	Event<int>					e1;
-	Event<const std::string&>	e2;
-	string						s1;
-	string						s2;
+	Event<int> e1;
+	Event<const std::string&> e2;
+	string s1;
+	string s2;
 
 	e1.bind (increment);
 	e2.bind ([&] (const std::string& value)

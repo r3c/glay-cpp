@@ -6,9 +6,9 @@ GLAY_NS_BEGIN(Pipe)
 /*
 ** Global constants.
 */
-FileOStream	err (stderr);
-FileIStream	in (stdin);
-FileOStream	out (stdout);
+FileOStream err (stderr);
+FileIStream in (stdin);
+FileOStream out (stdout);
 
 /**
 ** FileStream
@@ -32,7 +32,7 @@ FileStream::~FileStream ()
 	this->close ();
 }
 
-size_t	FileStream::getPosition () const
+size_t FileStream::getPosition () const
 {
 	if (this->file)
 		return ftell (this->file);
@@ -40,10 +40,10 @@ size_t	FileStream::getPosition () const
 	return 0;
 }
 
-size_t	FileStream::getSize () const
+size_t FileStream::getSize () const
 {
-	size_t	position;
-	size_t	size;
+	size_t position;
+	size_t size;
 
 	if (this->file)
 	{
@@ -62,7 +62,7 @@ size_t	FileStream::getSize () const
 	return 0;
 }
 
-void	FileStream::close ()
+void FileStream::close ()
 {
 	if (this->file)
 	{
@@ -75,7 +75,7 @@ void	FileStream::close ()
 	this->own = false;
 }
 
-bool	FileStream::open (FILE* file)
+bool FileStream::open (FILE* file)
 {
 	this->close ();
 
@@ -85,7 +85,7 @@ bool	FileStream::open (FILE* file)
 	return true;
 }
 
-bool	FileStream::seek (size_t offset, SeekMode mode)
+bool FileStream::seek (size_t offset, SeekMode mode)
 {
 	if (this->file)
 	{
@@ -138,7 +138,7 @@ FileIStream::operator bool () const
 	return this->file;
 }
 
-bool	FileIStream::open (const char* path)
+bool FileIStream::open (const char* path)
 {
 	this->close ();
 
@@ -148,7 +148,7 @@ bool	FileIStream::open (const char* path)
 	return true;
 }
 
-size_t	FileIStream::read (void* buffer, size_t size)
+size_t FileIStream::read (void* buffer, size_t size)
 {
 	if (this->file)
 		return fread (buffer, 1, size, this->file);
@@ -189,13 +189,13 @@ FileOStream::operator bool () const
 	return this->file;
 }
 
-void	FileOStream::flush ()
+void FileOStream::flush ()
 {
 	if (this->file)
 		fflush (this->file);
 }
 
-bool	FileOStream::open (const char* path, bool append)
+bool FileOStream::open (const char* path, bool append)
 {
 	this->close ();
 
@@ -205,7 +205,7 @@ bool	FileOStream::open (const char* path, bool append)
 	return true;
 }
 
-size_t	FileOStream::write (const void* buffer, size_t size)
+size_t FileOStream::write (const void* buffer, size_t size)
 {
 	if (this->file)
 		return fwrite (buffer, 1, size, this->file);

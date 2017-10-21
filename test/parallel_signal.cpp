@@ -7,13 +7,13 @@
 using namespace std;
 using namespace Glay::Parallel;
 
-typedef pair<map<int, int>*, Signal*>	MyParams;
-typedef Thread<MyParams>				MyThread;
+typedef pair<map<int, int>*, Signal*> MyParams;
+typedef Thread<MyParams> MyThread;
 
-void	worker (MyParams params)
+void worker (MyParams params)
 {
-	map<int, int>&	counters = *params.first;
-	Signal&			signal = *params.second;
+	map<int, int>& counters = *params.first;
+	Signal& signal = *params.second;
 
 	for (int i = 0; i < 64; ++i)
 	{
@@ -25,11 +25,11 @@ void	worker (MyParams params)
 	}
 }
 
-int	main (int, char* [])
+int main (int, char* [])
 {
-	map<int, int>	counters;
-	Signal			signal (false, false);
-	MyThread**		threads;
+	map<int, int> counters;
+	Signal signal (false, false);
+	MyThread** threads;
 
 	threads = new MyThread*[16];
 

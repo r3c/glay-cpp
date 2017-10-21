@@ -7,13 +7,13 @@
 using namespace std;
 using namespace Glay::Parallel;
 
-typedef pair<vector<int>*, Mutex*>	MyParams;
-typedef Thread<MyParams>			MyThread;
+typedef pair<vector<int>*, Mutex*> MyParams;
+typedef Thread<MyParams> MyThread;
 
-void	worker (MyParams params)
+void worker (MyParams params)
 {
-	Mutex&			mutex = *params.second;
-	vector<int>&	values = *params.first;
+	Mutex& mutex = *params.second;
+	vector<int>& values = *params.first;
 
 	for (int i = 0; i < 1000; ++i)
 	{
@@ -25,13 +25,13 @@ void	worker (MyParams params)
 	}
 }
 
-int	main (int, char* [])
+int main (int, char* [])
 {
-	Mutex		mutex;
-	vector<int>	values;
-	MyThread	thread1 (&worker);
-	MyThread	thread2 (&worker);
-	MyThread	thread3 (&worker);
+	Mutex mutex;
+	vector<int> values;
+	MyThread thread1 (&worker);
+	MyThread thread2 (&worker);
+	MyThread thread3 (&worker);
 
 	thread1.start (make_pair (&values, &mutex));
 	thread2.start (make_pair (&values, &mutex));

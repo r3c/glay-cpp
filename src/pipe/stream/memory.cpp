@@ -25,14 +25,14 @@ MemoryStream::MemoryStream (size_t capacity) :
 {
 }
 
-size_t	MemoryStream::getPosition () const
+size_t MemoryStream::getPosition () const
 {
 	return this->cursor;
 }
 
-bool	MemoryStream::seek (size_t offset, SeekMode mode)
+bool MemoryStream::seek (size_t offset, SeekMode mode)
 {
-	size_t	position;
+	size_t position;
 
 	switch (mode)
 	{
@@ -83,7 +83,7 @@ MemoryIStream::MemoryIStream (const void* source, size_t capacity) :
 {
 }
 
-MemoryIStream&	MemoryIStream::operator = (const MemoryIStream& other)
+MemoryIStream& MemoryIStream::operator = (const MemoryIStream& other)
 {
 	MemoryStream::operator = (other);
 	SeekStream::operator = (other);
@@ -93,22 +93,22 @@ MemoryIStream&	MemoryIStream::operator = (const MemoryIStream& other)
 	return *this;
 }
 
-MemoryIStream::operator	bool () const
+MemoryIStream::operator bool () const
 {
 	return true;
 }
 
-const Int8s*	MemoryIStream::getBuffer () const
+const Int8s* MemoryIStream::getBuffer () const
 {
 	return this->source;
 }
 
-size_t	MemoryIStream::getSize () const
+size_t MemoryIStream::getSize () const
 {
 	return this->cursor;
 }
 
-size_t	MemoryIStream::read (void* target, size_t size)
+size_t MemoryIStream::read (void* target, size_t size)
 {
 	size = min (size, this->capacity - this->cursor);
 
@@ -151,7 +151,7 @@ MemoryOStream::~MemoryOStream ()
 		free (this->target);
 }
 
-MemoryOStream&	MemoryOStream::operator = (const MemoryOStream& other)
+MemoryOStream& MemoryOStream::operator = (const MemoryOStream& other)
 {
 	MemoryStream::operator = (other);
 	SeekStream::operator = (other);
@@ -162,34 +162,34 @@ MemoryOStream&	MemoryOStream::operator = (const MemoryOStream& other)
 	return *this;
 }
 
-MemoryOStream::operator	bool () const
+MemoryOStream::operator bool () const
 {
 	return true;
 }
 
-const Int8s*	MemoryOStream::getBuffer () const
+const Int8s* MemoryOStream::getBuffer () const
 {
 	return this->target;
 }
 
-Int8s*	MemoryOStream::getBuffer ()
+Int8s* MemoryOStream::getBuffer ()
 {
 	return this->target;
 }
 
-size_t	MemoryOStream::getSize () const
+size_t MemoryOStream::getSize () const
 {
 	return this->capacity;
 }
 
-void	MemoryOStream::flush ()
+void MemoryOStream::flush ()
 {
 }
 
-size_t	MemoryOStream::write (const void* source, size_t size)
+size_t MemoryOStream::write (const void* source, size_t size)
 {
-	size_t	capacity;
-	Int8s*	swap;
+	size_t capacity;
+	Int8s* swap;
 
 	if (this->cursor + size > this->capacity)
 	{

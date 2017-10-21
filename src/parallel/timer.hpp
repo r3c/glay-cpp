@@ -8,30 +8,30 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-class	Timer
+class Timer
 {
 	public:
-		typedef void	(*Callback) ();
+		typedef void (*Callback) ();
 
 		Timer (Callback, Int32u);
-		virtual	~Timer ();
+		virtual ~Timer ();
 
-		Int32u	getPeriod () const;
+		Int32u getPeriod () const;
 
-		void	setPeriod (Int32u);
+		void setPeriod (Int32u);
 
-		void	fire ();
-		void	start ();
-		void	stop ();
+		void fire ();
+		void start ();
+		void stop ();
 
 	private:
-		static void	tick (Timer*);
+		static void tick (Timer*);
 
-		Callback		callback;
-		volatile bool	interrupt;
-		Int32u			period;
-		Signal			signal;
-		Thread<Timer*>	thread;
+		Callback callback;
+		volatile bool interrupt;
+		Int32u period;
+		Signal signal;
+		Thread<Timer*> thread;
 };
 
 GLAY_NS_END()

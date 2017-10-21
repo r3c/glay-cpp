@@ -10,24 +10,24 @@
 GLAY_NS_BEGIN(Design)
 
 template<typename T>
-class	Event
+class Event
 {
 	public:
-		typedef std::function<void (T)>	Callback;
+		typedef std::function<void (T)> Callback;
 
 		Event (const Event<T>&);
 		Event ();
 
-		Event<T>&	operator = (const Event<T>&);
+		Event<T>& operator = (const Event<T>&);
 
-		void	bind (Callback);
-		void	clear ();
-		void	fire (T) const;
+		void bind (Callback);
+		void clear ();
+		void fire (T) const;
 
 	private:
-		typedef std::vector<Callback>	Callbacks;
+		typedef std::vector<Callback> Callbacks;
 
-		Callbacks	callbacks;
+		Callbacks callbacks;
 };
 
 GLAY_NS_END()

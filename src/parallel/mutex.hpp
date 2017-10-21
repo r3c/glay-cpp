@@ -12,24 +12,24 @@
 
 GLAY_NS_BEGIN(Parallel)
 
-class	Mutex
+class Mutex
 {
 	public:
 		Mutex (const Mutex&);
 		Mutex (bool = false);
-		virtual	~Mutex ();
+		virtual ~Mutex ();
 
-		Mutex&	operator = (const Mutex&);
+		Mutex& operator = (const Mutex&);
 
-		bool	acquire (Int32u);
-		bool	acquire ();
-		void	release ();
+		bool acquire (Int32u);
+		bool acquire ();
+		void release ();
 
 	private:
 #if defined(GLAY_LIBRARY_PTHREAD)
-		pthread_mutex_t	handle;
+		pthread_mutex_t handle;
 #elif defined(GLAY_SYSTEM_WINDOWS)
-		HANDLE			handle;
+		HANDLE handle;
 #else
 	#error "Glay::Parallel::Mutex can't be used on unsupported configuration"
 #endif

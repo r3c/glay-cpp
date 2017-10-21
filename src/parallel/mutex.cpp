@@ -9,9 +9,9 @@ GLAY_NS_BEGIN(Parallel)
 
 /*
 ** Mutex default constructor.
-** acquired:	true to initialy acquire mutex, false otherwise
+** acquired: true to initialy acquire mutex, false otherwise
 */
-/**/	Mutex::Mutex (bool acquired)
+/**/ Mutex::Mutex (bool acquired)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	this->handle = PTHREAD_MUTEX_INITIALIZER;
@@ -26,7 +26,7 @@ GLAY_NS_BEGIN(Parallel)
 /*
 ** Mutex destructor.
 */
-/**/	Mutex::~Mutex ()
+/**/ Mutex::~Mutex ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 #elif defined(GLAY_SYSTEM_WINDOWS)
@@ -38,13 +38,13 @@ GLAY_NS_BEGIN(Parallel)
 /*
 ** Try to enter critical code section by waiting for mutex to be available
 ** until specified timeout expires.
-** timeout:	timeout delay in milliseconds
-** return:	true if mutex has been acquired, false else
+** timeout: timeout delay in milliseconds
+** return: true if mutex has been acquired, false else
 */
-bool	Mutex::acquire (Int32u timeout)
+bool Mutex::acquire (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
-	struct timespec	delta;
+	struct timespec delta;
 
 	delta.tv_sec = timeout / 1000;
 	delta.tv_nsec = timeout * 1000;
@@ -58,7 +58,7 @@ bool	Mutex::acquire (Int32u timeout)
 /*
 ** Enter critical code section by waiting for mutex to be available.
 */
-bool	Mutex::acquire ()
+bool Mutex::acquire ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	return pthread_mutex_lock (&this->handle) == 0;
@@ -70,7 +70,7 @@ bool	Mutex::acquire ()
 /*
 ** Leave critical code section by releasing mutex.
 */
-void	Mutex::release ()
+void Mutex::release ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_mutex_unlock (&this->handle);

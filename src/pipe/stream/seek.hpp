@@ -7,10 +7,10 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	SeekStream
+class SeekStream
 {
 	public:
-		enum	SeekMode
+		enum SeekMode
 		{
 			SEEK_ABSOLUTE,
 			SEEK_RELATIVE,
@@ -19,31 +19,31 @@ class	SeekStream
 
 		SeekStream (const SeekStream&);
 		SeekStream ();
-		virtual	~SeekStream ();
+		virtual ~SeekStream ();
 
-		SeekStream&		operator = (const SeekStream&);
+		SeekStream& operator = (const SeekStream&);
 
-		virtual size_t	getPosition () const = 0;
-		virtual size_t	getSize () const = 0;
+		virtual size_t getPosition () const = 0;
+		virtual size_t getSize () const = 0;
 
-		size_t			back ();
-		void			mark ();
-		virtual bool	seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
+		size_t back ();
+		void mark ();
+		virtual bool seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
 
 	private:
-		std::vector<size_t>	offsets;
+		std::vector<size_t> offsets;
 };
 
-class	SeekIStream : public virtual SeekStream, public IStream
+class SeekIStream : public virtual SeekStream, public IStream
 {
 	public:
-		virtual	~SeekIStream ();
+		virtual ~SeekIStream ();
 };
 
-class	SeekOStream : public virtual SeekStream, public OStream
+class SeekOStream : public virtual SeekStream, public OStream
 {
 	public:
-		virtual	~SeekOStream ();
+		virtual ~SeekOStream ();
 };
 
 GLAY_NS_END()

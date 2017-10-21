@@ -8,26 +8,26 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-class	FormatWriter : public Writer
+class FormatWriter : public Writer
 {
 	public:
 		FormatWriter (const FormatWriter&);
 		FormatWriter (OStream&);
 
-		FormatWriter&	operator = (const FormatWriter&);
+		FormatWriter& operator = (const FormatWriter&);
 
-		FormatWriter&	write (Float32);
-		FormatWriter&	write (Float64);
-		FormatWriter&	write (Int8s);
-		FormatWriter&	write (Int8u);
-		FormatWriter&	write (Int16s);
-		FormatWriter&	write (Int16u);
-		FormatWriter&	write (Int32s);
-		FormatWriter&	write (Int32u);
-		FormatWriter&	write (Int64s);
-		FormatWriter&	write (Int64u);
-		FormatWriter&	write (char);
-		FormatWriter&	write (const std::string&);
+		FormatWriter& write (Float32);
+		FormatWriter& write (Float64);
+		FormatWriter& write (Int8s);
+		FormatWriter& write (Int8u);
+		FormatWriter& write (Int16s);
+		FormatWriter& write (Int16u);
+		FormatWriter& write (Int32s);
+		FormatWriter& write (Int32u);
+		FormatWriter& write (Int64s);
+		FormatWriter& write (Int64u);
+		FormatWriter& write (char);
+		FormatWriter& write (const std::string&);
 };
 
 GLAY_NS_END()

@@ -9,10 +9,10 @@ GLAY_NS_BEGIN(Parallel)
 
 /*
 ** Signal default constructor.
-** state:	initial signal state (true: set, false: reset)
-** manual:	true for a manual reset event, false for automatic
+** state: initial signal state (true: set, false: reset)
+** manual: true for a manual reset event, false for automatic
 */
-/**/	Signal::Signal (bool state, bool manual)
+/**/ Signal::Signal (bool state, bool manual)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	this->handle = PTHREAD_COND_INITIALIZER;
@@ -30,7 +30,7 @@ GLAY_NS_BEGIN(Parallel)
 /*
 ** Destroy signal.
 */
-/**/	Signal::~Signal ()
+/**/ Signal::~Signal ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_cond_destroy (&this->handle);
@@ -42,9 +42,9 @@ GLAY_NS_BEGIN(Parallel)
 
 /*
 ** Check is signal is set.
-** return:	true if set, false else
+** return: true if set, false else
 */
-/**/	Signal::operator bool () const
+/**/ Signal::operator bool () const
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
@@ -59,7 +59,7 @@ GLAY_NS_BEGIN(Parallel)
 /*
 ** Reset signal.
 */
-void	Signal::reset ()
+void Signal::reset ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
@@ -72,7 +72,7 @@ void	Signal::reset ()
 /*
 ** Set signal.
 */
-void	Signal::set ()
+void Signal::set ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	pthread_cond_signal (&this->handle);
@@ -85,7 +85,7 @@ void	Signal::set ()
 /*
 ** Wait for signal until specified timeout expires.
 */
-bool	Signal::wait (Int32u timeout)
+bool Signal::wait (Int32u timeout)
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	struct timespec delta;
@@ -105,7 +105,7 @@ bool	Signal::wait (Int32u timeout)
 /*
 ** Wait for signal.
 */
-bool	Signal::wait ()
+bool Signal::wait ()
 {
 #if defined(GLAY_LIBRARY_PTHREAD)
 	return pthread_cond_wait (&this->handle, &this->mutex) == 0;
