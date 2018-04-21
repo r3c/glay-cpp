@@ -8,6 +8,7 @@
 #define __GLAY_BASE_HPP
 
 #include <cstdint>
+#include <limits>
 
 #define GLAY_NS_BEGIN(ns)	namespace Glay { namespace ns {
 #define GLAY_NS_END()		}; };
@@ -49,29 +50,37 @@ namespace Glay
 	typedef int64_t Int64s;
 	typedef uint64_t Int64u;
 
-	const Int8s INT8S_MAX = +0x7F;
-	const Int8s INT8S_MIN = -0x80;
+	typedef std::size_t Size;
 
-	const Int8u INT8U_MAX = +0xFF;
-	const Int8u INT8U_MIN = +0x00;
+	const Float32 FLOAT32_MAX = std::numeric_limits<Float32>::max ();
+	const Float32 FLOAT32_MIN = std::numeric_limits<Float32>::min ();
 
-	const Int16s INT16S_MAX = +0x7FFF;
-	const Int16s INT16S_MIN = -0x8000;
+	const Float64 FLOAT64_MAX = std::numeric_limits<Float64>::max ();
+	const Float64 FLOAT64_MIN = std::numeric_limits<Float64>::min ();
 
-	const Int16u INT16U_MAX = +0xFFFF;
-	const Int16u INT16U_MIN = +0x0000;
+	const Int8s INT8S_MAX = std::numeric_limits<Int8s>::max ();
+	const Int8s INT8S_MIN = std::numeric_limits<Int8s>::min ();
 
-	const Int32s INT32S_MAX = +0x7FFFFFFFL;
-	const Int32s INT32S_MIN = -0x80000000L;
+	const Int8u INT8U_MAX = std::numeric_limits<Int8u>::max ();
+	const Int8u INT8U_MIN = std::numeric_limits<Int8u>::min ();
 
-	const Int32u INT32U_MAX = +0xFFFFFFFFLU;
-	const Int32u INT32U_MIN = +0x00000000LU;
+	const Int16s INT16S_MAX = std::numeric_limits<Int16s>::max ();
+	const Int16s INT16S_MIN = std::numeric_limits<Int16s>::min ();
 
-	const Int64s INT64S_MAX = +0x7FFFFFFFFFFFFFFFLL;
-	const Int64s INT64S_MIN = -0x8000000000000000LL;
+	const Int16u INT16U_MAX = std::numeric_limits<Int16u>::max ();
+	const Int16u INT16U_MIN = std::numeric_limits<Int16u>::min ();
 
-	const Int64u INT64U_MAX = +0xFFFFFFFFFFFFFFFFLLU;
-	const Int64u INT64U_MIN = +0x0000000000000000LLU;
+	const Int32s INT32S_MAX = std::numeric_limits<Int32s>::max ();
+	const Int32s INT32S_MIN = std::numeric_limits<Int32s>::min ();
+
+	const Int32u INT32U_MAX = std::numeric_limits<Int32u>::max ();
+	const Int32u INT32U_MIN = std::numeric_limits<Int32u>::min ();
+
+	const Int64s INT64S_MAX = std::numeric_limits<Int64s>::max ();
+	const Int64s INT64S_MIN = std::numeric_limits<Int64s>::min ();
+
+	const Int64u INT64U_MAX = std::numeric_limits<Int64u>::max ();
+	const Int64u INT64U_MIN = std::numeric_limits<Int64u>::min ();
 };
 
 #endif
