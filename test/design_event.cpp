@@ -1,5 +1,5 @@
 
-#include "../src/include.hpp"
+#include "../src/glay.hpp"
 
 #include <cassert>
 #include <string>

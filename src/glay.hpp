@@ -21,6 +21,5 @@
 #include "system/endian.hpp"
 #include "system/stopwatch.hpp"
 #include "config.hpp"
-#include "setup.hpp"
 
 #endif

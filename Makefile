@@ -32,19 +32,19 @@ rebuild: clean build
 run: build
 	$(TARGET)
 
-tests: $(TESTS)
+test: $(TESTS)
 
 -include $(DEPENDS_C)
 -include $(DEPENDS_CXX)
 
 $(OBJ)/%.d: $(SRC)/%.c
 #	-cd . $(foreach d,$(subst /, ,${@D}), ; $(MKDIR) $(MKDIRFLAGS) $d 2> Makefile.err ;  $(RM) $(RMFLAGS) Makefile.err ; cd $d)
-	-$(MKDIR) $(MKDIRFLAGS) "${@D}"
+	$(MKDIR) $(MKDIRFLAGS) "${@D}"
 	$(CC) $(CFLAGS) -MM -MP -MF "$@" -MT "$(@:.d=.o)" "$<"
 
 $(OBJ)/%.d: $(SRC)/%.cpp
 #	-cd . $(foreach d,$(subst /, ,${@D}), ; $(MKDIR) $(MKDIRFLAGS) $d 2> Makefile.err ;  $(RM) $(RMFLAGS) Makefile.err ; cd $d)
-	-$(MKDIR) $(MKDIRFLAGS) "${@D}"
+	$(MKDIR) $(MKDIRFLAGS) "${@D}"
 	$(CXX) $(CXXFLAGS) -MM -MP -MF "$@" -MT "$(@:.d=.o)" "$<"
 
 $(OBJ)/%.o: $(SRC)/%.c $(OBJ)/%.d
@@ -57,4 +57,4 @@ $(TEST)/%.exe: $(TEST)/%.cpp $(TARGET)
 #	$(CXX) $(CXXFLAGS) -o "$@" -L"$(dirname $(TARGET))" -l"$(basename $(TARGET))" "$<"
 	$(CXX) $(CXXFLAGS) -o "$@" $(TARGET) "$<"
 
-.PHONY: build clean distclean rebuild run tests
+.PHONY: build clean distclean rebuild run test

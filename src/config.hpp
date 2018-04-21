@@ -7,7 +7,7 @@
 #ifndef __GLAY_CONFIG_HPP
 #define __GLAY_CONFIG_HPP
 
-#include "setup.hpp"
+#include "base.hpp"
 
 #if defined(GLAY_COMPILER_GCC)
 	#define GLAY_BUILTIN_ATOMIC

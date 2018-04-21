@@ -1,11 +1,11 @@
 
 /*
 ** Groundwork Layer Library
-** Master setup.
+** Master file.
 */
 
-#ifndef __GLAY_SETUP_HPP
-#define __GLAY_SETUP_HPP
+#ifndef __GLAY_BASE_HPP
+#define __GLAY_BASE_HPP
 
 #include <cstdint>
 

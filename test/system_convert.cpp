@@ -1,6 +1,6 @@
 
 #include <cassert>
-#include "../src/include.hpp"
+#include "../src/glay.hpp"
 
 using namespace Glay;
 using namespace Glay::System;
