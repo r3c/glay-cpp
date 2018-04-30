@@ -40,6 +40,8 @@ namespace
 
 					++buffer;
 
+					[[fallthrough]];
+
 				default:
 					multiplier = 1;
 
@@ -97,6 +99,8 @@ namespace
 							return false;
 
 						++buffer;
+
+						[[fallthrough]];
 
 					default:
 						mantissa = 10;
@@ -197,6 +201,8 @@ namespace
 
 					++buffer;
 
+					[[fallthrough]];
+
 				default:
 					for (Int32u i = length; i-- > 0; ++buffer)
 					{
@@ -287,6 +293,8 @@ namespace
 						return false;
 
 					++buffer;
+
+					[[fallthrough]];
 
 				default:
 					for (Int32u i = length; i-- > 0; ++buffer)
