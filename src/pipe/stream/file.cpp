@@ -32,29 +32,27 @@ FileStream::~FileStream ()
 	this->close ();
 }
 
-size_t FileStream::getPosition () const
+Size FileStream::getPosition () const
 {
 	if (this->file)
-		return ftell (this->file);
+		return ftello64 (this->file);
 
 	return 0;
 }
 
-size_t FileStream::getSize () const
+Size FileStream::getSize () const
 {
-	size_t position;
-	size_t size;
-
 	if (this->file)
 	{
-		position = ftell (this->file);
+		Size position = ftello64 (this->file);
+		Size size;
 
-		if (fseek (this->file, 0, SEEK_END) == 0)
-			size = ftell (this->file);
+		if (fseeko64 (this->file, 0, SEEK_END) == 0)
+			size = ftello64 (this->file);
 		else
 			size = 0;
 
-		fseek (this->file, position, SEEK_SET);
+		fseeko64 (this->file, position, SEEK_SET);
 
 		return size;
 	}
@@ -85,20 +83,20 @@ bool FileStream::open (FILE* file)
 	return true;
 }
 
-bool FileStream::seek (size_t offset, SeekMode mode)
+bool FileStream::seek (Size offset, SeekMode mode)
 {
 	if (this->file)
 	{
 		switch (mode)
 		{
 			case SEEK_ABSOLUTE:
-				return fseek (this->file, offset, SEEK_SET) == 0;
+				return fseeko64 (this->file, offset, SEEK_SET) == 0;
 
 			case SEEK_RELATIVE:
-				return fseek (this->file, offset, SEEK_CUR) == 0;
+				return fseeko64 (this->file, offset, SEEK_CUR) == 0;
 
 			case SEEK_REVERSE:
-				return fseek (this->file, offset, SEEK_END) == 0;
+				return fseeko64 (this->file, offset, SEEK_END) == 0;
 		}
 	}
 
@@ -148,7 +146,7 @@ bool FileIStream::open (const char* path)
 	return true;
 }
 
-size_t FileIStream::read (void* buffer, size_t size)
+Size FileIStream::read (void* buffer, Size size)
 {
 	if (this->file)
 		return fread (buffer, 1, size, this->file);
@@ -205,7 +203,7 @@ bool FileOStream::open (const char* path, bool append)
 	return true;
 }
 
-size_t FileOStream::write (const void* buffer, size_t size)
+Size FileOStream::write (const void* buffer, Size size)
 {
 	if (this->file)
 		return fwrite (buffer, 1, size, this->file);

@@ -18,7 +18,7 @@ class Reader
 		Reader& operator = (const Reader&);
 		virtual operator bool () const;
 
-		size_t read (void*, size_t);
+		Size read (void*, Size);
 
 	protected:
 		IStream& stream;

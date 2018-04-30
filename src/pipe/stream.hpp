@@ -15,7 +15,7 @@ class IStream
 
 		virtual operator bool () const = 0;
 
-		virtual size_t read (void*, size_t) = 0;
+		virtual Size read (void*, Size) = 0;
 };
 
 class OStream
@@ -26,7 +26,7 @@ class OStream
 		virtual operator bool () const = 0;
 
 		virtual void flush () = 0;
-		virtual size_t write (const void*, size_t) = 0;
+		virtual Size write (const void*, Size) = 0;
 };
 
 GLAY_NS_END()

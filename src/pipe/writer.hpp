@@ -19,7 +19,7 @@ class Writer
 		virtual operator bool () const;
 
 		void flush ();
-		size_t write (const void*, size_t);
+		Size write (const void*, Size);
 
 	protected:
 		OStream& stream;

@@ -9,31 +9,31 @@ GLAY_NS_BEGIN(Pipe)
 class MemoryStream : public virtual SeekStream
 {
 	public:
-		virtual size_t getPosition () const;
+		virtual Size getPosition () const;
 
-		virtual bool seek (size_t, SeekMode = SEEK_ABSOLUTE);
+		virtual bool seek (Size, SeekMode = SEEK_ABSOLUTE);
 
 	protected:
 		MemoryStream (const MemoryStream&);
-		MemoryStream (size_t);
+		MemoryStream (Size);
 
-		size_t capacity;
-		size_t cursor;
+		Size capacity;
+		Size cursor;
 };
 
 class MemoryIStream : public MemoryStream, public SeekIStream
 {
 	public:
 		MemoryIStream (const MemoryIStream&);
-		MemoryIStream (const void*, size_t = SIZE_MAX);
+		MemoryIStream (const void*, Size = SIZE_MAX);
 
 		MemoryIStream& operator = (const MemoryIStream&);
 		virtual 		operator bool () const;
 
 		const Int8s* getBuffer () const;
-		virtual size_t getSize () const;
+		virtual Size getSize () const;
 
-		virtual size_t read (void*, size_t);
+		virtual Size read (void*, Size);
 
 	protected:
 		const Int8s* source;
@@ -43,7 +43,7 @@ class MemoryOStream : public MemoryStream, public SeekOStream
 {
 	public:
 		MemoryOStream (const MemoryOStream&);
-		MemoryOStream (void*, size_t = SIZE_MAX);
+		MemoryOStream (void*, Size = SIZE_MAX);
 		MemoryOStream ();
 		virtual ~MemoryOStream ();
 
@@ -52,10 +52,10 @@ class MemoryOStream : public MemoryStream, public SeekOStream
 
 		const Int8s* getBuffer () const;
 		Int8s* getBuffer ();
-		virtual size_t getSize () const;
+		virtual Size getSize () const;
 
 		virtual void flush ();
-		virtual size_t write (const void*, size_t);
+		virtual Size write (const void*, Size);
 
 	private:
 		bool allocate;

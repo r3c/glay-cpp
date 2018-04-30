@@ -22,7 +22,7 @@ Reader::operator bool () const
 	return (bool)this->stream;
 }
 
-size_t Reader::read (void* buffer, size_t length)
+Size Reader::read (void* buffer, Size length)
 {
 	return this->stream.read (buffer, length);
 }

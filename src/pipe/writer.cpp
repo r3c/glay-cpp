@@ -27,7 +27,7 @@ void Writer::flush ()
 	this->stream.flush ();
 }
 
-size_t Writer::write (const void* buffer, size_t length)
+Size Writer::write (const void* buffer, Size length)
 {
 	return this->stream.write (buffer, length);
 }

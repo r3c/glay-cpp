@@ -23,15 +23,15 @@ class SeekStream
 
 		SeekStream& operator = (const SeekStream&);
 
-		virtual size_t getPosition () const = 0;
-		virtual size_t getSize () const = 0;
+		virtual Size getPosition () const = 0;
+		virtual Size getSize () const = 0;
 
-		size_t back ();
+		Size back ();
 		void mark ();
-		virtual bool seek (size_t, SeekMode = SEEK_ABSOLUTE) = 0;
+		virtual bool seek (Size, SeekMode = SEEK_ABSOLUTE) = 0;
 
 	private:
-		std::vector<size_t> offsets;
+		std::vector<Size> offsets;
 };
 
 class SeekIStream : public virtual SeekStream, public IStream

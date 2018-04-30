@@ -12,12 +12,12 @@ class FileStream : public virtual SeekStream
 	public:
 		virtual ~FileStream ();
 
-		virtual size_t getPosition () const;
-		virtual size_t getSize () const;
+		virtual Size getPosition () const;
+		virtual Size getSize () const;
 
 		void close ();
 		bool open (FILE*);
-		virtual bool seek (size_t, SeekMode = SEEK_ABSOLUTE);
+		virtual bool seek (Size, SeekMode = SEEK_ABSOLUTE);
 
 	protected:
 		FileStream (const FileStream&);
@@ -39,10 +39,10 @@ class FileIStream : public FileStream, public SeekIStream
 		virtual ~FileIStream ();
 
 		FileIStream& operator = (const FileIStream&);
-		virtual 		operator bool () const;
+		virtual operator bool () const;
 
 		bool open (const char*);
-		virtual size_t read (void*, size_t);
+		virtual Size read (void*, Size);
 };
 
 class FileOStream : public FileStream, public SeekOStream
@@ -61,7 +61,7 @@ class FileOStream : public FileStream, public SeekOStream
 
 		virtual void flush ();
 		bool open (const char*, bool = false);
-		virtual size_t write (const void*, size_t);
+		virtual Size write (const void*, Size);
 };
 
 extern FileOStream err;

@@ -19,20 +19,20 @@ MemoryStream::MemoryStream (const MemoryStream& other) :
 {
 }
 
-MemoryStream::MemoryStream (size_t capacity) :
+MemoryStream::MemoryStream (Size capacity) :
 	capacity (capacity),
 	cursor (0)
 {
 }
 
-size_t MemoryStream::getPosition () const
+Size MemoryStream::getPosition () const
 {
 	return this->cursor;
 }
 
-bool MemoryStream::seek (size_t offset, SeekMode mode)
+bool MemoryStream::seek (Size offset, SeekMode mode)
 {
-	size_t position;
+	Size position;
 
 	switch (mode)
 	{
@@ -77,7 +77,7 @@ MemoryIStream::MemoryIStream (const MemoryIStream& other) :
 {
 }
 
-MemoryIStream::MemoryIStream (const void* source, size_t capacity) :
+MemoryIStream::MemoryIStream (const void* source, Size capacity) :
 	MemoryStream (capacity),
 	source (static_cast<const Int8s*> (source))
 {
@@ -103,12 +103,12 @@ const Int8s* MemoryIStream::getBuffer () const
 	return this->source;
 }
 
-size_t MemoryIStream::getSize () const
+Size MemoryIStream::getSize () const
 {
 	return this->cursor;
 }
 
-size_t MemoryIStream::read (void* target, size_t size)
+Size MemoryIStream::read (void* target, Size size)
 {
 	size = min (size, this->capacity - this->cursor);
 
@@ -131,7 +131,7 @@ MemoryOStream::MemoryOStream (const MemoryOStream& other) :
 {
 }
 
-MemoryOStream::MemoryOStream (void* buffer, size_t capacity) :
+MemoryOStream::MemoryOStream (void* buffer, Size capacity) :
 	MemoryStream (capacity),
 	allocate (false),
 	target (static_cast<Int8s*> (buffer))
@@ -177,7 +177,7 @@ Int8s* MemoryOStream::getBuffer ()
 	return this->target;
 }
 
-size_t MemoryOStream::getSize () const
+Size MemoryOStream::getSize () const
 {
 	return this->capacity;
 }
@@ -186,9 +186,9 @@ void MemoryOStream::flush ()
 {
 }
 
-size_t MemoryOStream::write (const void* source, size_t size)
+Size MemoryOStream::write (const void* source, Size size)
 {
-	size_t capacity;
+	Size capacity;
 	Int8s* swap;
 
 	if (this->cursor + size > this->capacity)
