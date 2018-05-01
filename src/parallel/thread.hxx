@@ -30,7 +30,7 @@ void	Thread<T>::invoke ()
 ** value:	parameter value
 */
 template<typename T>
-void	Thread<T>::start (const T& value)
+void	Thread<T>::start (T const& value)
 {
 	this->mutex.acquire ();
 

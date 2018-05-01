@@ -12,11 +12,11 @@ GLAY_NS_BEGIN(Pipe)
 class BinaryWriter : public Writer
 {
 	public:
-		BinaryWriter (const BinaryWriter&);
+		BinaryWriter (BinaryWriter const&);
 		BinaryWriter (OStream&, System::Endian::Endianness);
 		BinaryWriter (OStream&);
 
-		BinaryWriter& operator = (const BinaryWriter&);
+		BinaryWriter& operator = (BinaryWriter const&);
 
 		bool writeFloat32 (Float32);
 		bool writeFloat64 (Float64);
@@ -28,10 +28,10 @@ class BinaryWriter : public Writer
 		bool writeInt32u (Int32u);
 		bool writeInt64s (Int64s);
 		bool writeInt64u (Int64u);
-		bool writeString (const std::string&);
+		bool writeString (std::string const&);
 
 		template<typename T>
-		bool writeType (const T&);
+		bool writeType (T const&);
 
 	private:
 		System::Endian native;

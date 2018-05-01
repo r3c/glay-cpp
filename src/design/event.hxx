@@ -7,7 +7,7 @@ GLAY_NS_BEGIN(Design)
 ** Copy constructor.
 */
 template<typename T>
-Event<T>::Event (const Event<T>& other) :
+Event<T>::Event (Event<T> const& other) :
 	callbacks (other.callbacks)
 {
 }
@@ -24,7 +24,7 @@ Event<T>::Event ()
 ** Copy operator.
 */
 template<typename T>
-Event<T>&	Event<T>::operator = (const Event<T>& other)
+Event<T>&	Event<T>::operator = (Event<T> const& other)
 {
 	this->callbacks = other.callbacks;
 

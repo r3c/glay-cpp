@@ -12,11 +12,11 @@ GLAY_NS_BEGIN(Pipe)
 class BinaryReader : public Reader
 {
 	public:
-		BinaryReader (const BinaryReader&);
+		BinaryReader (BinaryReader const&);
 		BinaryReader (IStream&, System::Endian::Endianness);
 		BinaryReader (IStream&);
 
-		BinaryReader& operator = (const BinaryReader&);
+		BinaryReader& operator = (BinaryReader const&);
 
 		bool readFloat32 (Float32*);
 		Float32 readFloat32 ();

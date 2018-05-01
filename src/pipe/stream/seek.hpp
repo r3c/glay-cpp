@@ -17,11 +17,11 @@ class SeekStream
 			SEEK_REVERSE
 		};
 
-		SeekStream (const SeekStream&);
+		SeekStream (SeekStream const&);
 		SeekStream ();
 		virtual ~SeekStream ();
 
-		SeekStream& operator = (const SeekStream&);
+		SeekStream& operator = (SeekStream const&);
 
 		virtual Size getPosition () const = 0;
 		virtual Size getSize () const = 0;

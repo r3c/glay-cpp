@@ -15,11 +15,11 @@ GLAY_NS_BEGIN(Parallel)
 class Mutex
 {
 	public:
-		Mutex (const Mutex&);
+		Mutex (Mutex const&);
 		Mutex (bool = false);
 		virtual ~Mutex ();
 
-		Mutex& operator = (const Mutex&);
+		Mutex& operator = (Mutex const&);
 
 		bool acquire (Int32u);
 		bool acquire ();

@@ -11,15 +11,15 @@ GLAY_NS_BEGIN(Pipe)
 class Writer
 {
 	public:
-		Writer (const Writer&);
+		Writer (Writer const&);
 		Writer (OStream&);
 		virtual ~Writer ();
 
-		Writer& operator = (const Writer&);
+		Writer& operator = (Writer const&);
 		virtual operator bool () const;
 
 		void flush ();
-		Size write (const void*, Size);
+		Size write (void const*, Size);
 
 	protected:
 		OStream& stream;

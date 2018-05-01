@@ -6,7 +6,7 @@ using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 
-BinaryWriter::BinaryWriter (const BinaryWriter& other) :
+BinaryWriter::BinaryWriter (BinaryWriter const& other) :
 	Writer (other),
 	native (other.native),
 	target (other.target)
@@ -99,9 +99,9 @@ bool BinaryWriter::writeInt64u (Int64u value)
 	return this->stream.write (&buffer, sizeof (buffer)) == sizeof (buffer);
 }
 
-bool BinaryWriter::writeString (const string& value)
+bool BinaryWriter::writeString (string const& value)
 {
-	const char* buffer;
+	char const* buffer;
 	Int32u length;
 
 	buffer = value.data ();

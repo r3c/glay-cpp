@@ -14,7 +14,7 @@ FileOStream out (stdout);
 ** FileStream
 ** Abstract stream on a physical file.
 **/
-FileStream::FileStream (const FileStream& other) :
+FileStream::FileStream (FileStream const& other) :
 	SeekStream (other),
 	file (other.file),
 	own (false)
@@ -107,13 +107,13 @@ bool FileStream::seek (Size offset, SeekMode mode)
 ** FileIStream
 ** Input stream on a physical file.
 **/
-FileIStream::FileIStream (const FileIStream& other) :
+FileIStream::FileIStream (FileIStream const& other) :
 	SeekStream (other),
 	FileStream (other)
 {
 }
 
-FileIStream::FileIStream (const char* path)
+FileIStream::FileIStream (char const* path)
 {
 	this->open (path);
 }
@@ -136,7 +136,7 @@ FileIStream::operator bool () const
 	return this->file;
 }
 
-bool FileIStream::open (const char* path)
+bool FileIStream::open (char const* path)
 {
 	this->close ();
 
@@ -158,13 +158,13 @@ Size FileIStream::read (void* buffer, Size size)
 ** FileOStream
 ** Output stream on a physical file.
 **/
-FileOStream::FileOStream (const FileOStream& other) :
+FileOStream::FileOStream (FileOStream const& other) :
 	SeekStream (other),
 	FileStream (other)
 {
 }
 
-FileOStream::FileOStream (const char* path, bool append)
+FileOStream::FileOStream (char const* path, bool append)
 {
 	this->open (path, append);
 }
@@ -193,7 +193,7 @@ void FileOStream::flush ()
 		fflush (this->file);
 }
 
-bool FileOStream::open (const char* path, bool append)
+bool FileOStream::open (char const* path, bool append)
 {
 	this->close ();
 
@@ -203,7 +203,7 @@ bool FileOStream::open (const char* path, bool append)
 	return true;
 }
 
-Size FileOStream::write (const void* buffer, Size size)
+Size FileOStream::write (void const* buffer, Size size)
 {
 	if (this->file)
 		return fwrite (buffer, 1, size, this->file);

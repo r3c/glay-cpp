@@ -12,10 +12,10 @@ class Stopwatch
 		static Int64u getResolution ();
 		static Int64u getTicks ();
 
-		Stopwatch (const Stopwatch&);
+		Stopwatch (Stopwatch const&);
 		Stopwatch ();
 
-		Stopwatch& operator = (const Stopwatch&);
+		Stopwatch& operator = (Stopwatch const&);
 
 		Int64u getElapsed () const;
 

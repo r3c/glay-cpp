@@ -5,7 +5,7 @@
 using namespace Glay;
 using namespace Glay::System;
 
-static const Float32 epsilon = 0.001;
+static Float32 const epsilon = 0.001;
 
 template<typename T>
 bool equal_approx (T a, T b)

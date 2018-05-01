@@ -3,7 +3,7 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-Reader::Reader (const Reader& other) :
+Reader::Reader (Reader const& other) :
 	stream (other.stream)
 {
 }

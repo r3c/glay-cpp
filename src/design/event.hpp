@@ -15,10 +15,10 @@ class Event
 	public:
 		typedef std::function<void (T)> Callback;
 
-		Event (const Event<T>&);
+		Event (Event<T> const&);
 		Event ();
 
-		Event<T>& operator = (const Event<T>&);
+		Event<T>& operator = (Event<T> const&);
 
 		void bind (Callback);
 		void clear ();

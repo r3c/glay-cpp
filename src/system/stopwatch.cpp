@@ -46,7 +46,7 @@ Int64u Stopwatch::getTicks ()
 ** Copy constructor.
 ** other: source instance
 */
-Stopwatch::Stopwatch (const Stopwatch& other) :
+Stopwatch::Stopwatch (Stopwatch const& other) :
 	active (other.active),
 	elapsed (other.elapsed),
 	ticks (other.ticks)
@@ -65,7 +65,7 @@ Stopwatch::Stopwatch ()
 ** Copy operator.
 ** other: source instance
 */
-Stopwatch& Stopwatch::operator = (const Stopwatch& other)
+Stopwatch& Stopwatch::operator = (Stopwatch const& other)
 {
 	this->active = other.active;
 	this->elapsed = other.elapsed;

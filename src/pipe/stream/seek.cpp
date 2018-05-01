@@ -7,7 +7,7 @@ GLAY_NS_BEGIN(Pipe)
 ** SeekStream
 ** Abstract stream with offset jump ability.
 **/
-SeekStream::SeekStream (const SeekStream& other) :
+SeekStream::SeekStream (SeekStream const& other) :
 	offsets (other.offsets)
 {
 }
@@ -20,7 +20,7 @@ SeekStream::~SeekStream ()
 {
 }
 
-SeekStream& SeekStream::operator = (const SeekStream& other)
+SeekStream& SeekStream::operator = (SeekStream const& other)
 {
 	this->offsets = other.offsets;
 

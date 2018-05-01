@@ -3,7 +3,7 @@
 
 GLAY_NS_BEGIN(Pipe)
 
-Writer::Writer (const Writer& other) :
+Writer::Writer (Writer const& other) :
 	stream (other.stream)
 {
 }
@@ -27,7 +27,7 @@ void Writer::flush ()
 	this->stream.flush ();
 }
 
-Size Writer::write (const void* buffer, Size length)
+Size Writer::write (void const* buffer, Size length)
 {
 	return this->stream.write (buffer, length);
 }

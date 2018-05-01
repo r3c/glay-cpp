@@ -6,7 +6,7 @@ using namespace Glay::System;
 
 GLAY_NS_BEGIN(Pipe)
 
-BinaryReader::BinaryReader (const BinaryReader& other) :
+BinaryReader::BinaryReader (BinaryReader const& other) :
 	Reader (other),
 	native (other.native),
 	source (other.source)

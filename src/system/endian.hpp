@@ -26,11 +26,11 @@ class Endian
 
 		static Endianness getNativeEndianness ();
 
-		Endian (const Endian&);
+		Endian (Endian const&);
 		Endian (Endianness);
 		Endian ();
 
-		Endian& operator = (const Endian&);
+		Endian& operator = (Endian const&);
 
 		Int16s change16s (Int16s, Endianness) const;
 		Int16u change16u (Int16u, Endianness) const;

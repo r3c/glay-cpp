@@ -12,7 +12,7 @@ GLAY_NS_BEGIN(Pipe)
 ** MemoryStream
 ** Abstract stream on memory buffer.
 **/
-MemoryStream::MemoryStream (const MemoryStream& other) :
+MemoryStream::MemoryStream (MemoryStream const& other) :
 	SeekStream (other),
 	capacity (other.capacity),
 	cursor (other.cursor)
@@ -70,20 +70,20 @@ bool MemoryStream::seek (Size offset, SeekMode mode)
 ** MemoryIStream
 ** In-memory readable stream.
 **/
-MemoryIStream::MemoryIStream (const MemoryIStream& other) :
+MemoryIStream::MemoryIStream (MemoryIStream const& other) :
 	SeekStream (other),
 	MemoryStream (other),	
 	source (other.source)
 {
 }
 
-MemoryIStream::MemoryIStream (const void* source, Size capacity) :
+MemoryIStream::MemoryIStream (void const* source, Size capacity) :
 	MemoryStream (capacity),
-	source (static_cast<const Int8s*> (source))
+	source (static_cast<Int8s const*> (source))
 {
 }
 
-MemoryIStream& MemoryIStream::operator = (const MemoryIStream& other)
+MemoryIStream& MemoryIStream::operator = (MemoryIStream const& other)
 {
 	MemoryStream::operator = (other);
 	SeekStream::operator = (other);
@@ -98,7 +98,7 @@ MemoryIStream::operator bool () const
 	return true;
 }
 
-const Int8s* MemoryIStream::getBuffer () const
+Int8s const* MemoryIStream::getBuffer () const
 {
 	return this->source;
 }
@@ -123,7 +123,7 @@ Size MemoryIStream::read (void* target, Size size)
 ** MemoryOStream
 ** In-memory writable stream.
 **/
-MemoryOStream::MemoryOStream (const MemoryOStream& other) :
+MemoryOStream::MemoryOStream (MemoryOStream const& other) :
 	SeekStream (other),
 	MemoryStream (other),
 	allocate (false),
@@ -151,7 +151,7 @@ MemoryOStream::~MemoryOStream ()
 		free (this->target);
 }
 
-MemoryOStream& MemoryOStream::operator = (const MemoryOStream& other)
+MemoryOStream& MemoryOStream::operator = (MemoryOStream const& other)
 {
 	MemoryStream::operator = (other);
 	SeekStream::operator = (other);
@@ -167,7 +167,7 @@ MemoryOStream::operator bool () const
 	return true;
 }
 
-const Int8s* MemoryOStream::getBuffer () const
+Int8s const* MemoryOStream::getBuffer () const
 {
 	return this->target;
 }
@@ -186,7 +186,7 @@ void MemoryOStream::flush ()
 {
 }
 
-Size MemoryOStream::write (const void* source, Size size)
+Size MemoryOStream::write (void const* source, Size size)
 {
 	Size capacity;
 	Int8s* swap;

@@ -17,16 +17,16 @@ void increment (int i)
 int main (int, char* [])
 {
 	Event<int> e1;
-	Event<const std::string&> e2;
+	Event<std::string const&> e2;
 	string s1;
 	string s2;
 
 	e1.bind (increment);
-	e2.bind ([&] (const std::string& value)
+	e2.bind ([&] (std::string const& value)
 	{
 		s1 = value;
 	});
-	e2.bind ([&] (const std::string& value)
+	e2.bind ([&] (std::string const& value)
 	{
 		s2 = value;
 	});

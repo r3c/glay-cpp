@@ -22,7 +22,7 @@ namespace
 		}
 	}
 
-	const Endian::Endianness native = findNativeEndianness ();
+	Endian::Endianness const native = findNativeEndianness ();
 }
 
 GLAY_NS_BEGIN(System)
@@ -160,7 +160,7 @@ Endian::Endianness Endian::getNativeEndianness ()
 ** Copy constructor.
 ** other: source instance
 */
-Endian::Endian (const Endian& other) :
+Endian::Endian (Endian const& other) :
 	from (other.from)
 {
 }
@@ -185,7 +185,7 @@ Endian::Endian () :
 /*
 ** Copy operator.
 */
-Endian& Endian::operator = (const Endian& other)
+Endian& Endian::operator = (Endian const& other)
 {
 	this->from = other.from;
 

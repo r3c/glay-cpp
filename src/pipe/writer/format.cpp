@@ -23,7 +23,7 @@ namespace
 
 GLAY_NS_BEGIN(Pipe)
 
-FormatWriter::FormatWriter (const FormatWriter& other) :
+FormatWriter::FormatWriter (FormatWriter const& other) :
 	Writer (other.stream)
 {
 }
@@ -110,9 +110,9 @@ FormatWriter& FormatWriter::write (char value)
 	return *this;
 }
 
-FormatWriter& FormatWriter::write (const string& value)
+FormatWriter& FormatWriter::write (string const& value)
 {
-	const char* buffer;
+	char const* buffer;
 
 	buffer = value.data ();
 

@@ -11,10 +11,10 @@ GLAY_NS_BEGIN(Pipe)
 class FormatWriter : public Writer
 {
 	public:
-		FormatWriter (const FormatWriter&);
+		FormatWriter (FormatWriter const&);
 		FormatWriter (OStream&);
 
-		FormatWriter& operator = (const FormatWriter&);
+		FormatWriter& operator = (FormatWriter const&);
 
 		FormatWriter& write (Float32);
 		FormatWriter& write (Float64);
@@ -27,7 +27,7 @@ class FormatWriter : public Writer
 		FormatWriter& write (Int64s);
 		FormatWriter& write (Int64u);
 		FormatWriter& write (char);
-		FormatWriter& write (const std::string&);
+		FormatWriter& write (std::string const&);
 };
 
 GLAY_NS_END()

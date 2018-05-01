@@ -11,11 +11,11 @@ GLAY_NS_BEGIN(Pipe)
 class Reader
 {
 	public:
-		Reader (const Reader&);
+		Reader (Reader const&);
 		Reader (IStream&);
 		virtual ~Reader ();
 
-		Reader& operator = (const Reader&);
+		Reader& operator = (Reader const&);
 		virtual operator bool () const;
 
 		Size read (void*, Size);

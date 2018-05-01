@@ -26,7 +26,7 @@ class OStream
 		virtual operator bool () const = 0;
 
 		virtual void flush () = 0;
-		virtual Size write (const void*, Size) = 0;
+		virtual Size write (void const*, Size) = 0;
 };
 
 GLAY_NS_END()

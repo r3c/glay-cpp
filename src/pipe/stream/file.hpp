@@ -20,7 +20,7 @@ class FileStream : public virtual SeekStream
 		virtual bool seek (Size, SeekMode = SEEK_ABSOLUTE);
 
 	protected:
-		FileStream (const FileStream&);
+		FileStream (FileStream const&);
 		FileStream ();
 
 		FILE* file;
@@ -32,16 +32,16 @@ class FileIStream : public FileStream, public SeekIStream
 	public:
 		using FileStream::open;
 
-		FileIStream (const FileIStream&);
-		FileIStream (const char*);
+		FileIStream (FileIStream const&);
+		FileIStream (char const*);
 		FileIStream (FILE*);
 		FileIStream ();
 		virtual ~FileIStream ();
 
-		FileIStream& operator = (const FileIStream&);
+		FileIStream& operator = (FileIStream const&);
 		virtual operator bool () const;
 
-		bool open (const char*);
+		bool open (char const*);
 		virtual Size read (void*, Size);
 };
 
@@ -50,18 +50,18 @@ class FileOStream : public FileStream, public SeekOStream
 	public:
 		using FileStream::open;
 
-		FileOStream (const FileOStream&);
-		FileOStream (const char*, bool = false);
+		FileOStream (FileOStream const&);
+		FileOStream (char const*, bool = false);
 		FileOStream (FILE*);
 		FileOStream ();
 		virtual ~FileOStream ();
 
-		FileOStream& operator = (const FileOStream&);
+		FileOStream& operator = (FileOStream const&);
 		virtual operator bool () const;
 
 		virtual void flush ();
-		bool open (const char*, bool = false);
-		virtual Size write (const void*, Size);
+		bool open (char const*, bool = false);
+		virtual Size write (void const*, Size);
 };
 
 extern FileOStream err;

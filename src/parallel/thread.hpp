@@ -24,11 +24,11 @@ class ThreadBase
 			STATE_READY // Thread is available for use
 		};
 
-		ThreadBase (const ThreadBase&);
+		ThreadBase (ThreadBase const&);
 		ThreadBase (Int32u);
 		virtual ~ThreadBase ();
 
-		ThreadBase& operator = (const ThreadBase&);
+		ThreadBase& operator = (ThreadBase const&);
 
 		Int32u getIdentifier () const;
 		State getState () const;
@@ -71,7 +71,7 @@ class Thread : public ThreadBase
 
 		Thread (Callback, Int32u = GLAY_MODULE_PARALLEL_THREAD_STACK_SIZE);
 
-		void start (const T&);
+		void start (T const&);
 
 	protected:
 		virtual void invoke ();
