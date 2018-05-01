@@ -10,12 +10,10 @@ using namespace Glay::System;
 namespace
 {
 	template<typename T>
-	static inline void writeConvert (Pipe::OStream& stream, Int32u (*converter) (char*, Int32u, T), T value)
+	static inline void writeConvert (Pipe::OStream& stream, Size (*converter) (char*, Size, T), T value)
 	{
 		char buffer[64];
-		Int32u length;
-
-		length = converter (buffer, sizeof (buffer) / sizeof (*buffer), value);
+		Size length = converter (buffer, sizeof (buffer) / sizeof (*buffer), value);
 
 		stream.write (buffer, length * sizeof (*buffer));
 	}
@@ -112,9 +110,7 @@ FormatWriter& FormatWriter::write (char value)
 
 FormatWriter& FormatWriter::write (string const& value)
 {
-	char const* buffer;
-
-	buffer = value.data ();
+	char const* buffer = value.data ();
 
 	this->stream.write (buffer, value.length () * sizeof (*buffer));
 
