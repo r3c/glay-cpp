@@ -8,9 +8,7 @@ namespace
 {
 	static inline Endian::Endianness findNativeEndianness ()
 	{
-		Int16u value;
-
-		value = 0x0102;
+		Int16u value = 0x0102;
 
 		switch (*reinterpret_cast<Int8s*> (&value))
 		{

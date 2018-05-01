@@ -24,7 +24,7 @@ Event<T>::Event ()
 ** Copy operator.
 */
 template<typename T>
-Event<T>&	Event<T>::operator = (Event<T> const& other)
+Event<T>& Event<T>::operator = (Event<T> const& other)
 {
 	this->callbacks = other.callbacks;
 
@@ -36,7 +36,7 @@ Event<T>&	Event<T>::operator = (Event<T> const& other)
 ** callback:	new callback
 */
 template<typename T>
-void	Event<T>::bind (Callback callback)
+void Event<T>::bind (Callback callback)
 {
 	this->callbacks.push_back (callback);
 }
@@ -45,7 +45,7 @@ void	Event<T>::bind (Callback callback)
 ** Clear event's callbacks list.
 */
 template<typename T>
-void	Event<T>::clear ()
+void Event<T>::clear ()
 {
 	this->callbacks.clear ();
 }
@@ -55,7 +55,7 @@ void	Event<T>::clear ()
 ** value:	callbacks argument
 */
 template<typename T>
-void	Event<T>::fire (T value) const
+void Event<T>::fire (T value) const
 {
 	for (auto i = this->callbacks.begin (); i != this->callbacks.end (); ++i)
 		(*i) (value);

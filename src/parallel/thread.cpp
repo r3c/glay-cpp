@@ -123,11 +123,9 @@ Int32u ThreadBase::getIdentifier () const
 */
 ThreadBase::State ThreadBase::getState () const
 {
-	State state;
-
 	this->mutex.acquire ();
 
-	state = this->state;
+	State state = this->state;
 
 	Atomic::barrier ();
 

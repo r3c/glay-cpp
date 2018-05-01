@@ -14,10 +14,7 @@ namespace
 	{
 		static inline bool fromString (T* target, char const* buffer, Size length)
 		{
-			Size exponent;
-			T mantissa;
 			T multiplier;
-			T value;
 
 			if (length < 1)
 				return false;
@@ -48,7 +45,7 @@ namespace
 					break;
 			}
 
-			value = 0;
+			T value = 0;
 
 			// Parse integral part
 			while (length > 0 && *buffer >= '0' && *buffer <= '9')
@@ -79,6 +76,8 @@ namespace
 			// Parse exponent part
 			if (length > 1 && (*buffer == 'E' || *buffer == 'e'))
 			{
+				T mantissa;
+
 				++buffer;
 				--length;
 
@@ -108,7 +107,7 @@ namespace
 						break;
 				}
 
-				exponent = 0;
+				Size exponent = 0;
 
 				while (length > 0 && *buffer >= '0' && *buffer <= '9')
 				{
@@ -139,9 +138,7 @@ namespace
 		static inline Size toString (char* target, Size length, T value)
 		{
 			char buffer[64];
-			Size use;
-
-			use = sprintf (buffer, "%.10f", value);
+			Size use = sprintf (buffer, "%.10f", value);
 
 			if (use > length)
 				return 0;
@@ -163,14 +160,11 @@ namespace
 	{
 		static inline bool fromString (T* target, char const* buffer, Size length)
 		{
-			T last;
-			T next;
-
 			if (length < 1)
 				return false;
 
-			last = 0;
-			next = 0;
+			T last = 0;
+			T next = 0;
 
 			switch (*buffer)
 			{
@@ -228,17 +222,13 @@ namespace
 		static inline Size toString (char* target, Size length, T value)
 		{
 			char buffer[32];
-			Size index;
-			T next;
-			Size use;
-
-			index = sizeof (buffer) / sizeof (*buffer);
+			Size index = sizeof (buffer) / sizeof (*buffer);
 
 			if (value < 0)
 			{
 				do
 				{
-					next = value / 10;
+					T next = value / 10;
 
 					buffer[--index] = '0' + next * 10 - value;
 
@@ -252,7 +242,7 @@ namespace
 			{
 				do
 				{
-					next = value / 10;
+					T next = value / 10;
 
 					buffer[--index] = '0' + value - next * 10;
 
@@ -261,7 +251,7 @@ namespace
 				while (value > 0);
 			}
 
-			use = sizeof (buffer) / sizeof (*buffer) - index;
+			Size use = sizeof (buffer) / sizeof (*buffer) - index;
 
 			if (use > length)
 				return 0;
@@ -277,14 +267,11 @@ namespace
 	{
 		static inline bool fromString (T* target, char const* buffer, Size length)
 		{
-			T last;
-			T next;
-
 			if (length < 1)
 				return false;
 
-			last = 0;
-			next = 0;
+			T last = 0;
+			T next = 0;
 
 			switch (*buffer)
 			{
@@ -321,15 +308,11 @@ namespace
 		static inline Size toString (char* target, Size length, T value)
 		{
 			char buffer[32];
-			Size index;
-			T next;
-			Size use;
-
-			index = sizeof (buffer) / sizeof (*buffer);
+			Size index = sizeof (buffer) / sizeof (*buffer);
 
 			do
 			{
-				next = value / 10;
+				T next = value / 10;
 
 				buffer[--index] = '0' + value - next * 10;
 
@@ -337,7 +320,7 @@ namespace
 			}
 			while (value > 0);
 
-			use = sizeof (buffer) / sizeof (*buffer) - index;
+			Size use = sizeof (buffer) / sizeof (*buffer) - index;
 
 			if (use > length)
 				return 0;
