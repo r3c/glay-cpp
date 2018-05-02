@@ -1,6 +1,14 @@
 
 #include "file.hpp"
 
+#if defined(GLAY_LIBRARY_STDIO64)
+	#define _GLAY_FSEEK fseeko64
+	#define _GLAY_FTELL ftello64
+#else
+	#define _GLAY_FSEEK fseeko
+	#define _GLAY_FTELL ftello
+#endif
+
 GLAY_NS_BEGIN(Pipe)
 
 /*
@@ -35,7 +43,7 @@ FileStream::~FileStream ()
 Size FileStream::getPosition () const
 {
 	if (this->file)
-		return ftello64 (this->file);
+		return _GLAY_FTELL (this->file);
 
 	return 0;
 }
@@ -44,15 +52,15 @@ Size FileStream::getSize () const
 {
 	if (this->file)
 	{
-		Size position = ftello64 (this->file);
+		Size position = _GLAY_FTELL (this->file);
 		Size size;
 
-		if (fseeko64 (this->file, 0, SEEK_END) == 0)
-			size = ftello64 (this->file);
+		if (_GLAY_FSEEK (this->file, 0, SEEK_END) == 0)
+			size = _GLAY_FTELL (this->file);
 		else
 			size = 0;
 
-		fseeko64 (this->file, position, SEEK_SET);
+		_GLAY_FSEEK (this->file, position, SEEK_SET);
 
 		return size;
 	}
@@ -90,13 +98,13 @@ bool FileStream::seek (Size offset, SeekMode mode)
 		switch (mode)
 		{
 			case SEEK_ABSOLUTE:
-				return fseeko64 (this->file, offset, SEEK_SET) == 0;
+				return _GLAY_FSEEK (this->file, offset, SEEK_SET) == 0;
 
 			case SEEK_RELATIVE:
-				return fseeko64 (this->file, offset, SEEK_CUR) == 0;
+				return _GLAY_FSEEK (this->file, offset, SEEK_CUR) == 0;
 
 			case SEEK_REVERSE:
-				return fseeko64 (this->file, offset, SEEK_END) == 0;
+				return _GLAY_FSEEK (this->file, offset, SEEK_END) == 0;
 		}
 	}
 
