@@ -48,7 +48,7 @@ class ThreadBase
 #elif defined(GLAY_SYSTEM_WINDOWS)
 		HANDLE handle;
 #else
-	#error "Glay::Parallel::Thread can't be used on unsupported configuration"
+	#warning "Compiling without support for Glay::Parallel::Thread"
 #endif
 		mutable Mutex mutex;
 		State state;

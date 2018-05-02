@@ -20,6 +20,8 @@ GLAY_NS_BEGIN(Parallel)
 		this->acquire ();
 #elif defined(GLAY_SYSTEM_WINDOWS)
 	this->handle = ::CreateMutex (0, acquired, 0);
+#else
+	throw "Glay::Parallel::Mutex was not enabled at compilation";
 #endif
 }
 

@@ -9,18 +9,21 @@ GLAY_NS_BEGIN(Parallel)
 ** stackSize:	maximum thread stack size
 */
 template<typename T>
-/**/	Thread<T>::Thread (Callback callback, Int32u stackSize) :
+/**/ Thread<T>::Thread (Callback callback, Int32u stackSize) :
 	ThreadBase (stackSize),
 	callback (callback),
 	value ()
 {
+#if !defined(GLAY_LIBRARY_PTHREAD) && !defined(GLAY_SYSTEM_WINDOWS)
+	throw "Glay::Parallel::Thread was not enabled at compilation";
+#endif
 }
 
 /*
 ** Invoke callback from current parameterized thread.
 */
 template<typename T>
-void	Thread<T>::invoke ()
+void Thread<T>::invoke ()
 {
 	this->callback (this->value);
 }
@@ -30,7 +33,7 @@ void	Thread<T>::invoke ()
 ** value:	parameter value
 */
 template<typename T>
-void	Thread<T>::start (T const& value)
+void Thread<T>::start (T const& value)
 {
 	this->mutex.acquire ();
 
@@ -42,7 +45,7 @@ void	Thread<T>::start (T const& value)
 
 #if defined(GLAY_LIBRARY_PTHREAD)
 	// FIXME
-#elif defined(GLAY_OS_WINDOWS)
+#elif defined(GLAY_SYSTEM_WINDOWS)
 		if (this->handle)
 			::ResumeThread (this->handle);
 #endif

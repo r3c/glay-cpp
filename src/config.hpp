@@ -13,7 +13,7 @@
 	#define GLAY_BUILTIN_ATOMIC
 #endif
 
-#if !defined(GLAY_SYSTEM_WINDOWS)
+#if !defined(GLAY_SYSTEM_MACOSX) && !defined(GLAY_SYSTEM_WINDOWS)
 	#define GLAY_LIBRARY_PTHREAD
 #endif
 

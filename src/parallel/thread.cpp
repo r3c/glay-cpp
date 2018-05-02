@@ -18,6 +18,7 @@ void* ThreadBase::execute (void* data)
 #elif defined(GLAY_SYSTEM_WINDOWS)
 __stdcall unsigned ThreadBase::execute (void* data)
 #endif
+#if defined(GLAY_LIBRARY_PTHREAD) || defined(GLAY_SYSTEM_WINDOWS)
 {
 	ThreadBase* thread = reinterpret_cast<ThreadBase*> (data);
 
@@ -38,6 +39,7 @@ __stdcall unsigned ThreadBase::execute (void* data)
 
 	return 0;
 }
+#endif
 
 /*
 ** Base thread default constructor.

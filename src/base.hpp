@@ -18,7 +18,7 @@
 #endif
 
 #if defined(__APPLE__)
-	#define GLAY_SYSTEM_MAXOSX
+	#define GLAY_SYSTEM_MACOSX
 #elif defined(__linux__)
 	#define GLAY_SYSTEM_UNIX
 #elif defined(__WIN32__) || defined(__WIN64__)

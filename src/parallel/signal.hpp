@@ -34,7 +34,7 @@ class Signal
 #elif defined(GLAY_SYSTEM_WINDOWS)
 		HANDLE handle;
 #else
-	#error "Glay::Parallel::Signal can't be used on unsupported OS"
+	#warning "Compiling without support for Glay::Parallel::Signal"
 #endif
 };
 

@@ -24,6 +24,8 @@ GLAY_NS_BEGIN(Parallel)
 		this->set ();
 #elif defined(GLAY_SYSTEM_WINDOWS)
 	this->handle = ::CreateEvent (0, manual, state, 0);
+#else
+	throw "Glay::Parallel::Signal was not enabled at compilation";
 #endif
 }
 
